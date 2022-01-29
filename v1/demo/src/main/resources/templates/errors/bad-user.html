@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bad user</title>
+</head>
+<body>
+    <h1 th:text="${param.message[0]}>Error Message"></h1>
+    <a th:href="@{/sign-up}" th:text="#{label.form.loginSignUp}">Sign up</a>
+</body>
+</html>

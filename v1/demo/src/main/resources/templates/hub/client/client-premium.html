@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet"  th:href="@{/css/hub/clients/styles-free.css}">
+
+        <title>MPT | MyPocketTrainer</title>
+    </head>
+    <body id="body-pd">
+        <header class="header" id="header">
+            <div class="header__toggle">
+                <i class='bx bx-menu' id="header-toggle"></i>
+            </div>
+
+            <div class="header__img">
+                <img src="assets/img/perfil.jpg" alt="">
+            </div>
+        </header>
+
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a th:href="@{/}" class="nav__logo">
+                        <i class='bx bx-layer nav__logo-icon'></i>
+                        <span class="nav__logo-name">MPT | MyPocketTrainer</span>
+                    </a>
+
+                    <div class="nav__list">
+                        <a th:href="@{/clients/client-premium/home}" class="nav__link active">
+                        <i class='bx bx-grid-alt nav__icon' ></i>
+                            <span class="nav__name">Dashboard</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-user nav__icon' ></i>
+                            <span class="nav__name">MyProfessionals</span>
+                        </a>
+
+                        <a th:href="@{/clients/client-premium/my-recipe-finder}" class="nav__link">
+                            <i class='bx bx-food-menu nav__icon' ></i>
+                            <span class="nav__name">MyRecipeFinder</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-fridge nav__icon' ></i>
+                            <span class="nav__name">MyFood</span>
+                        </a>
+
+                        <a th:href="@{/clients/client-premium/my-exercise-finder}" class="nav__link">
+                            <i class='bx bx-plus nav__icon' ></i>
+                            <span class="nav__name">MyExerciseFinder</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-archive nav__icon' ></i>
+                            <span class="nav__name">MyRoutines</span>
+                        </a>
+
+                        <a href="#" class="nav__link">
+                            <i class='bx bx-search-alt-2 nav__icon' ></i>
+                            <span class="nav__name">MPT Finder</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- <a href="#" class="nav__link">
+                    <i class='bx bx-log-out nav__icon' ></i>
+                    <span class="nav__name">Log Out</span>
+                </a> -->
+
+                <form class="nav__link" th:action="@{/sign-out}" method="post">
+                    <i class='bx bx-log-out nav__icon' ></i>
+                    <input type="submit" value="Sign Out" class="nav_name" />
+                </form>
+            </nav>
+        </div>
+
+        <h1>Components</h1>
+
+        <!--===== MAIN JS =====-->
+        <script th:src="@{/js/hub/clients/main-free.js}"></script>
+    </body>
+</html>
