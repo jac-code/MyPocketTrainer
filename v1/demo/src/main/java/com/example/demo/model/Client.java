@@ -1,15 +1,13 @@
 package com.example.demo.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
+import lombok.*;
 
 @Entity
 @Table
+@Getter
+@Setter
 @PrimaryKeyJoinColumn(referencedColumnName="user_id")
 public class Client extends ModelUser{
 
@@ -17,32 +15,56 @@ public class Client extends ModelUser{
     private String work_zone;
 
     @ManyToMany(mappedBy = "clients")
-    private List<Professional> professionals;
+    private Set<Professional> professionals;
 
-    @Column(name = "meal_url", nullable = true)
-    private String meal_url;
+    @ManyToMany
+    @JoinTable(
+    name = "FAVOURITE_CLIENT_RECIPES",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id"))
+    Set<Recipe> recipes;
+
+    @ManyToMany
+    @JoinTable(
+    name = "FAVOURITE_CLIENT_DIETS",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"))
+    Set<Diet> diets;
+
+    @ManyToMany
+    @JoinTable(
+    name = "FAVOURITE_CLIENT_EXERCISES",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id"))
+    Set<Exercise> exercises;
+
+    @ManyToMany
+    @JoinTable(
+    name = "FAVOURITE_CLIENT_ROUTINES",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
+    Set<Routine> routines;
 
     public Client() {
 
     }
 
-    public String getMeal_url() {
-        return this.meal_url;
-    }
-
-    public void setMeal_url(String meal_url) {
-        this.meal_url = meal_url;
-    }
-
-    public String getWork_zone() {
-        return this.work_zone;
-    }
-
-    public void setWork_zone(String work_zone) {
-        this.work_zone = work_zone;
-    }
-
+    // añadimos un profesional a Set profesionales
+    // añadimos el cliente en Set del profesional
+    // bidireccional
     public void addProfessional(Professional p) {
         this.professionals.add(p);
+        p.getClients().add(this);
+    }
+
+    public void removeProfessional(Professional p) {
+        this.getProfessionals().remove(p);
+        p.getClients().remove(this);
+    }
+
+    public void removeAllProfessionals() {
+        for (Professional p : new HashSet<>(professionals)) {
+            removeProfessional(p);
+        }
     }
 }

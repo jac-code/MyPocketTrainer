@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import java.text.ParseException;
-import java.util.Objects;
+import java.util.*;
 
 import javax.mail.MessagingException;
 
@@ -9,9 +9,7 @@ import com.example.demo.configuration.email.AccountVerificationEmailContext;
 import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.exceptions.InvalidVerificationTokenException;
 import com.example.demo.exceptions.UserAlreadyExistsException;
-import com.example.demo.model.Client;
-import com.example.demo.model.ModelUser;
-import com.example.demo.model.VerificationToken;
+import com.example.demo.model.*;
 import com.example.demo.repository.ClientsRepository;
 import com.example.demo.repository.ModelUserRepository;
 import com.example.demo.repository.RolesRepository;
@@ -57,8 +55,23 @@ public class ClientsServiceImpl implements ClientsService{
     private EmailService emailService;
 
     @Override
-    public void saveMeal(String meal_url) {
-        
+    public Set<Professional> listMyClients(Long id) {
+        return clientsRepository.getById(id).getProfessionals();
+    }
+
+    @Override
+    public Set<Diet> listMyDiets(Long id) {
+        return clientsRepository.getById(id).getDiets();
+    }
+
+    @Override
+    public Set<Routine> listMyRoutines(Long id) {
+        return clientsRepository.getById(id).getRoutines();
+    }
+
+    @Override
+    public Set<Exercise> listMyExercises(Long id) {
+        return clientsRepository.getById(id).getExercises();
     }
 
     @Override

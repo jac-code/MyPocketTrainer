@@ -47,6 +47,7 @@ function getMealList(){
         url += "&includeIngredients=" + searchInputTxt;
     }
 
+    // esta es la ULR que hay que guardar
     url += url_key;
 
     //fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${searchInputTxt}&addRecipeInformation=true&addRecipeNutrition=true&apiKey=${KEY_SPOONACULAR}`)

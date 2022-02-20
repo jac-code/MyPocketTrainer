@@ -21,7 +21,22 @@
         <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
 
         <div class="container">
-            <h1>Components</h1>
+            <div class="container">
+                <h1>Routine Management System</h1>
+                <hr>
+                <h2>Add Routine</h2>
+            
+                <form th:action="@{/professionals/professional-basic/save-routine}" th:object="${new_routine}" method="POST">
+                    <input type="text" th:field="*{routine_name}" placeholder="Routine name" class="form-control mb-4 col-4"> 
+                    <input type="text" th:field="*{routine_description}" placeholder="Routine description" class="form-control mb-4 col-4">
+            
+                    <button type="submit" class="btn btn-info col-2">Add Routine</button>
+                </form>
+            
+                <hr>
+            
+                <a th:href="@{/professionals/professional-basic/my-routines}"> Volver a ver la lista de rutinas</a>
+            </div>
         </div>
 
         <!--===== MAIN JS =====-->

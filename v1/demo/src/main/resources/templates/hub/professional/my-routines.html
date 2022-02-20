@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet"  th:href="@{/css/hub/professionals/styles-basic.css}">
+
+        <title>MPT | MyPocketTrainer</title>
+    </head>
+    <body id="body-pd">
+        <header th:replace="hub/layouts/layout-professional-basic::header"></header>
+
+        <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
+
+        <div class="container">
+            <h1>Components</h1>
+            <!-- AQUI MOSTRAMOS TODAS LAS DIETAS / RUTINAS / EJERCICIOS / RECETAS CREADAS -->
+            
+            <div class="container">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h3>RUTINAS CREADAS:</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Id Ejercicio</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="routine: ${routines}">
+                                    <td th:text="${routine.id}"></td>
+                                    <td th:text="${routine.routine_name}"></td>
+                                    <td th:text="${routine.routine_description}"></td>
+                                    <!-- HAY QUE METER ITERAR POR TODOS LOS EJERCICIOS -->
+                                    <td th:text="${routine.exercise_id}"></td>
+                                    <td><a th:href="@{/professionals/professional-basic/delete-routine/} + ${routine.id}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <a th:href="@{/professionals/professional-basic/add-routine}" class="btn btn-outline-primary btn-block">Añadir Rutina</a>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--===== MAIN JS =====-->
+        <script th:src="@{/js/hub/professionals/main-basic.js}"></script>
+    </body>
+</html>

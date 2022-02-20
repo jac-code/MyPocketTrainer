@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.controller.dao.UserDAO;
-import com.example.demo.model.Client;
-import com.example.demo.model.ModelUser;
-import com.example.demo.model.VerificationToken;
+import com.example.demo.model.*;
+
+import java.util.*;
 
 public interface ClientsService {
     public void signUpNewClient(UserDAO userDAO);
@@ -14,5 +14,8 @@ public interface ClientsService {
 
     public void sendRegistrationConfirmationEmail(ModelUser user);
 
-    public void saveMeal(String meal_url);
+    public Set<Professional> listMyClients(Long id);
+    public Set<Diet> listMyDiets(Long id);
+    public Set<Routine> listMyRoutines(Long id);
+    public Set<Exercise> listMyExercises(Long id);
 }

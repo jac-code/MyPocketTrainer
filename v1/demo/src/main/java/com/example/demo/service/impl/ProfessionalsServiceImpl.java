@@ -1,7 +1,9 @@
 package com.example.demo.service.impl;
 
 import java.text.ParseException;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.mail.MessagingException;
 
@@ -9,8 +11,11 @@ import com.example.demo.configuration.email.AccountVerificationEmailContext;
 import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.exceptions.InvalidVerificationTokenException;
 import com.example.demo.exceptions.UserAlreadyExistsException;
+import com.example.demo.model.Client;
+import com.example.demo.model.Diet;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
+import com.example.demo.model.Routine;
 import com.example.demo.model.VerificationToken;
 import com.example.demo.repository.ModelUserRepository;
 import com.example.demo.repository.ProfessionalsRepository;
@@ -98,5 +103,20 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
 
     private boolean usernameExists(String user_name) {
         return modelUserRepository.findModelUserByUserName(user_name) != null;
+    }
+
+    @Override
+    public Set<Client> listMyClients(Long id) {
+        return professionalsRepository.getById(id).getClients();
+    }
+
+    @Override
+    public Set<Diet> listMyDiets(Long id) {
+        return professionalsRepository.getById(id).getDiets();
+    }
+
+    @Override
+    public Set<Routine> listMyRoutines(Long id) {
+        return professionalsRepository.getById(id).getRoutines();
     }
 }

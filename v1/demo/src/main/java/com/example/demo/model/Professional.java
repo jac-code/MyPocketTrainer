@@ -1,19 +1,26 @@
 package com.example.demo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import lombok.*;
 
 @Entity
 @Table
+@Getter
+@Setter
 @PrimaryKeyJoinColumn(referencedColumnName="user_id")
 public class Professional extends ModelUser{
     @Column(name = "work_zone", nullable = true)
@@ -28,38 +35,34 @@ public class Professional extends ModelUser{
         joinColumns = @JoinColumn(name = "client_id"), 
         inverseJoinColumns = @JoinColumn(name = "professional_id")
     )
-    private List<Client> clients = new ArrayList<>();
+    private Set<Client> clients;
 
     // owning side
     @ManyToOne
     @JoinColumn(name = "business_id")
     private Business business;
 
+    // @ManyToMany
+    // @JoinTable(
+    // name = "PROFESSIONAL_CREATED_ROUTINES",
+    // joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    // inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
+    // Set<Routine> routines;
+
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Routine> routines;
+
+    // @ManyToMany
+    // @JoinTable(
+    // name = "PROFESSIONAL_CREATED_DIETS",
+    // joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    // inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"))
+    // Set<Diet> diets;
+
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Diet> diets;
+
     public Professional() {
         
-    }
-
-    public String getWork_zone() {
-        return this.work_zone;
-    }
-
-    public void setWork_zone(String work_zone) {
-        this.work_zone = work_zone;
-    }
-
-    public Business getBusiness() {
-        return this.business;
-    }
-
-    public void setBusiness(Business business) {
-        this.business = business;
-    }
-
-    public int getRating() {
-        return this.rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 }
