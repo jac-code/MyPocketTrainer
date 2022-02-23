@@ -5,7 +5,7 @@ import java.util.*;
 import lombok.*;
 
 @Entity
-@Table
+@Table(name = "CLIENTS")
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(referencedColumnName="user_id")

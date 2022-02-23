@@ -22,6 +22,10 @@
 
         <div class="container">
             <h1>Components</h1>
+            <!-- <span sec:authentication="principal.first_name">Firstname</span>
+            <span sec:authentication="principal.last_name">Lastname</span> -->
+
+            <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div>
         </div>
 
         <!--===== MAIN JS =====-->

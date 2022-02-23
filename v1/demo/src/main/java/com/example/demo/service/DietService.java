@@ -7,6 +7,6 @@ import com.example.demo.controller.dao.DietDAO;
 import com.example.demo.model.Diet;
 
 public interface DietService {
-    public void saveNewDiet(DietDAO dietDAO);
-    public List<Diet> listDietsByProfessional();
+    public void saveNewDiet(DietDAO dietDAO, String user_name);
+    public List<Diet> listDietsByProfessional(String user_name);
 }

@@ -70,24 +70,24 @@ public class MainController {
             switch (userDAO.getRole_description_form()){
                 case "ROLE_CLIENT_FREE":
                     clientsService.signUpNewClient(userDAO);
-                    url = "/clients/free";
+                    url = "/clients/client-free/home";
                     break;
                 case "ROLE_CLIENT_PREMIUM":
                     clientsService.signUpNewClient(userDAO);
-                    url = "/clients/premium";
+                    url = "/clients/client-premium/home";
                     break;
                 case "ROLE_PROFESSIONAL_BASIC":
                     professionalsService.signUpNewProfessional(userDAO);
-                    url = "/professionals/basic";
+                    url = "/professionals/professional-basic/home";
                     break;
                 case "ROLE_PROFESSIONAL_BUSINESS":
                     professionalsService.signUpNewProfessional(userDAO);
-                    url = "/professionals/business";
+                    url = "/professionals/professional-business/home";
                     break;
                 default:
                     break;
             }
-        }catch (UserAlreadyExistsException e){
+        } catch (UserAlreadyExistsException e){
             bindingResult.rejectValue("email", "userDAO.email","An account already exists for this email.");
             model.addAttribute("registrationForm", userDAO);
             return REDIRECT + "/sign-up";

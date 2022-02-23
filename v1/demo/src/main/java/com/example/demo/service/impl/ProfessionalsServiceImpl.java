@@ -78,7 +78,7 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
         }
 
         professionalsRepository.save(p);
-        sendRegistrationConfirmationEmail(p);
+        // sendRegistrationConfirmationEmail(p);
     }
 
     @Override

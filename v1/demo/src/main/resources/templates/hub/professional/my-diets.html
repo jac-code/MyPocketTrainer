@@ -33,21 +33,21 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Id Dieta</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
-                                    <th>Id Receta</th>
+                                    <!-- <th>Id Profesional</th> -->
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="diet: ${diets}">
-                                    <td th:text="${diet.id}"></td>
+                                <tr th:each="diet: ${diets_list}">
+                                    <td th:text="${#strings.toString(diet.diet_id)}"></td>
                                     <td th:text="${diet.diet_name}"></td>
                                     <td th:text="${diet.diet_description}"></td>
                                     <!-- HAY QUE METER ITERAR POR TODOS LOS EJERCICIOS -->
-                                    <td th:text="${diet.recipe_id}"></td>
-                                    <td><a th:href="@{/professionals/professional-basic/delete-diet/} + ${diet.id}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                    <!-- <td th:text="${#strings.toString(diet.professional_id)}"></td> -->
+                                    <td><a th:href="@{/professionals/professional-basic/delete-diet/} + ${#strings.toString(diet.diet_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>

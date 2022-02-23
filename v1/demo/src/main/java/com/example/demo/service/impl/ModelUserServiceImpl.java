@@ -37,4 +37,9 @@ public class ModelUserServiceImpl implements ModelUserService{
         verificationTokenService.removeToken(secureToken);
         return true;
     }
+
+    @Override
+    public ModelUser getModelUserByUsername(String user_name) {
+        return modelUserRepository.findModelUserByUserName(user_name);
+    }
 }

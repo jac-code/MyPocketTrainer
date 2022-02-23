@@ -33,21 +33,20 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Routine Id</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
-                                    <th>Id Ejercicio</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr th:each="routine: ${routines}">
-                                    <td th:text="${routine.id}"></td>
+                                    <td th:text="${#strings.toString(routine.routine_id)}"></td>
                                     <td th:text="${routine.routine_name}"></td>
                                     <td th:text="${routine.routine_description}"></td>
                                     <!-- HAY QUE METER ITERAR POR TODOS LOS EJERCICIOS -->
-                                    <td th:text="${routine.exercise_id}"></td>
-                                    <td><a th:href="@{/professionals/professional-basic/delete-routine/} + ${routine.id}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                    <!-- <td th:text="${routine.exercise_id}"></td> -->
+                                    <td><a th:href="@{/professionals/professional-basic/delete-routine/} + ${#strings.toString(routine.routine_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>

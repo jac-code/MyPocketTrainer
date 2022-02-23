@@ -23,7 +23,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "MODEL_USERS")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ModelUser implements Serializable{
     @Id

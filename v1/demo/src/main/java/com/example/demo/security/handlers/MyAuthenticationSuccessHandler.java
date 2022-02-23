@@ -36,7 +36,6 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     }
 
     // IMPL
-
     protected void handle(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
         final String targetUrl = determineTargetUrl(authentication);
 

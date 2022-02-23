@@ -18,7 +18,7 @@ import java.util.Set;
 import lombok.*;
 
 @Entity
-@Table
+@Table(name = "PROFESSIONALS")
 @Getter
 @Setter
 @PrimaryKeyJoinColumn(referencedColumnName="user_id")

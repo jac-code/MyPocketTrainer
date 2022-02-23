@@ -1,11 +1,14 @@
 package com.example.demo;
 
+import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.model.Client;
 import com.example.demo.model.Role;
 import com.example.demo.model.Professional;
 import com.example.demo.repository.ClientsRepository;
 import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.repository.RolesRepository;
+import com.example.demo.service.ClientsService;
+import com.example.demo.service.ProfessionalsService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -61,36 +64,54 @@ public class UserTestRepository {
 
     @Test
     public void Test_Create_Client_Paula() throws ParseException {
-        Client client = new Client();
-        client.setFirst_name("Paula");
-        client.setLast_name("del Castillo Ventura");
-        client.setUser_name("pauladelcas");
-        client.setPassword("PaulaDelCastillo2020#");
-        client.setEmail("pauladelcastillo@gmail.com");
-        client.setBirth_date(new SimpleDateFormat("yyyy-mm-dd").parse("2001-03-12"));
-        client.setRole(rolesRepository.findRoleByRoleDescription("ROLE_CLIENT_PREMIUM"));
+        UserDAO userDAO = new UserDAO();
+        userDAO.setDay("12");
+        userDAO.setMonth("03");
+        userDAO.setYear("2001");
+        userDAO.setFirst_name("Paula");
+        userDAO.setLast_name("del Castillo Ventura");
+        userDAO.setUser_name("pauladelcas");
+        userDAO.setPassword("PaulaDelCastillo2020#");
+        userDAO.setEmail("pauladelcastillo@gmail.com");
+        userDAO.setRole_description_form("ROLE_PROFESSIONAL_BASIC");
 
-        Client savedClient = clientsRepository.save(client);
-        
-        Client existClient = entityManager.find(Client.class, savedClient.getUser_id());
-        
-        assertThat(client.getUser_name()).isEqualTo(existClient.getUser_name());
+        // professionalsService.signUpNewProfessional(userDAO);
+
+        Professional p = new Professional();
+
+        p.setFirst_name(userDAO.getFirst_name());
+        p.setLast_name(userDAO.getLast_name());
+        p.setUser_name(userDAO.getUser_name());
+        p.setRole(rolesRepository.findRoleByRoleDescription(userDAO.getRole_description_form()));
+        p.setPassword((userDAO.getPassword()));
+        p.setEmail(userDAO.getEmail());
+        try {
+            p.setBirth_date(userDAO.getCompleteDate(userDAO.getYear(), userDAO.getMonth(), userDAO.getDay()));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Professional p_saved = professionalsRepository.save(p);
+        Professional p_exist = entityManager.find(Professional.class, p_saved.getUser_id());
+
+        assertThat(p.getUser_name()).isEqualTo(p_exist.getUser_name());
     }
 
     @Test
     public void Test_Create_Trainer_Rocky() throws ParseException {
+        // ('Sylvester', 'Stallone', 'rockybalboa', '$2a$10$NZ9Os7lB.waU0nWUVRdNIOB7PMdOjfl2JeYqVGNviqm1zT4t24Vnm', 'rocky.balboa@gmail.com', DATE '1960-03-03', 3, TRUE),
         Professional professional = new Professional();
         professional.setFirst_name("Sylvester");
         professional.setLast_name("Stallone");
-        professional.setUser_name("rocky");
-        professional.setPassword("rocky");
-        professional.setEmail("rocky@gmail.com");
+        professional.setUser_name("rockybalboa");
+        professional.setPassword("RockyBalboa2020#");
+        professional.setEmail("rocky.balboa@gmail.com");
         professional.setBirth_date(new SimpleDateFormat("yyyy-mm-dd").parse("1960-01-11"));
         professional.setRating(2);
         professional.setRole(rolesRepository.findRoleByRoleDescription("ROLE_PROFESSIONAL_BASIC"));
         
         Professional savedProfessional = professionalsRepository.save(professional);
-        
         Professional existTrainer = entityManager.find(Professional.class, savedProfessional.getUser_id());
         
         assertThat(savedProfessional.getUser_name()).isEqualTo(existTrainer.getUser_name());

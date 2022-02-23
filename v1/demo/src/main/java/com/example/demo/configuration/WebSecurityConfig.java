@@ -85,7 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         // Config for Login Form
         http.authorizeRequests().and().formLogin()
             .loginPage("/sign-in")
-            .successHandler(myAuthenticationSuccessHandler())
+            .successHandler(myAuthenticationSuccessHandler())   // success personalizado
             .failureUrl("/sign-in?error=true");
                 
         // Config for Logout Page --> go back to sign-in page

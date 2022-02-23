@@ -41,4 +41,8 @@ public class Diet {
     @ManyToOne
     @JoinColumn(name = "professional_id")
     private Professional professional;
+
+    public Diet() {
+        
+    }
 }
