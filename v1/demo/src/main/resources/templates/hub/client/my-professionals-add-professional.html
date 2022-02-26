@@ -1,0 +1,45 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!-- ===== CSS ===== -->
+        <link th:replace="hub/layouts/layout-client-free::css_free">
+
+        <title>MPT | MyPocketTrainer</title>
+    </head>
+    <body id="body-pd">
+        <header th:replace="hub/layouts/layout-client-free::header"></header>
+
+        <div th:replace="hub/layouts/layout-client-free::navbar"></div>
+
+        <div class="container">
+            <div class="container">
+                <h1>Professional Management System</h1>
+                <hr>
+                <h2>Link with a professional</h2>
+            
+                <form th:action="@{/clients/client-free/save-professional}" th:object="${new_professional}" method="POST">
+                    <input type="text" th:field="*{user_name}" placeholder="Professionals username" class="form-control mb-4 col-4"> 
+                    <button type="submit" class="btn btn-info col-2">Search for a Professional</button>
+                </form>
+            
+                <hr>
+            
+                <a th:href="@{/clients/client-free/my-professionals}"> Volver a ver mis profesionales</a>
+            </div>
+        </div>
+
+        <!--===== MAIN JS =====-->
+        <script th:replace="hub/layouts/layout-client-free::js_free"></script>
+    </body>
+</html>

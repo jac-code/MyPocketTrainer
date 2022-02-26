@@ -26,10 +26,11 @@ public class ModelUserServiceImpl implements ModelUserService{
         if(Objects.isNull(secureToken) || !token.equals(secureToken.getToken()) || secureToken.isExpired()){
             throw new InvalidVerificationTokenException("Token is not valid");
         }
-        ModelUser user = modelUserRepository.getOne(secureToken.getUser().getUser_id());
+        ModelUser user = modelUserRepository.findModelUserById(secureToken.getUser().getUser_id());
         if(Objects.isNull(user)){
             return false;
         }
+        
         user.setEnabled(true);
         modelUserRepository.save(user); // let's same user details
 
@@ -41,5 +42,15 @@ public class ModelUserServiceImpl implements ModelUserService{
     @Override
     public ModelUser getModelUserByUsername(String user_name) {
         return modelUserRepository.findModelUserByUserName(user_name);
+    }
+
+    @Override
+    public ModelUser getModelUserById(Long id) {
+        return modelUserRepository.findModelUserById(id);
+    }
+
+    @Override
+    public ModelUser getModelUserByEmail(String email) {
+        return modelUserRepository.findModelUserByEmail(email);
     }
 }

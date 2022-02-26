@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!-- ===== CSS ===== -->
+        <link th:replace="hub/layouts/layout-client-free::css_free">
+        
+        <title>MPT | MyPocketTrainer</title>
+    </head>
+    <body id="body-pd">
+        <header th:replace="hub/layouts/layout-client-free::header"></header>
+
+        <div th:replace="hub/layouts/layout-client-free::navbar"></div>
+
+        <div class="container">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h3>Usuarios encontrados:</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Usuario</th>
+                                    <th>Email</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr th:each="user: ${users_list}"> -->
+                                <tr>
+                                    <td th:text="${user.first_name}"></td>
+                                    <td th:text="${user.last_name}"></td>
+                                    <td th:text="${user.user_name}"></td>
+                                    <td th:text="${user.email}"></td>
+
+                                    <td><a th:href="@{/clients/client-free/home} + ${#strings.toString(user.user_id)}" th:text="'FOLLOW'" class="btn btn-outline-info"></a></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <a th:href="@{/clients/client-free/my-mpt-finder}" class="btn btn-outline-primary btn-block">Conectar con usuarios</a>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+        </div>
+
+        <!--===== MAIN JS =====-->
+        <script th:replace="hub/layouts/layout-client-free::js_free"></script>
+    </body>
+</html>

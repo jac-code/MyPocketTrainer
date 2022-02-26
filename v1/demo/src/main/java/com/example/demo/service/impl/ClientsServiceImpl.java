@@ -6,16 +6,21 @@ import java.util.*;
 import javax.mail.MessagingException;
 
 import com.example.demo.configuration.email.AccountVerificationEmailContext;
+import com.example.demo.controller.dao.ClientDAO;
+import com.example.demo.controller.dao.ProfessionalDAO;
 import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.exceptions.InvalidVerificationTokenException;
 import com.example.demo.exceptions.UserAlreadyExistsException;
 import com.example.demo.model.*;
 import com.example.demo.repository.ClientsRepository;
 import com.example.demo.repository.ModelUserRepository;
+import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.repository.RolesRepository;
 import com.example.demo.repository.VerificationTokenRepository;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.ModelUserService;
+import com.example.demo.service.ProfessionalsService;
 import com.example.demo.service.VerificationTokenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +36,13 @@ public class ClientsServiceImpl implements ClientsService{
     private ClientsRepository clientsRepository;
 
     @Autowired
-    private ModelUserRepository modelUserRepository;
+    private ProfessionalsService professionalsService;
+
+    @Autowired
+    private ModelUserService modelUserService;
 
     @Autowired
     private RolesRepository rolesRepository;
-
-    // @Autowired
-    // PasswordEncoder passwordEncoder;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -54,25 +59,63 @@ public class ClientsServiceImpl implements ClientsService{
     @Autowired
     private EmailService emailService;
 
+    /************************************************* */
+    /********************* TOOLS ********************* */
+    /************************************************* */
+
     @Override
-    public Set<Professional> listMyClients(Long id) {
-        return clientsRepository.getById(id).getProfessionals();
+    public List<Client> listClientsByProfessional(String user_name_professional) {
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name_professional);
+        Professional p = professionalsService.getProfessionalById(modelUser.getUser_id());
+        return p.getClients();
+	}
+
+    @Override
+    public Client getClientByUsername(String user_name) {
+        return clientsRepository.findClientByUsername(user_name);
     }
 
     @Override
-    public Set<Diet> listMyDiets(Long id) {
-        return clientsRepository.getById(id).getDiets();
+    public Client getClientById(Long id) {
+        return clientsRepository.findClientById(id);
     }
 
     @Override
-    public Set<Routine> listMyRoutines(Long id) {
-        return clientsRepository.getById(id).getRoutines();
+    public void saveRegisteredClient(Client client) {
+        clientsRepository.save(client);
     }
 
     @Override
-    public Set<Exercise> listMyExercises(Long id) {
-        return clientsRepository.getById(id).getExercises();
+    public void ClientLinksWithProfessional(ProfessionalDAO professionalDAO, String user_name_client) {
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name_client);
+        Client actual_client = getClientById(modelUser.getUser_id());
+        Professional to_link_professional = professionalsService.getProfessionalByUsername(professionalDAO.getUser_name());
+
+        actual_client.linkProfessional(to_link_professional);
+        clientsRepository.save(actual_client);
     }
+
+    @Override
+    public void ClientDeLinksWithProfessional(Long professional_id, String user_name_client) {
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name_client);
+        Client actual_client = getClientById(modelUser.getUser_id());
+        Professional to_link_professional = professionalsService.getProfessionalById(professional_id);
+
+        actual_client.removeLinkedProfessional(to_link_professional);
+        clientsRepository.save(actual_client);
+    }
+
+    private boolean emailExists(String email) {
+        return modelUserService.getModelUserByEmail(email) != null;
+    }
+
+    private boolean usernameExists(String user_name) {
+        return modelUserService.getModelUserByUsername(user_name) != null;
+    }
+
+    /************************************************* */
+    /************** SIGN UP PROCESS ****************** */
+    /************************************************* */
 
     @Override
     public void signUpNewClient(UserDAO userDAO) throws UserAlreadyExistsException {
@@ -117,14 +160,6 @@ public class ClientsServiceImpl implements ClientsService{
         }
     }
 
-    private boolean emailExists(String email) {
-        return modelUserRepository.findModelUserByEmail(email) != null;
-    }
-
-    private boolean usernameExists(String user_name) {
-        return modelUserRepository.findModelUserByUserName(user_name) != null;
-    }
-
     @Override
     public void createVerificationTokenForClient(Client client, String token) {
         // final VerificationToken myToken = new VerificationToken(token, client);
@@ -142,8 +177,4 @@ public class ClientsServiceImpl implements ClientsService{
         return client;
     }
 
-    @Override
-    public void saveRegisteredClient(Client client) {
-        clientsRepository.save(client);
-    }
 }

@@ -14,7 +14,7 @@ public class AccountVerificationEmailContext extends AbstractEmailContext {
         // like setting up some base URL and context
         ModelUser customer = (ModelUser) context; // we pass the customer information
         put("firstName", customer.getFirst_name());
-        setTemplateLocation("email-verification");
+        setTemplateLocation("email-verification");  // pagina html con formato
         setSubject("Complete your registration");
         setFrom("mypockettrainerteam@gmail.com");
         setTo(customer.getEmail());
@@ -26,7 +26,7 @@ public class AccountVerificationEmailContext extends AbstractEmailContext {
     }
 
     public void buildVerificationUrl(final String baseURL, final String token){
-        final String url= UriComponentsBuilder.fromHttpUrl(baseURL).path("/sign-up/verification").queryParam("token", token).toUriString();
+        final String url = UriComponentsBuilder.fromHttpUrl(baseURL).path("/sign-up/verification").queryParam("token", token).toUriString();
         put("verificationURL", url);
     }
 }

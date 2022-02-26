@@ -10,11 +10,11 @@ public class ForgotPasswordEmailContext extends AbstractEmailContext {
     public <T> void init(T context){
         //we can do any common configuration setup here
         // like setting up some base URL and context
-        ModelUser customer = (ModelUser) context; // we pass the customer informati
+        ModelUser customer = (ModelUser) context; // we pass the customer information
         put("firstName", customer.getFirst_name());
-        setTemplateLocation("emails/forgot-password");
+        setTemplateLocation("email-forgot-password");
         setSubject("Forgotten Password");
-        setFrom("no-reply@javadevjournal.com");
+        setFrom("mypockettrainerteam@gmail.com");
         setTo(customer.getEmail());
     }
 

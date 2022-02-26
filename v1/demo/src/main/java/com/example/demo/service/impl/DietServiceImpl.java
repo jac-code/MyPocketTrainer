@@ -12,6 +12,8 @@ import com.example.demo.repository.DietsRepository;
 import com.example.demo.repository.ModelUserRepository;
 import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.service.DietService;
+import com.example.demo.service.ModelUserService;
+import com.example.demo.service.ProfessionalsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +24,16 @@ public class DietServiceImpl implements DietService{
     private DietsRepository dietsRepository;
 
     @Autowired
-    private ProfessionalsRepository professionalsRepository;
+    private ProfessionalsService professionalsService;
 
     @Autowired
-    private ModelUserRepository modelUserRepository;
+    private ModelUserService modelUserService;
 
     @Override
     public void saveNewDiet(DietDAO dietDAO, String user_name) {
         Diet diet = new Diet();
-        ModelUser modelUser = modelUserRepository.findModelUserByUserName(user_name);
-        Professional p = professionalsRepository.findProfessionalById(modelUser.getUser_id());
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
+        Professional p = professionalsService.getProfessionalById(modelUser.getUser_id());
         
         diet.setDiet_name(dietDAO.getDiet_name());
         diet.setDiet_description(dietDAO.getDiet_description());
@@ -41,10 +43,13 @@ public class DietServiceImpl implements DietService{
     }
 
     @Override
+    public Diet getDietById(Long diet_id) {
+        return dietsRepository.findDietById(diet_id);
+    }
+
+    @Override
     public List<Diet> listDietsByProfessional(String user_name) {
-        ModelUser modelUser = modelUserRepository.findModelUserByUserName(user_name);
-        // Professional professional = professionalsRepository.findProfessionalById(modelUser.getUser_id());
-        
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
         return dietsRepository.findDietsByProfessional(modelUser.getUser_id());
     }
 }

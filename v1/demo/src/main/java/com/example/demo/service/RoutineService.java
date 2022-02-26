@@ -9,4 +9,5 @@ import com.example.demo.model.Routine;
 public interface RoutineService {
     public void saveNewRoutine(RoutineDAO routineDAO, String user_name);
     public List<Routine> listRoutinesByProfessional(String user_name);
+    public Routine getRoutineById(Long routine_id);
 }

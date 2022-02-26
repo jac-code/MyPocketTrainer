@@ -10,6 +10,8 @@ import com.example.demo.model.Routine;
 import com.example.demo.repository.ModelUserRepository;
 import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.repository.RoutinesRepository;
+import com.example.demo.service.ModelUserService;
+import com.example.demo.service.ProfessionalsService;
 import com.example.demo.service.RoutineService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +23,17 @@ public class RoutineServiceImpl implements RoutineService{
     private RoutinesRepository routinesRepository;
 
     @Autowired
-    private ModelUserRepository modelUserRepository;
+    private ProfessionalsService professionalsService;
 
     @Autowired
-    private ProfessionalsRepository professionalsRepository;
+    private ModelUserService modelUserService;
 
     @Override
     public void saveNewRoutine(RoutineDAO routineDAO, String user_name) {
         Routine routine = new Routine();
         
-        ModelUser modelUser = modelUserRepository.findModelUserByUserName(user_name);
-        Professional p = professionalsRepository.findProfessionalById(modelUser.getUser_id());
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
+        Professional p = professionalsService.getProfessionalById(modelUser.getUser_id());
         
         
         routine.setRoutine_name(routineDAO.getRoutine_name());
@@ -42,8 +44,13 @@ public class RoutineServiceImpl implements RoutineService{
     }
 
     @Override
+    public Routine getRoutineById(Long routine_id) {
+        return routinesRepository.findRoutineById(routine_id);
+    }
+
+    @Override
 	public List<Routine> listRoutinesByProfessional(String user_name) {
-        ModelUser modelUser = modelUserRepository.findModelUserByUserName(user_name);
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
         return routinesRepository.findRoutinesByProfessional(modelUser.getUser_id());
 	}
 }

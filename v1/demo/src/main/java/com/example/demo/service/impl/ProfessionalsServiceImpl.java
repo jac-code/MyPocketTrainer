@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.mail.MessagingException;
 
 import com.example.demo.configuration.email.AccountVerificationEmailContext;
+import com.example.demo.controller.dao.ClientDAO;
+import com.example.demo.controller.dao.ProfessionalDAO;
 import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.exceptions.InvalidVerificationTokenException;
 import com.example.demo.exceptions.UserAlreadyExistsException;
@@ -17,12 +19,17 @@ import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
 import com.example.demo.model.Routine;
 import com.example.demo.model.VerificationToken;
+import com.example.demo.repository.ClientsRepository;
 import com.example.demo.repository.ModelUserRepository;
 import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.repository.RolesRepository;
 import com.example.demo.repository.VerificationTokenRepository;
+import com.example.demo.service.ClientsService;
+import com.example.demo.service.DietService;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
+import com.example.demo.service.RoutineService;
 import com.example.demo.service.VerificationTokenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +43,16 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
     ProfessionalsRepository professionalsRepository;
 
     @Autowired
-    ModelUserRepository modelUserRepository;
+    DietService dietService;
+
+    @Autowired
+    RoutineService routineService;
+
+    @Autowired
+    ClientsService clientsService;
+
+    @Autowired
+    ModelUserService modelUserService;
 
     @Autowired
     RolesRepository rolesRepository;
@@ -55,6 +71,10 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
 
     @Autowired
     VerificationTokenService verificationTokenService;
+
+    /************************************************* */
+    /************** SIGN UP PROCESS ****************** */
+    /************************************************* */
 
     @Override
     public void signUpNewProfessional(UserDAO userDAO) {
@@ -78,7 +98,7 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
         }
 
         professionalsRepository.save(p);
-        // sendRegistrationConfirmationEmail(p);
+        sendRegistrationConfirmationEmail((ModelUser)p);
     }
 
     @Override
@@ -97,26 +117,68 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
         }
     }
 
+    /************************************************* */
+    /********************* TOOLS ********************* */
+    /************************************************* */
+    
     private boolean emailExists(String email) {
-        return modelUserRepository.findModelUserByEmail(email) != null;
+        return modelUserService.getModelUserByEmail(email) != null;
     }
 
     private boolean usernameExists(String user_name) {
-        return modelUserRepository.findModelUserByUserName(user_name) != null;
+        return modelUserService.getModelUserByUsername(user_name) != null;
     }
 
     @Override
-    public Set<Client> listMyClients(Long id) {
-        return professionalsRepository.getById(id).getClients();
+    public List<Professional> listProfessionalsByClient(String user_name_client) {
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name_client);
+        Client c = clientsService.getClientById(modelUser.getUser_id());
+        return c.getProfessionals();
+	}
+
+    @Override
+    public void ProfessionalLinksWithClient(ClientDAO clientDAO, String user_name_professional) {
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name_professional);
+        Professional actual_professional = getProfessionalById(modelUser.getUser_id());
+        Client to_link_client = clientsService.getClientByUsername(clientDAO.getUser_name());
+
+        actual_professional.linkClient(to_link_client);
+        professionalsRepository.save(actual_professional);
     }
 
     @Override
-    public Set<Diet> listMyDiets(Long id) {
-        return professionalsRepository.getById(id).getDiets();
+    public void ProfessionalDeLinksWithClient(Long client_id, String professional_username) {
+        ModelUser modelUser = modelUserService.getModelUserByUsername(professional_username);
+        Professional actual_professional = getProfessionalById(modelUser.getUser_id());
+        Client to_link_client = clientsService.getClientById(client_id);
+
+        actual_professional.removeLinkedClient(to_link_client);
+        professionalsRepository.save(actual_professional);
     }
 
     @Override
-    public Set<Routine> listMyRoutines(Long id) {
-        return professionalsRepository.getById(id).getRoutines();
+    public Professional getProfessionalByUsername(String user_name) {
+        return professionalsRepository.findProfessionalByUsername(user_name);
+    }
+
+    @Override
+    public Professional getProfessionalById(Long id) {
+        return professionalsRepository.findProfessionalById(id);
+    }
+
+    @Override
+    public void deleteDiet(Long diet_id, String user_name) {
+        Diet to_delete_diet =  dietService.getDietById(diet_id);
+        Professional professional = professionalsRepository.findProfessionalByUsername(user_name);
+        professional.deleteDiet(to_delete_diet);
+        professionalsRepository.save(professional);
+    }
+
+    @Override
+    public void deleteRoutine(Long routine_id, String user_name) {
+        Routine to_delete_routine =routineService.getRoutineById(routine_id);
+        Professional professional = professionalsRepository.findProfessionalByUsername(user_name);
+        professional.deleteRoutine(to_delete_routine);
+        professionalsRepository.save(professional);
     }
 }

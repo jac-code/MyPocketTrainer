@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.dao.ClientDAO;
+import com.example.demo.controller.dao.ProfessionalDAO;
 import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.model.*;
 
@@ -11,11 +13,12 @@ public interface ClientsService {
     public Client getClient(String verificationToken);
     public void createVerificationTokenForClient(Client client, String token);
     public VerificationToken getVerificationToken(final String VerificationToken);
-
     public void sendRegistrationConfirmationEmail(ModelUser user);
 
-    public Set<Professional> listMyClients(Long id);
-    public Set<Diet> listMyDiets(Long id);
-    public Set<Routine> listMyRoutines(Long id);
-    public Set<Exercise> listMyExercises(Long id);
+    public List<Client> listClientsByProfessional(String user_name_professional);
+    public void ClientLinksWithProfessional(ProfessionalDAO professionalDAO, String user_name_client);
+    public void ClientDeLinksWithProfessional(Long professional_id, String user_name_client);
+    
+    public Client getClientByUsername(String user_name);
+    public Client getClientById(Long id);
 }

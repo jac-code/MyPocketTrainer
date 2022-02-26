@@ -12,4 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface RoutinesRepository extends JpaRepository<Routine, Long>{
     @Query(value = "SELECT * FROM Routines r WHERE r.professional_id = ?1", nativeQuery = true)
     List<Routine> findRoutinesByProfessional(Long professional_id);
+
+    @Query("SELECT r FROM Routine r WHERE r.routine_id = ?1")
+    Routine findRoutineById(Long routine_id);
 }

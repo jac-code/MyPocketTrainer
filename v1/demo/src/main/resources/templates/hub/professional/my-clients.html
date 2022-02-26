@@ -21,39 +21,37 @@
         <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
 
         <div class="container">
-            <h1>Components</h1>
-            <!-- AQUI MOSTRAMOS TODAS LAS DIETAS / RUTINAS / EJERCICIOS / RECETAS CREADAS -->
-            
             <div class="container">
                 <div class="card bg-light">
                     <div class="card-header">
-                        <h3>DIETAS CREADAS:</h3>
+                        <h3>ClIENTES:</h3>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Id Cliente</th>
                                     <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th>Id Receta</th>
+                                    <th>Apellido</th>
+                                    <th>Nombre de usuario</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="diet: ${diets}">
-                                    <td th:text="${diet.id}"></td>
-                                    <td th:text="${diet.diet_name}"></td>
-                                    <td th:text="${diet.diet_description}"></td>
-                                    <!-- HAY QUE METER ITERAR POR TODOS LOS EJERCICIOS -->
-                                    <td th:text="${diet.recipe_id}"></td>
-                                    <td><a th:href="@{/professionals/professional-basic/delete-diet/} + ${diet.id}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                <tr th:each="client: ${clients_list}">
+                                    <td th:text="${#strings.toString(client.user_id)}"></td>
+                                    <td th:text="${client.first_name}"></td>
+                                    <td th:text="${client.last_name}"></td>
+                                    <td th:text="${client.user_name}"></td>
+                                    <td><a th:href="@{/professionals/professional-basic/delete-client/} + ${#strings.toString(client.user_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                    <td><a th:href="@{/professionals/professional-basic/set-diet/} + ${#strings.toString(client.user_id)}" th:text="'Configurar Dieta'" class="btn btn-outline-info"></a></td>
+                                    <td><a th:href="@{/professionals/professional-basic/set-routine/} + ${#strings.toString(client.user_id)}" th:text="'Configurar Rutina'" class="btn btn-outline-info"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        <a th:href="@{/professionals/professional-basic/add-diet}" class="btn btn-outline-primary btn-block">Añadir Dieta</a>
+                                        <a th:href="@{/professionals/professional-basic/add-client}" class="btn btn-outline-primary btn-block">Añadir Cliente</a>
                                     </td>
                                 </tr>
                             </tfoot>

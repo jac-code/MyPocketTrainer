@@ -48,6 +48,7 @@
                                     <!-- HAY QUE METER ITERAR POR TODOS LOS EJERCICIOS -->
                                     <!-- <td th:text="${#strings.toString(diet.professional_id)}"></td> -->
                                     <td><a th:href="@{/professionals/professional-basic/delete-diet/} + ${#strings.toString(diet.diet_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                    <td><a th:href="@{/professionals/professional-basic/add-diet-client/} + ${#strings.toString(diet.diet_id)}" th:text="'Add to Client'" class="btn btn-outline-info"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>

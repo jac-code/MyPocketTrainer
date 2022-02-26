@@ -9,4 +9,5 @@ import com.example.demo.model.Diet;
 public interface DietService {
     public void saveNewDiet(DietDAO dietDAO, String user_name);
     public List<Diet> listDietsByProfessional(String user_name);
+    public Diet getDietById(Long diet_id);
 }

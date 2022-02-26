@@ -29,40 +29,43 @@ public class Professional extends ModelUser{
     @Column(name="rating", nullable = true)
     private int rating;
 
+    // @ManyToMany(cascade = CascadeType.ALL)
     @ManyToMany
     @JoinTable( 
-        name = "ProfessionalClients", 
-        joinColumns = @JoinColumn(name = "client_id"), 
-        inverseJoinColumns = @JoinColumn(name = "professional_id")
+        name = "PROFESSIONALS_CLIENTS", 
+        joinColumns = @JoinColumn(name = "professional_id", referencedColumnName = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "client_id", referencedColumnName = "user_id")
     )
-    private Set<Client> clients;
+    private List<Client> clients;
 
     // owning side
     @ManyToOne
     @JoinColumn(name = "business_id")
     private Business business;
 
-    // @ManyToMany
-    // @JoinTable(
-    // name = "PROFESSIONAL_CREATED_ROUTINES",
-    // joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    // inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
-    // Set<Routine> routines;
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Routine> routines;
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Routine> routines;
-
-    // @ManyToMany
-    // @JoinTable(
-    // name = "PROFESSIONAL_CREATED_DIETS",
-    // joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    // inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"))
-    // Set<Diet> diets;
-
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Diet> diets;
+    private List<Diet> diets;
 
     public Professional() {
         
+    }
+
+    public void linkClient(Client client) {
+        this.clients.add(client);
+    }
+
+    public void removeLinkedClient(Client client) {
+        this.clients.remove(client);
+    }
+
+    public void deleteDiet(Diet diet) {
+        this.diets.remove(diet);
+    }
+
+    public void deleteRoutine(Routine routine) {
+        this.routines.remove(routine);
     }
 }
