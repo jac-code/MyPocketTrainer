@@ -19,6 +19,7 @@ import lombok.*;
 @Table(name = "DIETS")
 @Setter
 @Getter
+@NoArgsConstructor
 public class Diet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,7 @@ public class Diet {
 
     @ManyToMany
     @JoinTable(
-    name = "DIET_RECIPE", 
+    name = "DIET_RECIPE",
     joinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"), 
     inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id"))
     Set<Recipe> recipes;
@@ -41,8 +42,4 @@ public class Diet {
     @ManyToOne
     @JoinColumn(name = "professional_id")
     private Professional professional;
-
-    public Diet() {
-        
-    }
 }

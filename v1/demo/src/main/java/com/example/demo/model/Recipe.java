@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.*;
@@ -24,6 +26,10 @@ public class Recipe {
 
     @Column(name = "recipe_url")
     private String recipe_url;
+
+    @ManyToOne
+    @JoinColumn(name = "professional_id")
+    private Professional professional;
 
     // quitamos esto para que sea UNIDIRECCIONAL
     // @ManyToMany(mappedBy = "recipes")

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -144,6 +145,22 @@ public class ProfessionalsController {
     /* ******************** ROUTINES ****************** */
     /* ********************************************************************* */
 
+    // @GetMapping("/" + URL_MY_ROUTINES)
+    // public String listMyRoutines(Model model) {
+    //     // para saber el usuario que está dentro
+    //     Authentication authentication = authenticationFacade.getAuthentication();
+    //     UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+    //     // vamos a buscar por user_name
+    //     model.addAttribute("routines", routineService.listRoutinesByProfessional(userPrincipal.getUsername()));
+    //     return DIRECCION_BASE + PAGE_MY_ROUTINES;
+    // }
+
+    @ModelAttribute("time")
+    public String getRequestTime () {
+        return "HOLAAA";
+    }
+
     @GetMapping("/" + URL_MY_ROUTINES)
     public String listMyRoutines(Model model) {
         // para saber el usuario que está dentro
@@ -154,6 +171,34 @@ public class ProfessionalsController {
         model.addAttribute("routines", routineService.listRoutinesByProfessional(userPrincipal.getUsername()));
         return DIRECCION_BASE + PAGE_MY_ROUTINES;
     }
+
+    // @GetMapping("/set-routine/{id}")
+	// public String linkRoutineToClient(@PathVariable(value="id") String client_user_name, ModelMap modelMap) {
+    //     modelMap.addAttribute("client_user_name", client_user_name);
+	// 	return "redirect:../" + URL_MY_ROUTINES;
+	// }
+
+    @GetMapping("/" + URL_MY_ROUTINES + "/{user_id}")
+    public String listMyRoutinesWith(@PathVariable(value = "user_id") String client_user_name, ModelMap modelMap) {
+        if (client_user_name == null || client_user_name.length() == 0) { // poner boton para conectar
+            modelMap.addAttribute("user_name", "false");
+        } else {    // no poner botones
+            // value is a String and is not “false”, “off” or “no”
+            // String user_name = Long.toString(client_user_name);
+            modelMap.addAttribute("user_name", client_user_name);
+        }
+        
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        // vamos a buscar por user_name
+        modelMap.addAttribute("routines", routineService.listRoutinesByProfessional(userPrincipal.getUsername()));
+        return DIRECCION_BASE + PAGE_MY_ROUTINES;
+    }
+
+    @GetMapping("/link-routine-client/{routine_id}")
+    public String linkRoutineToClient(@PathVariable(value = "routine_id") String routine_id, @ModelAttribute(""))
 
     @GetMapping("/" + URL_ADD_ROUTINE)
     public String addNewRoutine(Model model) {
@@ -168,7 +213,7 @@ public class ProfessionalsController {
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
         routineService.saveNewRoutine(routineDAO, userPrincipal.getUsername());
-        return "redirect:" + URL_MY_DIETS;    // nos REDIRECCIONA a la pagina con la lista de clientes
+        return "redirect:" + URL_MY_ROUTINES;    // nos REDIRECCIONA a la pagina con la lista de clientes
     }
 
     @GetMapping("/delete-routine/{id}")
@@ -222,15 +267,30 @@ public class ProfessionalsController {
 		return "redirect:../" + URL_MY_CLIENTS;
 	}
 
-    @GetMapping("/set-diet/{id}")
-	public String setDiet(@PathVariable(value="id") Long client_id) {
+    // @PostMapping("/set-diet/{id}")
+    // @ResponseBody
+	// public String asdasdsdssetDiet(@RequestParam() String client_user_name) {
+
+	// 	return "redirect:../" + URL_MY_DIETS;
+	// }
+
+    // // HACER UN POSTMAPPING CON /my-diets/user_name=3 --> y asi me quedo con el client_username
+    // @GetMapping("/my-diets/{id}")
+	// public String setDiet(@RequestParam() String client_user_name, Model model) {
+    //     model.addAttribute("client_user_name", client_user_name);
+	// 	return "redirect:../" + URL_MY_DIETS;
+	// }
+
+    @PostMapping("/set-diet/{id}")
+    @ResponseBody
+	public String asdasdsdssetDiet(@RequestParam() String client_user_name) {
 
 		return "redirect:../" + URL_MY_DIETS;
 	}
 
-    @GetMapping("/set-routine/{id}")
-	public String setRoutine(@PathVariable(value="id") Long client_id) {
-
-		return "redirect:../" + URL_MY_ROUTINES;
+    // HACER UN POSTMAPPING CON /my-diets/user_name=3 --> y asi me quedo con el client_username
+    @GetMapping("/set-diet/{id}")
+	public String setDiet(@RequestParam("id") String Long) {
+		return "redirect:../" + URL_MY_DIETS;
 	}
 }

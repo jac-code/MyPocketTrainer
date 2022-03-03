@@ -49,9 +49,17 @@ public class Professional extends ModelUser{
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Diet> diets;
 
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Exercise> exercises;
+
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recipe> recipes;
+
     public Professional() {
         
     }
+
+    /*************** CLIENTS ***************/
 
     public void linkClient(Client client) {
         this.clients.add(client);
@@ -61,11 +69,43 @@ public class Professional extends ModelUser{
         this.clients.remove(client);
     }
 
+    /*************** DIETS ***************/
+    
+    public void addDiet(Diet diet) {
+        this.diets.add(diet);
+    }
+
     public void deleteDiet(Diet diet) {
         this.diets.remove(diet);
     }
 
+    /*************** ROUTINES ***************/
+
+    public void addRoutine(Routine routine) {
+        this.routines.add(routine);
+    }
+
     public void deleteRoutine(Routine routine) {
         this.routines.remove(routine);
+    }
+
+    /*************** EXERCISES ***************/
+
+    public void addExercise(Exercise exercise) {
+        this.exercises.add(exercise);
+    }
+
+    public void deleteExercise(Exercise exercise) {
+        this.exercises.remove(exercise);
+    }
+
+    /*************** RECIPES ***************/
+
+    public void addRecipe(Recipe recipe) {
+        this.recipes.add(recipe);
+    }
+
+    public void removeRecipe(Recipe recipe) {
+        this.recipes.remove(recipe);
     }
 }

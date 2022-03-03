@@ -12,8 +12,15 @@ public class Exercise {
     @Column(name = "exercise_id")
     private Long exercise_id;
 
-    @Column(name = "exercise_url")
-    private String exercise_url;
+    @Column(name = "exercise_name")
+    private String exercise_name;
+
+    @Column(name = "exercise_description")
+    private String exercise_description;
+
+    @ManyToOne
+    @JoinColumn(name = "professional_id")
+    private Professional professional;
 
     // si quitamos esto es UNIDIRECCIONAL --> lo que quiero
     // @ManyToMany(mappedBy = "exercises")

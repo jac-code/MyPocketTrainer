@@ -1,3 +1,18 @@
+/* ================ ADD DIET TO CLIENT =============== */
+
+var configurarDietaParaCliente = function(user_name) {
+    fetch('/professionals/professional-basic/set-diet/?user_id=' + user_name,
+    {
+        method: 'post',
+        payload: user_name
+    }
+    )
+    .then( r => r.text())
+    .then(location.reload());
+}
+
+// th:onclick="configurarDietaParaCliente('${client.user_id}')"
+
 /*===== SHOW NAVBAR  =====*/ 
 const showNavbar = (toggleId, navId, bodyId, headerId) =>{
     const toggle = document.getElementById(toggleId),

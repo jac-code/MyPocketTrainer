@@ -20,11 +20,11 @@
 
         <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
 
+        
         <div class="container">
-            <div class="container">
                 <div class="card bg-light">
                     <div class="card-header">
-                        <h3>ClIENTES:</h3>
+                        <h3>CLIENTES:</h3>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
@@ -44,8 +44,9 @@
                                     <td th:text="${client.last_name}"></td>
                                     <td th:text="${client.user_name}"></td>
                                     <td><a th:href="@{/professionals/professional-basic/delete-client/} + ${#strings.toString(client.user_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                    <!-- <td><a th:attr="onclick=|configurarDietaParaCliente('${client.user_name}')|" class="btn btn-outline-info" th:text="'Configurar Dieta'"></a></td> -->
                                     <td><a th:href="@{/professionals/professional-basic/set-diet/} + ${#strings.toString(client.user_id)}" th:text="'Configurar Dieta'" class="btn btn-outline-info"></a></td>
-                                    <td><a th:href="@{/professionals/professional-basic/set-routine/} + ${#strings.toString(client.user_id)}" th:text="'Configurar Rutina'" class="btn btn-outline-info"></a></td>
+                                    <td><a th:href="@{/professionals/professional-basic/my-routines/} + ${client.user_name}" th:text="'Configurar Rutina'" class="btn btn-outline-info"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>
@@ -58,7 +59,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
         </div>
 
         <!--===== MAIN JS =====-->

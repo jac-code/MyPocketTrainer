@@ -36,7 +36,10 @@
                                     <th>Routine Id</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
-                                    <th></th>
+                                    <th>hola</th>
+                                    <th>hola</th>
+                                    <th>hola</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,7 +50,9 @@
                                     <!-- HAY QUE METER ITERAR POR TODOS LOS EJERCICIOS -->
                                     <!-- <td th:text="${routine.exercise_id}"></td> -->
                                     <td><a th:href="@{/professionals/professional-basic/delete-routine/} + ${#strings.toString(routine.routine_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
-                                    <td><a th:href="@{/professionals/professional-basic/add-routine-client/} + ${#strings.toString(routine.routine_id)}" th:text="'Add to Client'" class="btn btn-outline-danger"></a></td>
+                                    
+                                    <!-- value is a String and is not “false”, “off” or “no” -->
+                                    <td th:if="${user_name}"><a th:href="@{/professionals/professional-basic/link-routine-client/} + ${#strings.toString(routine.routine_id)}" th:text="'Add to Client'" class="btn btn-outline-danger"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>

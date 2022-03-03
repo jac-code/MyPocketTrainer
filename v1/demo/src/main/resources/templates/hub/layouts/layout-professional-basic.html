@@ -9,6 +9,8 @@
 
         <!-- ===== CSS ===== -->
         <link rel="stylesheet"  th:href="@{/css/hub/professionals/styles-basic.css}">
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" th:href="@{/css/layouts/pop-up-modal.css}">  
 
         <title>MPT | MyPocketTrainer</title>
     </head>
@@ -21,6 +23,10 @@
             <div class="info">
                 <p>Bienvenido, <span sec:authentication="name">Username</span></p>
                 <!-- <span>[[${#request.remoteUser}]]</span> -->
+                <!-- <span sec:authentication="principal.first_name">Firstname</span>
+                <span sec:authentication="principal.last_name">Lastname</span> -->
+
+                <!-- <div sec:authorize="isAuthenticated()">Authenticated as <span sec:authentication="name"></span></div> -->
             </div>
 
             <div class="header__img">
@@ -84,10 +90,6 @@
                     <input type="submit" value="Sign Out" class="nav_name" />
                 </form>
             </nav>
-        </div>
-
-        <div class="container">
-            
         </div>
 
         <!--===== MAIN JS =====-->
