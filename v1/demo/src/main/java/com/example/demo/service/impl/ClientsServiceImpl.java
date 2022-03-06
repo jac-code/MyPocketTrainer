@@ -21,6 +21,7 @@ import com.example.demo.service.ClientsService;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
+import com.example.demo.service.RoutineService;
 import com.example.demo.service.VerificationTokenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,9 @@ public class ClientsServiceImpl implements ClientsService{
 
     @Autowired
     private VerificationTokenService verificationTokenService;
+
+    @Autowired
+    private RoutineService routineService;
 
     @Value("${site.base.url.https}")
     private String baseURL;
@@ -175,6 +179,20 @@ public class ClientsServiceImpl implements ClientsService{
     public Client getClient(String verificationToken) {
         Client client = (Client)verificationTokenRepository.findByToken(verificationToken).getUser();
         return client;
+    }
+
+    /************************************************* */
+    /****************** ROUTINES ********************* */
+    /************************************************* */
+
+    @Override
+    public void RoutineLinksToClient(String client_user_name, String routine_id, String professional_user_name) {
+        Professional professional = professionalsService.getProfessionalByUsername(professional_user_name);
+        Routine routine = routineService.getRoutineById(Long.parseLong(routine_id));
+        Client client = clientsRepository.findClientByUsername(client_user_name);
+        
+        client.linkRoutine(routine);
+        clientsRepository.save(client);
     }
 
 }

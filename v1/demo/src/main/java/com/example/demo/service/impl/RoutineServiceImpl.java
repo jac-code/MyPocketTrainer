@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Set;
 
 import com.example.demo.controller.dao.RoutineDAO;
+import com.example.demo.model.Client;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
 import com.example.demo.model.Routine;
 import com.example.demo.repository.ModelUserRepository;
 import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.repository.RoutinesRepository;
+import com.example.demo.service.ClientsService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
 import com.example.demo.service.RoutineService;
@@ -27,6 +29,9 @@ public class RoutineServiceImpl implements RoutineService{
 
     @Autowired
     private ModelUserService modelUserService;
+
+    @Autowired
+    private ClientsService clientsService;
 
     @Override
     public void saveNewRoutine(RoutineDAO routineDAO, String user_name) {

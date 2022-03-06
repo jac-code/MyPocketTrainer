@@ -31,28 +31,42 @@ public class Client extends ModelUser{
     name = "FAVOURITE_CLIENT_RECIPES",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id"))
-    List<Recipe> recipes;
+    private List<Recipe> recipes;
 
     @ManyToMany
     @JoinTable(
     name = "FAVOURITE_CLIENT_DIETS",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"))
-    List<Diet> diets;
+    private List<Diet> diets;
 
     @ManyToMany
     @JoinTable(
     name = "FAVOURITE_CLIENT_EXERCISES",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id"))
-    List<Exercise> exercises;
+    private List<Exercise> exercises;
 
     @ManyToMany
     @JoinTable(
     name = "FAVOURITE_CLIENT_ROUTINES",
     joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
     inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
-    List<Routine> routines;
+    private List<Routine> routines;
+
+    @ManyToMany
+    @JoinTable(
+    name = "LINKED_ROUTINES",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
+    private List<Routine> linkedRoutines;
+
+    @ManyToMany
+    @JoinTable(
+    name = "LINKED_DIETS",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+    inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"))
+    private List<Diet> linkedDiets;
 
     public Client() {
 
@@ -64,5 +78,13 @@ public class Client extends ModelUser{
 
     public void removeLinkedProfessional(Professional p) {
         this.professionals.remove(p);
+    }
+
+    public void linkRoutine(Routine routine) {
+        this.linkedRoutines.add(routine);
+    }
+
+    public void linkedDiet(Diet diet) {
+        this.linkedDiets.add(diet);
     }
 }

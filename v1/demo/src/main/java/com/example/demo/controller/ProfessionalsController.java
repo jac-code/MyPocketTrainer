@@ -38,6 +38,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @RequestMapping("professionals/professional-basic")
 public class ProfessionalsController {
     public static final String DIRECCION_BASE = "hub/professional/";
+    public static final String URL_BASE = "professionals/professional-basic";
 
     public static final String PAGE_MY_CLIENTS = "my-clients";
     public static final String PAGE_MY_DIETS = "my-diets";
@@ -49,8 +50,8 @@ public class ProfessionalsController {
     public static final String URL_MY_CLIENTS = "my-clients";
     public static final String URL_ADD_CLIENT = "add-client";
     public static final String URL_SAVE_CLIENT = "save-client";
-    public static final String URL_MY_DIETS = "my-diets";
-    public static final String URL_MY_ROUTINES = "my-routines";
+    public static final String URL_MY_DIETS = "my-diets/";
+    public static final String URL_MY_ROUTINES = "my-routines/";
     public static final String URL_ADD_DIET = "add-diet";
     public static final String URL_ADD_ROUTINE = "add-routine";
     public static final String URL_SAVE_DIET = "save-diet";
@@ -74,17 +75,16 @@ public class ProfessionalsController {
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
-    // @GetMapping("/home")
-    // public String showProfessionalsBasicPage(ModelAndView modelAndView) {
-    //     return DIRECCION_BASE + "professional-basic";
-    // }
+    // a esto tienen ACCESO TODOS
+    @ModelAttribute("time")
+    public String getRequestTime () {
+        return "HOLAAA";
+    }
 
     @GetMapping("/home")
     public String showHomePage(Model model) {
-        // String userEmail = userDetails.getEmail();
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-        // ModelUserDetails userPrincipal = (ModelUserDetails)authentication.getPrincipal();
         ModelUser user = (modelUserService.getModelUserByUsername(userPrincipal.getUsername()));
          
         model.addAttribute("user", user);
@@ -92,19 +92,12 @@ public class ProfessionalsController {
         return DIRECCION_BASE + "professional-basic";
     }
 
-    // @GetMapping("/home")
-    // @ResponseBody
-    // public String currentUserNameSimple() {
-    //     Authentication authentication = authenticationFacade.getAuthentication();
-    //     return authentication.getName();
-    // }
-
     /* ********************************************************************* */
     /* ******************** DIETS ****************** */
     /* ********************************************************************* */
 
     // PROFESIONAL LISTA TODAS SUS DIETAS
-    @GetMapping("/" + URL_MY_DIETS)
+    @GetMapping("/" + URL_MY_DIETS) // METER un "/" en html
     public String listMyDiets(Model model) {
         // para saber eel usuario que está dentro
         Authentication authentication = authenticationFacade.getAuthentication();
@@ -145,47 +138,13 @@ public class ProfessionalsController {
     /* ******************** ROUTINES ****************** */
     /* ********************************************************************* */
 
-    // @GetMapping("/" + URL_MY_ROUTINES)
-    // public String listMyRoutines(Model model) {
-    //     // para saber el usuario que está dentro
-    //     Authentication authentication = authenticationFacade.getAuthentication();
-    //     UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-
-    //     // vamos a buscar por user_name
-    //     model.addAttribute("routines", routineService.listRoutinesByProfessional(userPrincipal.getUsername()));
-    //     return DIRECCION_BASE + PAGE_MY_ROUTINES;
-    // }
-
-    @ModelAttribute("time")
-    public String getRequestTime () {
-        return "HOLAAA";
-    }
-
-    @GetMapping("/" + URL_MY_ROUTINES)
-    public String listMyRoutines(Model model) {
-        // para saber el usuario que está dentro
-        Authentication authentication = authenticationFacade.getAuthentication();
-        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-
-        // vamos a buscar por user_name
-        model.addAttribute("routines", routineService.listRoutinesByProfessional(userPrincipal.getUsername()));
-        return DIRECCION_BASE + PAGE_MY_ROUTINES;
-    }
-
-    // @GetMapping("/set-routine/{id}")
-	// public String linkRoutineToClient(@PathVariable(value="id") String client_user_name, ModelMap modelMap) {
-    //     modelMap.addAttribute("client_user_name", client_user_name);
-	// 	return "redirect:../" + URL_MY_ROUTINES;
-	// }
-
-    @GetMapping("/" + URL_MY_ROUTINES + "/{user_id}")
-    public String listMyRoutinesWith(@PathVariable(value = "user_id") String client_user_name, ModelMap modelMap) {
-        if (client_user_name == null || client_user_name.length() == 0) { // poner boton para conectar
-            modelMap.addAttribute("user_name", "false");
-        } else {    // no poner botones
+    @GetMapping({"/" + URL_MY_ROUTINES, "/" + URL_MY_ROUTINES + "{client_user_name}"})  // hacemos opcional el parámetro
+    public String listMyRoutines(@PathVariable(required = false) String client_user_name, ModelMap modelMap) {
+        if (client_user_name == null) { // NO poner boton conectar
             // value is a String and is not “false”, “off” or “no”
-            // String user_name = Long.toString(client_user_name);
-            modelMap.addAttribute("user_name", client_user_name);
+            modelMap.addAttribute("client_user_name", "false");
+        } else {    // poner el botón de LINK
+            modelMap.addAttribute("client_user_name", client_user_name);
         }
         
         // para saber el usuario que está dentro
@@ -197,8 +156,15 @@ public class ProfessionalsController {
         return DIRECCION_BASE + PAGE_MY_ROUTINES;
     }
 
-    @GetMapping("/link-routine-client/{routine_id}")
-    public String linkRoutineToClient(@PathVariable(value = "routine_id") String routine_id, @ModelAttribute(""))
+    @GetMapping("/link-routine-client/{client_user_name}/{routine_id}")
+    public String linkRoutineToClient(@PathVariable String client_user_name, @PathVariable String routine_id) {
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        clientsService.RoutineLinksToClient(client_user_name, routine_id, userPrincipal.getUsername());
+        return "redirect:/professionals/professional-basic/" + URL_MY_ROUTINES;
+    }
 
     @GetMapping("/" + URL_ADD_ROUTINE)
     public String addNewRoutine(Model model) {

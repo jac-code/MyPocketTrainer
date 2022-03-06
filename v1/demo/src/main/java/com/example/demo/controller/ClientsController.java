@@ -6,6 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,8 +27,10 @@ import com.example.demo.exceptions.UserAlreadyExistsException;
 import com.example.demo.model.ModelUser;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
+import com.example.demo.service.DietService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
+import com.example.demo.service.RoutineService;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,6 +61,12 @@ public class ClientsController {
     ClientsService clientsService;
 
     @Autowired
+    RoutineService routineService;
+
+    @Autowired
+    DietService dietService;
+
+    @Autowired
     ProfessionalsService professionalsService;
 
     @Autowired
@@ -67,6 +76,18 @@ public class ClientsController {
     public String showHomePage() {
         return DIRECCION_BASE + "client-free";  // devuelve la pagina web
     }
+
+    // @GetMapping("/home")
+    // public String showHomePage(ModelMap modelMap) { // el ModelMap es para poder pasar distintos obejetos
+    //     // para saber el usuario que está dentro
+    //     Authentication authentication = authenticationFacade.getAuthentication();
+    //     UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+    //     // CAMBIAR la función del service para que sacar por --> LINKED
+    //     modelMap.addAttribute("routines", routineService.listRoutinesByProfessional(userPrincipal.getUsername()));        
+    //     modelMap.addAttribute("diets", dietService.listDietsByProfessional(userPrincipal.getUsername()));
+    //     return DIRECCION_BASE + "client-free";
+    // }
     
     /* ********************************************************************* */
     /* ******************** PROFESSIONALS ****************** */

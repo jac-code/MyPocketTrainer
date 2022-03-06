@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,6 +17,17 @@ public class Exercise {
 
     @Column(name = "exercise_description")
     private String exercise_description;
+
+    // @Lob
+    // @Basic(fetch = FetchType.LAZY)
+    // @Column(name = "image")
+    // private byte[] image;
+
+    // @Column(name = "body_part")
+    // private List<String> body_parts;
+
+    // @Column(name = "tools")
+    // private List<String> tools;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")
