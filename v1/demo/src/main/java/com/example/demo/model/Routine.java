@@ -25,9 +25,17 @@ public class Routine {
     name = "ROUTINE_EXERCISE", 
     joinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"), 
     inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id"))
-    Set<Exercise> exercises;
+    List<Exercise> exercises;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")
     private Professional professional;
+
+    public void linkExerciseToRoutine(Exercise exercise) {
+        this.exercises.add(exercise);
+    }
+
+    public void deleteExerciseFromRoutine(Exercise exercise) {
+        this.exercises.remove(exercise);
+    }
 }

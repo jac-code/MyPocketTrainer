@@ -3,13 +3,9 @@ package com.example.demo.service;
 import java.util.*;
 
 import com.example.demo.controller.dao.ClientDAO;
-import com.example.demo.controller.dao.ProfessionalDAO;
 import com.example.demo.controller.dao.UserDAO;
-import com.example.demo.model.Client;
-import com.example.demo.model.Diet;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
-import com.example.demo.model.Routine;
 
 public interface ProfessionalsService {
     public void signUpNewProfessional(UserDAO userDAO);
@@ -24,4 +20,6 @@ public interface ProfessionalsService {
 
     public void deleteDiet(Long diet_id, String user_name);
     public void deleteRoutine(Long diet_id, String user_name);
+    public void deleteExercise(Long exercise_id, String user_name);
+    public void deleteRecipe(Long recipe_id, String user_name);
 }

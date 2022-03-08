@@ -47,8 +47,6 @@
                                     <td th:text="${#strings.toString(routine.routine_id)}"></td>
                                     <td th:text="${routine.routine_name}"></td>
                                     <td th:text="${routine.routine_description}"></td>
-                                    <!-- HAY QUE METER ITERAR POR TODOS LOS EJERCICIOS -->
-                                    <!-- <td th:text="${routine.exercise_id}"></td> -->
                                     <td><a th:href="@{/professionals/professional-basic/delete-routine/} + ${#strings.toString(routine.routine_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
                                     
                                     <!-- value is a String and is not “false”, “off” or “no” -->

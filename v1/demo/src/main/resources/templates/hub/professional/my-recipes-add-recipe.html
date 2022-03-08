@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet"  th:href="@{/css/hub/professionals/styles-basic.css}">
+
+        <title>MPT | MyPocketTrainer</title>
+    </head>
+    <body id="body-pd">
+        <header th:replace="hub/layouts/layout-professional-basic::header"></header>
+
+        <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
+
+        <div class="container">
+            <div class="container">
+                <h1>Recipe Management System</h1>
+                <hr>
+                <h2>Add Recipe</h2>
+            
+                <form th:action="@{/professionals/professional-basic/save-recipe}" th:object="${new_recipe}" method="POST" enctype="multipart/form-data">
+                    <input type="text" th:field="*{recipe_name}" placeholder="Recipe name" class="form-control mb-4 col-4"> 
+                    <input type="text" th:field="*{recipe_description}" placeholder="Recipe description" class="form-control mb-4 col-4">
+                    
+                    <label>Foto: </label>
+                    <input type="file" name="image" accept="image/png, image/jpeg" />
+
+                    <button type="submit" class="btn btn-info col-2">Add Recipe</button>
+                </form>
+            
+                <hr>
+            
+                <a th:href="@{/professionals/professional-basic/my-recipes/}"> Volver a ver la lista de recetas</a>
+            </div>
+        </div>
+
+        <!--===== MAIN JS =====-->
+        <script th:src="@{/js/hub/professionals/main-basic.js}"></script>
+    </body>
+</html>

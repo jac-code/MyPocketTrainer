@@ -7,27 +7,25 @@ import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class ExerciseDAO {
+public class RecipeDAO {
     @NotEmpty(message = "Diet name can not be empty")
-    private String exercise_name;
+    private String recipe_name;
 
     @NotEmpty(message = "Diet name can not be empty")
-    private String exercise_description;
+    private String recipe_description;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    private MultipartFile image;
+    private byte[] image;
 
-    public ExerciseDAO(String exercise_name, String exercise_description, MultipartFile image) {
-        this.exercise_name = exercise_name;
-        this.exercise_description = exercise_description;
+    public RecipeDAO(String recipe_name, String recipe_description, byte[] image) {
+        this.recipe_name = recipe_name;
+        this.recipe_description = recipe_description;
         this.image = image;
     }
 }

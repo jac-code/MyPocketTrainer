@@ -19,14 +19,18 @@ import javax.validation.Valid;
 
 import com.example.demo.controller.dao.ClientDAO;
 import com.example.demo.controller.dao.DietDAO;
+import com.example.demo.controller.dao.ExerciseDAO;
+import com.example.demo.controller.dao.RecipeDAO;
 import com.example.demo.controller.dao.RoutineDAO;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.ModelUserDetails;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DietService;
+import com.example.demo.service.ExercisesService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
+import com.example.demo.service.RecipesService;
 import com.example.demo.service.RoutineService;
 
 import org.springframework.security.core.Authentication;
@@ -41,20 +45,38 @@ public class ProfessionalsController {
     public static final String URL_BASE = "professionals/professional-basic";
 
     public static final String PAGE_MY_CLIENTS = "my-clients";
-    public static final String PAGE_MY_DIETS = "my-diets";
-	public static final String PAGE_MY_ROUTINES = "my-routines";
-    public static final String PAGE_ADD_DIET = "my-diets-add-diet";
-    public static final String PAGE_ADD_ROUTINE = "my-routines-add-routine";
     public static final String PAGE_ADD_CLIENT = "my-clients-add-client";
+
+    public static final String PAGE_MY_DIETS = "my-diets";
+    public static final String PAGE_ADD_DIET = "my-diets-add-diet";
+
+    public static final String PAGE_MY_EXERCISES = "my-exercises";
+    public static final String PAGE_ADD_EXERCISE = "my-exercises-add-exercise";
+
+    public static final String PAGE_MY_RECIPES = "my-recipes";
+    public static final String PAGE_ADD_RECIPE = "my-recipes-add-recipe";
+
+	public static final String PAGE_MY_ROUTINES = "my-routines";
+    public static final String PAGE_ADD_ROUTINE = "my-routines-add-routine";
 
     public static final String URL_MY_CLIENTS = "my-clients";
     public static final String URL_ADD_CLIENT = "add-client";
     public static final String URL_SAVE_CLIENT = "save-client";
+
+    public static final String URL_MY_EXERCISES = "my-exercises/";
+    public static final String URL_ADD_EXERCISE = "add-exercise";
+    public static final String URL_SAVE_EXERCISE = "save-exercise";
+
+    public static final String URL_MY_RECIPES = "my-recipes/";
+    public static final String URL_ADD_RECIPE = "add-recipe";
+    public static final String URL_SAVE_RECIPE = "save-recipe";
+
     public static final String URL_MY_DIETS = "my-diets/";
-    public static final String URL_MY_ROUTINES = "my-routines/";
     public static final String URL_ADD_DIET = "add-diet";
-    public static final String URL_ADD_ROUTINE = "add-routine";
     public static final String URL_SAVE_DIET = "save-diet";
+
+    public static final String URL_MY_ROUTINES = "my-routines/";
+    public static final String URL_ADD_ROUTINE = "add-routine";
     public static final String URL_SAVE_ROUTINE = "save-routine";
     
     @Autowired
@@ -71,6 +93,12 @@ public class ProfessionalsController {
 
     @Autowired
     RoutineService routineService;
+
+    @Autowired
+    ExercisesService exercisesService;
+
+    @Autowired
+    RecipesService recipeService;
 
     @Autowired
     private IAuthenticationFacade authenticationFacade;
@@ -93,19 +121,152 @@ public class ProfessionalsController {
     }
 
     /* ********************************************************************* */
-    /* ******************** DIETS ****************** */
+    /* ******************** EXERCISES ****************** */
     /* ********************************************************************* */
 
-    // PROFESIONAL LISTA TODAS SUS DIETAS
-    @GetMapping("/" + URL_MY_DIETS) // METER un "/" en html
-    public String listMyDiets(Model model) {
-        // para saber eel usuario que está dentro
+    @GetMapping({"/" + URL_MY_EXERCISES, "/" + URL_MY_EXERCISES + "{routine_id}"})  // hacemos opcional el parámetro
+    public String listMyExercises(@PathVariable(required = false) String routine_id, ModelMap modelMap) {
+        if (routine_id == null) { // NO poner boton conectar
+            // value is a String and is not “false”, “off” or “no”
+            modelMap.addAttribute("routine_id", "false");
+        } else {    // poner el botón de LINK
+            modelMap.addAttribute("routine_id", routine_id);
+        }
+        
+        // para saber el usuario que está dentro
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
         // vamos a buscar por user_name
-        model.addAttribute("diets_list", dietService.listDietsByProfessional(userPrincipal.getUsername()));
+        modelMap.addAttribute("exercises", exercisesService.listExercisesByProfessional(userPrincipal.getUsername()));
+        return DIRECCION_BASE + PAGE_MY_EXERCISES;
+    }
+
+    @GetMapping("/link-exercise-routine/{routine_id}/{exercise_id}")
+    public String linkExerciseToRoutine(@PathVariable String routine_id, @PathVariable String exercise_id) {
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        routineService.ExerciseLinksWithRoutine(routine_id, exercise_id, userPrincipal.getUsername());
+        return "redirect:/professionals/professional-basic/" + URL_MY_ROUTINES;
+    }
+
+    @GetMapping("/" + URL_ADD_EXERCISE)
+    public String addNewExercise(Model model) {
+        ExerciseDAO new_exercise = new ExerciseDAO();
+        model.addAttribute("new_exercise", new_exercise);
+        return DIRECCION_BASE + PAGE_ADD_EXERCISE; // pagina html con formulario
+    }
+
+    @PostMapping("/" + URL_SAVE_EXERCISE)
+    public String saveExercise(@ModelAttribute("new_exercise") ExerciseDAO exerciseDAO) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        exercisesService.saveNewExercise(exerciseDAO, userPrincipal.getUsername());
+        return "redirect:" + URL_MY_EXERCISES;    // nos REDIRECCIONA a la pagina con todas las dietas
+    }
+
+    @GetMapping("/delete-exercise/{id}")
+	public String deleteExercise(@PathVariable(value="id") Long exercise_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        professionalsService.deleteExercise(exercise_id, userPrincipal.getUsername());
+
+		return "redirect:../" + URL_MY_EXERCISES;
+	}
+
+    
+    /* ********************************************************************* */
+    /* ******************** RECIPES ****************** */
+    /* ********************************************************************* */
+
+    @GetMapping({"/" + URL_MY_RECIPES, "/" + URL_MY_RECIPES + "{diet_id}"})  // hacemos opcional el parámetro
+    public String listMyRecipes(@PathVariable(required = false) String diet_id, ModelMap modelMap) {
+        if (diet_id == null) { // NO poner boton conectar
+            // value is a String and is not “false”, “off” or “no”
+            modelMap.addAttribute("diet_id", "false");
+        } else {    // poner el botón de LINK
+            modelMap.addAttribute("diet_id", diet_id);
+        }
+        
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        // vamos a buscar por user_name
+        modelMap.addAttribute("recipes", recipeService.listRecipesByProfessional(userPrincipal.getUsername()));
+        return DIRECCION_BASE + PAGE_MY_RECIPES;
+    }
+
+    @GetMapping("/link-recipe-diet/{diet_id}/{recipe_id}")
+    public String linkRecipeLinksWithDiet(@PathVariable String diet_id, @PathVariable String recipe_id) {
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        dietService.RecipesLinksWithDiet(diet_id, recipe_id, userPrincipal.getUsername());
+        return "redirect:/professionals/professional-basic/" + URL_MY_DIETS;
+    }
+
+    @GetMapping("/" + URL_ADD_RECIPE)
+    public String addNewRecipe(Model model) {
+        RecipeDAO new_recipe = new RecipeDAO();
+        model.addAttribute("new_recipe", new_recipe);
+        return DIRECCION_BASE + PAGE_ADD_RECIPE; // pagina html con formulario
+    }
+
+    @PostMapping("/" + URL_SAVE_RECIPE)
+    public String saveRecipe(@ModelAttribute("new_recipe") RecipeDAO recipeDAO) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        recipeService.saveNewRecipe(recipeDAO, userPrincipal.getUsername());
+        return "redirect:" + URL_MY_RECIPES;    // nos REDIRECCIONA a la pagina con todas las dietas
+    }
+
+    @GetMapping("/delete-recipe/{id}")
+	public String deleteRecipe(@PathVariable(value="id") Long recipe_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        professionalsService.deleteRecipe(recipe_id, userPrincipal.getUsername());
+
+		return "redirect:../" + URL_MY_RECIPES;
+	}
+
+    /* ********************************************************************* */
+    /* ******************** DIETS ****************** */
+    /* ********************************************************************* */
+
+    @GetMapping({"/" + URL_MY_DIETS, "/" + URL_MY_DIETS + "{client_user_name}"})  // hacemos opcional el parámetro
+    public String listMyDiets(@PathVariable(required = false) String client_user_name, ModelMap modelMap) {
+        if (client_user_name == null) { // NO poner boton conectar
+            // value is a String and is not “false”, “off” or “no”
+            modelMap.addAttribute("client_user_name", "false");
+        } else {    // poner el botón de LINK
+            modelMap.addAttribute("client_user_name", client_user_name);
+        }
+        
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        // vamos a buscar por user_name
+        modelMap.addAttribute("diets_list", dietService.listDietsByProfessional(userPrincipal.getUsername()));
         return DIRECCION_BASE + PAGE_MY_DIETS;
+    }
+
+    @GetMapping("/link-diet-client/{client_user_name}/{diet_id}")
+    public String linkDietToClient(@PathVariable String client_user_name, @PathVariable String diet_id) {
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        clientsService.DietLinksToClient(client_user_name, diet_id, userPrincipal.getUsername());
+        return "redirect:/professionals/professional-basic/" + URL_MY_CLIENTS;
     }
 
     @GetMapping("/" + URL_ADD_DIET)
@@ -163,7 +324,7 @@ public class ProfessionalsController {
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
         clientsService.RoutineLinksToClient(client_user_name, routine_id, userPrincipal.getUsername());
-        return "redirect:/professionals/professional-basic/" + URL_MY_ROUTINES;
+        return "redirect:/professionals/professional-basic/" + URL_MY_CLIENTS;
     }
 
     @GetMapping("/" + URL_ADD_ROUTINE)

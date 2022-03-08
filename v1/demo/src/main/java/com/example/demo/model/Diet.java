@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -37,9 +38,17 @@ public class Diet {
     name = "DIET_RECIPE",
     joinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"), 
     inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id"))
-    Set<Recipe> recipes;
+    List<Recipe> recipes;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")
     private Professional professional;
+
+    public void linkRecipeToDiet(Recipe recipe) {
+        this.recipes.add(recipe);
+    }
+
+    public void deleteRecipeFromDiet(Recipe recipe) {
+        this.recipes.remove(recipe);
+    }
 }

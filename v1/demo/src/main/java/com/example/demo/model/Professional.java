@@ -105,7 +105,7 @@ public class Professional extends ModelUser{
         this.recipes.add(recipe);
     }
 
-    public void removeRecipe(Recipe recipe) {
+    public void deleteRecipe(Recipe recipe) {
         this.recipes.remove(recipe);
     }
 }

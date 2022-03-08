@@ -20,45 +20,50 @@
 
         <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
 
-        
         <div class="container">
+            <h1>Components</h1>
+            <!-- AQUI MOSTRAMOS TODAS LAS DIETAS / RUTINAS / EJERCICIOS / RECETAS CREADAS -->
+            
+            <div class="container">
                 <div class="card bg-light">
                     <div class="card-header">
-                        <h3>CLIENTES:</h3>
+                        <h3>RECETAS CREADAS:</h3>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id Cliente</th>
+                                    <th>Id Receta</th>
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Nombre de usuario</th>
-                                    <th></th>
+                                    <th>Descripción</th>
+                                    <th>Imagen</th>
+                                    <th>hola</th>
+                                    <th>hola</th>
+                                    <th>hola</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="client: ${clients_list}">
-                                    <td th:text="${#strings.toString(client.user_id)}"></td>
-                                    <td th:text="${client.first_name}"></td>
-                                    <td th:text="${client.last_name}"></td>
-                                    <td th:text="${client.user_name}"></td>
-                                    <td><a th:href="@{/professionals/professional-basic/delete-client/} + ${#strings.toString(client.user_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
-                                    <!-- <td><a th:attr="onclick=|configurarDietaParaCliente('${client.user_name}')|" class="btn btn-outline-info" th:text="'Configurar Dieta'"></a></td> -->
-                                    <td><a th:href="@{/professionals/professional-basic/my-diets/} + ${client.user_name}" th:text="'Configurar Dieta'" class="btn btn-outline-info"></a></td>
-                                    <td><a th:href="@{/professionals/professional-basic/my-routines/} + ${client.user_name}" th:text="'Configurar Rutina'" class="btn btn-outline-info"></a></td>
+                                <tr th:each="recipe: ${recipes}">
+                                    <td th:text="${#strings.toString(recipe.recipe_id)}"></td>
+                                    <td th:text="${recipe.recipe_name}"></td>
+                                    <td th:text="${recipe.recipe_description}"></td>
+                                    <td><a th:href="@{/professionals/professional-basic/delete-recipe/} + ${#strings.toString(recipe.recipe_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                    
+                                    <!-- value is a String and is not “false”, “off” or “no” -->
+                                    <td th:if="${diet_id}"><a th:href="@{/professionals/professional-basic/link-recipe-client/} + ${diet_id} + @{/} + ${#strings.toString(recipe.recipe_id)}" th:text="'Add to Diet'" class="btn btn-outline-danger"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        <a th:href="@{/professionals/professional-basic/add-client}" class="btn btn-outline-primary btn-block">Añadir Cliente</a>
+                                        <a th:href="@{/professionals/professional-basic/add-recipe}" class="btn btn-outline-primary btn-block">Añadir Receta</a>
                                     </td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
+            </div>
         </div>
 
         <!--===== MAIN JS =====-->

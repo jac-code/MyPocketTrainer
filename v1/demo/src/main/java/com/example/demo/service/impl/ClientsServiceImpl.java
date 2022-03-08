@@ -18,6 +18,7 @@ import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.repository.RolesRepository;
 import com.example.demo.repository.VerificationTokenRepository;
 import com.example.demo.service.ClientsService;
+import com.example.demo.service.DietService;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
@@ -56,6 +57,9 @@ public class ClientsServiceImpl implements ClientsService{
 
     @Autowired
     private RoutineService routineService;
+
+    @Autowired
+    private DietService dietService;
 
     @Value("${site.base.url.https}")
     private String baseURL;
@@ -192,6 +196,20 @@ public class ClientsServiceImpl implements ClientsService{
         Client client = clientsRepository.findClientByUsername(client_user_name);
         
         client.linkRoutine(routine);
+        clientsRepository.save(client);
+    }
+
+    /************************************************* */
+    /****************** DIETS ********************* */
+    /************************************************* */
+
+    @Override
+    public void DietLinksToClient(String client_user_name, String diet_id, String professional_user_name) {
+        Professional professional = professionalsService.getProfessionalByUsername(professional_user_name);
+        Diet diet = dietService.getDietById(Long.parseLong(diet_id));
+        Client client = clientsRepository.findClientByUsername(client_user_name);
+        
+        client.linkedDiet(diet);
         clientsRepository.save(client);
     }
 

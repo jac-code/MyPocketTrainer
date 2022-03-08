@@ -5,15 +5,19 @@ import java.util.Optional;
 import java.util.Set;
 
 import com.example.demo.controller.dao.DietDAO;
+import com.example.demo.model.Client;
 import com.example.demo.model.Diet;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
+import com.example.demo.model.Recipe;
 import com.example.demo.repository.DietsRepository;
 import com.example.demo.repository.ModelUserRepository;
 import com.example.demo.repository.ProfessionalsRepository;
+import com.example.demo.service.ClientsService;
 import com.example.demo.service.DietService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
+import com.example.demo.service.RecipesService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +31,13 @@ public class DietServiceImpl implements DietService{
     private ProfessionalsService professionalsService;
 
     @Autowired
+    private RecipesService recipesService;
+
+    @Autowired
     private ModelUserService modelUserService;
+
+    @Autowired
+    private ClientsService clientsService;
 
     @Override
     public void saveNewDiet(DietDAO dietDAO, String user_name) {
@@ -51,5 +61,22 @@ public class DietServiceImpl implements DietService{
     public List<Diet> listDietsByProfessional(String user_name) {
         ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
         return dietsRepository.findDietsByProfessional(modelUser.getUser_id());
+    }
+
+    @Override
+	public List<Diet> listLinkedDiets(String user_name) {
+        ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
+        Client client = clientsService.getClientByUsername(modelUser.getUser_name());
+        return client.getLinkedDiets();
+	}
+
+    @Override
+    public void RecipesLinksWithDiet(String diet_id, String recipe_id, String professional_user_name) {
+        Professional professional = professionalsService.getProfessionalByUsername(professional_user_name);
+        Diet diet = dietsRepository.findDietById(Long.parseLong(diet_id));
+        Recipe recipe = recipesService.getRecipeById(Long.parseLong(recipe_id));
+        
+        diet.linkRecipeToDiet(recipe);
+        dietsRepository.save(diet);
     }
 }

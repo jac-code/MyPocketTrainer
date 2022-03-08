@@ -20,45 +20,51 @@
 
         <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
 
-        
         <div class="container">
+            <h1>Components</h1>
+            <!-- AQUI MOSTRAMOS TODAS LAS DIETAS / RUTINAS / EJERCICIOS / RECETAS CREADAS -->
+            
+            <div class="container">
                 <div class="card bg-light">
                     <div class="card-header">
-                        <h3>CLIENTES:</h3>
+                        <h3>EJERCICIOS CREADOS:</h3>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Id Cliente</th>
+                                    <th>Id Ejercicio</th>
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Nombre de usuario</th>
-                                    <th></th>
+                                    <th>Descripción</th>
+                                    <th>Imagen</th>
+                                    <th>hola</th>
+                                    <th>hola</th>
+                                    <th>hola</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="client: ${clients_list}">
-                                    <td th:text="${#strings.toString(client.user_id)}"></td>
-                                    <td th:text="${client.first_name}"></td>
-                                    <td th:text="${client.last_name}"></td>
-                                    <td th:text="${client.user_name}"></td>
-                                    <td><a th:href="@{/professionals/professional-basic/delete-client/} + ${#strings.toString(client.user_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
-                                    <!-- <td><a th:attr="onclick=|configurarDietaParaCliente('${client.user_name}')|" class="btn btn-outline-info" th:text="'Configurar Dieta'"></a></td> -->
-                                    <td><a th:href="@{/professionals/professional-basic/my-diets/} + ${client.user_name}" th:text="'Configurar Dieta'" class="btn btn-outline-info"></a></td>
-                                    <td><a th:href="@{/professionals/professional-basic/my-routines/} + ${client.user_name}" th:text="'Configurar Rutina'" class="btn btn-outline-info"></a></td>
+                                <tr th:each="exercise: ${exercises}">
+                                    <td th:text="${#strings.toString(exercise.exercise_id)}"></td>
+                                    <td th:text="${exercise.exercise_name}"></td>
+                                    <td th:text="${exercise.exercise_description}"></td>
+                                    
+                                    <td><a th:href="@{/professionals/professional-basic/delete-exercise/} + ${#strings.toString(exercise.exercise_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                                    
+                                    <!-- value is a String and is not “false”, “off” or “no” -->
+                                    <td th:if="${routine_id}"><a th:href="@{/professionals/professional-basic/link-exercise-routine/} + ${routine_id} + @{/} + ${#strings.toString(exercise.exercise_id)}" th:text="'Add to Routine'" class="btn btn-outline-danger"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5">
-                                        <a th:href="@{/professionals/professional-basic/add-client}" class="btn btn-outline-primary btn-block">Añadir Cliente</a>
+                                        <a th:href="@{/professionals/professional-basic/add-exercise}" class="btn btn-outline-primary btn-block">Añadir Ejercicio</a>
                                     </td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
+            </div>
         </div>
 
         <!--===== MAIN JS =====-->

@@ -15,8 +15,10 @@ import com.example.demo.exceptions.InvalidVerificationTokenException;
 import com.example.demo.exceptions.UserAlreadyExistsException;
 import com.example.demo.model.Client;
 import com.example.demo.model.Diet;
+import com.example.demo.model.Exercise;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
+import com.example.demo.model.Recipe;
 import com.example.demo.model.Routine;
 import com.example.demo.model.VerificationToken;
 import com.example.demo.repository.ClientsRepository;
@@ -27,8 +29,10 @@ import com.example.demo.repository.VerificationTokenRepository;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DietService;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.ExercisesService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
+import com.example.demo.service.RecipesService;
 import com.example.demo.service.RoutineService;
 import com.example.demo.service.VerificationTokenService;
 
@@ -44,6 +48,12 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
 
     @Autowired
     DietService dietService;
+
+    @Autowired
+    ExercisesService exercisesService;
+
+    @Autowired
+    RecipesService recipesService;
 
     @Autowired
     RoutineService routineService;
@@ -179,6 +189,22 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
         Routine to_delete_routine =routineService.getRoutineById(routine_id);
         Professional professional = professionalsRepository.findProfessionalByUsername(user_name);
         professional.deleteRoutine(to_delete_routine);
+        professionalsRepository.save(professional);
+    }
+
+    @Override
+    public void deleteExercise(Long exercise_id, String user_name) {
+        Exercise to_delete_exercise = exercisesService.getExerciseById(exercise_id);
+        Professional professional = professionalsRepository.findProfessionalByUsername(user_name);
+        professional.deleteExercise(to_delete_exercise);
+        professionalsRepository.save(professional);
+    }
+
+    @Override
+    public void deleteRecipe(Long recipe_id, String user_name) {
+        Recipe to_delete_recipe = recipesService.getRecipeById(recipe_id);
+        Professional professional = professionalsRepository.findProfessionalByUsername(user_name);
+        professional.deleteRecipe(to_delete_recipe);
         professionalsRepository.save(professional);
     }
 }

@@ -3,9 +3,13 @@ package com.example.demo.model;
 import java.util.List;
 
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "EXERCISES")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +22,10 @@ public class Exercise {
     @Column(name = "exercise_description")
     private String exercise_description;
 
-    // @Lob
-    // @Basic(fetch = FetchType.LAZY)
-    // @Column(name = "image")
-    // private byte[] image;
+    @Lob    // BLOB = binary data || CLOB = text data
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "image")
+    private byte[] image;
 
     // @Column(name = "body_part")
     // private List<String> body_parts;

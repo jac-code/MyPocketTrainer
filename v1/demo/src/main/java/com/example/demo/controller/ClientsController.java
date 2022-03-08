@@ -73,21 +73,16 @@ public class ClientsController {
     private MessageSource messageSource;
 
     @GetMapping("/home")
-    public String showHomePage() {
-        return DIRECCION_BASE + "client-free";  // devuelve la pagina web
+    public String showHomePage(ModelMap modelMap) { // el ModelMap es para poder pasar distintos obejetos
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        // CAMBIAR la función del service para que sacar por --> LINKED
+        modelMap.addAttribute("routines", routineService.listLinkedRoutines(userPrincipal.getUsername()));        
+        modelMap.addAttribute("diets_list", dietService.listLinkedDiets(userPrincipal.getUsername()));
+        return DIRECCION_BASE + "client-free";
     }
-
-    // @GetMapping("/home")
-    // public String showHomePage(ModelMap modelMap) { // el ModelMap es para poder pasar distintos obejetos
-    //     // para saber el usuario que está dentro
-    //     Authentication authentication = authenticationFacade.getAuthentication();
-    //     UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-
-    //     // CAMBIAR la función del service para que sacar por --> LINKED
-    //     modelMap.addAttribute("routines", routineService.listRoutinesByProfessional(userPrincipal.getUsername()));        
-    //     modelMap.addAttribute("diets", dietService.listDietsByProfessional(userPrincipal.getUsername()));
-    //     return DIRECCION_BASE + "client-free";
-    // }
     
     /* ********************************************************************* */
     /* ******************** PROFESSIONALS ****************** */
