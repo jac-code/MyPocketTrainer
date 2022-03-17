@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 import lombok.*;
@@ -32,10 +33,10 @@ public class Exercise {
     private String imageBase64;
 
     @Column(name = "body_part")
-    private List<String> body_parts;
+    private String body_parts;
 
     @Column(name = "tools")
-    private List<String> tools;
+    private String tools;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")

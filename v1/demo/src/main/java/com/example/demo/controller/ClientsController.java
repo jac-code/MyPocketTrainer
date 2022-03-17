@@ -154,7 +154,6 @@ public class ClientsController {
         return DIRECCION_BASE + PAGE_MPT_FINDER;
     }
 
-    // @ModelAttribute("new_user") UserFinderDAO new_user
     @GetMapping("/" + URL_MPT_FINDER_RESULTS)
     public String listSearchedUsers(UserFinderDAO new_user, Model model) {
         switch (new_user.getUser_type()) {
@@ -170,4 +169,6 @@ public class ClientsController {
 
         return DIRECCION_BASE + PAGE_MPT_FINDER_RESULTS;
     }
+
+    @GetMapping("")
 }

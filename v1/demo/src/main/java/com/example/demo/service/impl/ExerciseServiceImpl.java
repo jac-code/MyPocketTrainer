@@ -51,17 +51,10 @@ public class ExerciseServiceImpl implements ExercisesService{
 
         exercise.setExercise_description(exerciseDAO.getExercise_description());
         exercise.setExercise_name(exerciseDAO.getExercise_name());
-        try {
-            // exercise.setImage(Base64.getEncoder().encodeToString(exerciseDAO.getImage().getBytes()));
-            //On windows new File("img\\JBDFav300.png")
+        exercise.setTools(exerciseDAO.getTools());
+        exercise.setBody_parts(exerciseDAO.getBody_part());
 
-            // File file = new File("/static/images/foto.jpg");
-            // byte[] picInBytes = new byte[(int) file.length()];
-            // FileInputStream fileInputStream = new FileInputStream(file);
-            // fileInputStream.read(picInBytes);
-            // fileInputStream.close();
-            // exercise.setImage(picInBytes);
-            
+        try {
             exercise.setImage(exerciseDAO.getImage().getBytes());
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -84,9 +77,6 @@ public class ExerciseServiceImpl implements ExercisesService{
         for (Exercise exercise : exercises) {
             exercise.setImageBase64(exercise.getImage());
         }
-
-        // image = Base64.getEncoder().encode(image);
-        // <img th:src="*{'data:image/png;base64,'+image}" alt=""/>
         
         return exercises;
     }

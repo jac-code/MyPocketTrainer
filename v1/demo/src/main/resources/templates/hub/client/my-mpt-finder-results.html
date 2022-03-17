@@ -37,14 +37,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr th:each="user: ${users_list}"> -->
                             <tr>
                                 <td th:text="${user.first_name}"></td>
                                 <td th:text="${user.last_name}"></td>
                                 <td th:text="${user.user_name}"></td>
                                 <td th:text="${user.email}"></td>
             
-                                <td><a th:href="@{/clients/client-free/home} + ${#strings.toString(user.user_id)}" th:text="'FOLLOW'" class="btn btn-outline-info"></a></td>
+                                <td><a th:href="@{/clients/client-free/home} + ${#strings.toString(user.user_id)}" th:text="'SEE USER'" class="btn btn-outline-info"></a></td>
                             </tr>
                         </tbody>
                         <tfoot>

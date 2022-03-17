@@ -25,7 +25,10 @@ public class ExerciseDAO {
     @Basic(fetch = FetchType.LAZY)
     private MultipartFile image;
 
-    public ExerciseDAO(String exercise_name, String exercise_description, MultipartFile image) {
+    private String body_part;
+    private String tools;
+
+    public ExerciseDAO(String exercise_name, String exercise_description, MultipartFile image, List<String> body_parts, List<String> tools) {
         this.exercise_name = exercise_name;
         this.exercise_description = exercise_description;
         this.image = image;

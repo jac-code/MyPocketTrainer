@@ -27,19 +27,34 @@
                 <input type="text" th:field="*{exercise_name}" placeholder="Exercise name" class="form-control mb-4 col-4">
                 <input type="text" th:field="*{exercise_description}" placeholder="Exercise description" class="form-control mb-4 col-4">
                 <hr>
-                <input type="checkbox" id="body_part1" name="body_part1" value="Arms">
-                <label for="body_part1"> Arms</label><br>
-                <input type="checkbox" id="body_part2" name="body_part2" value="Shoulders">
-                <label for="body_part2"> Shoulders</label><br>
-                <input type="checkbox" id="body_part3" name="body_part3" value="Legs">
-                <label for="body_part3"> Legs</label><br>
+                <input type="radio" id="WEIGHTS" name="WEIGHTS" value="WEIGHTS" th:field="*{tools}">
+                <label for="client">WEIGHTS</label><br>
+
+                <input type="radio" id="RESISTANCE BAND" name="RESISTANCE BAND" value="RESISTANCE BAND" th:field="*{tools}">
+                <label for="professional">RESISTANCE BAND</label><br>
+
+                <input type="radio" id="NONE" name="NONE" value="NONE" th:field="*{tools}">
+                <label for="client">NONE</label><br>
+
+                <input type="radio" id="MACHINERY" name="MACHINERY" value="MACHINERY" th:field="*{tools}">
+                <label for="professional">MACHINERY</label><br>
                 <hr>
-                <input type="checkbox" id="tool1" name="tool1" value="Weights">
-                <label for="tool1"> Weights</label><br>
-                <input type="checkbox" id="tool2" name="tool2" value="Resistance Band">
-                <label for="tool2"> Resistance Band</label><br>
-                <input type="checkbox" id="tool3" name="tool3" value="None">
-                <label for="tool3"> None</label><br>
+
+                <input type="radio" id="ARMS" name="ARMS" value="ARMS" th:field="*{body_part}">
+                <label for="professional">ARMS</label><br>
+
+                <input type="radio" id="SHOULDERS" name="SHOULDERS" value="SHOULDERS" th:field="*{body_part}">
+                <label for="client">SHOULDERS</label><br>
+
+                <input type="radio" id="BACK" name="BACK" value="BACK" th:field="*{body_part}">
+                <label for="professional">BACK</label><br>
+
+                <input type="radio" id="LEGS" name="LEGS" value="LEGS" th:field="*{body_part}">
+                <label for="client">LEGS</label><br>
+
+                <input type="radio" id="ABS" name="ABS" value="ABS" th:field="*{body_part}">
+                <label for="client">ABS</label><br>
+
                 <hr>
                 <label>Foto / GIF: </label>
                 <input type="file" th:field="*{image}" name="image" accept="image/png, image/jpeg, image/gif" />

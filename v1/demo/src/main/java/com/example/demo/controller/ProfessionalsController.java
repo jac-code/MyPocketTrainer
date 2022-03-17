@@ -168,7 +168,6 @@ public class ProfessionalsController {
     public String saveExercise(@ModelAttribute("new_exercise") ExerciseDAO exerciseDAO) throws IOException{
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-        // exerciseDAO.setImage(image);
 
         exercisesService.saveNewExercise(exerciseDAO, userPrincipal.getUsername());
         return "redirect:" + URL_MY_EXERCISES;    // nos REDIRECCIONA a la pagina con todas las dietas
@@ -183,7 +182,6 @@ public class ProfessionalsController {
 
 		return "redirect:../" + URL_MY_EXERCISES;
 	}
-
     
     /* ********************************************************************* */
     /* ******************** RECIPES ****************** */
