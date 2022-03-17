@@ -1,6 +1,9 @@
 package com.example.demo.service.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -41,14 +44,29 @@ public class ExerciseServiceImpl implements ExercisesService{
     private ClientsService clientsService;
 
     @Override
-    public void saveNewExercise(ExerciseDAO exerciseDAO, String user_name) throws IOException{
+    public void saveNewExercise(ExerciseDAO exerciseDAO, String user_name) {
         Exercise exercise = new Exercise();
         ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
         Professional p = professionalsService.getProfessionalById(modelUser.getUser_id());
 
         exercise.setExercise_description(exerciseDAO.getExercise_description());
         exercise.setExercise_name(exerciseDAO.getExercise_name());
-        exercise.setImage(exerciseDAO.getImage().getBytes());
+        try {
+            // exercise.setImage(Base64.getEncoder().encodeToString(exerciseDAO.getImage().getBytes()));
+            //On windows new File("img\\JBDFav300.png")
+
+            // File file = new File("/static/images/foto.jpg");
+            // byte[] picInBytes = new byte[(int) file.length()];
+            // FileInputStream fileInputStream = new FileInputStream(file);
+            // fileInputStream.read(picInBytes);
+            // fileInputStream.close();
+            // exercise.setImage(picInBytes);
+            
+            exercise.setImage(exerciseDAO.getImage().getBytes());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         exercise.setProfessional(p);
 
         exercisesRepository.save(exercise);
@@ -62,6 +80,14 @@ public class ExerciseServiceImpl implements ExercisesService{
     @Override
     public List<Exercise> listExercisesByProfessional(String user_name) {
         ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
-        return exercisesRepository.findExercisesByProfessional(modelUser.getUser_id());
+        List <Exercise> exercises = exercisesRepository.findExercisesByProfessional(modelUser.getUser_id());
+        for (Exercise exercise : exercises) {
+            exercise.setImageBase64(exercise.getImage());
+        }
+
+        // image = Base64.getEncoder().encode(image);
+        // <img th:src="*{'data:image/png;base64,'+image}" alt=""/>
+        
+        return exercises;
     }
 }

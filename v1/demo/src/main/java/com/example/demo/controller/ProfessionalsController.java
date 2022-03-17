@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -22,6 +26,7 @@ import com.example.demo.controller.dao.DietDAO;
 import com.example.demo.controller.dao.ExerciseDAO;
 import com.example.demo.controller.dao.RecipeDAO;
 import com.example.demo.controller.dao.RoutineDAO;
+import com.example.demo.model.Exercise;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.ModelUserDetails;
 import com.example.demo.security.IAuthenticationFacade;
@@ -160,9 +165,10 @@ public class ProfessionalsController {
     }
 
     @PostMapping("/" + URL_SAVE_EXERCISE)
-    public String saveExercise(@ModelAttribute("new_exercise") ExerciseDAO exerciseDAO) {
+    public String saveExercise(@ModelAttribute("new_exercise") ExerciseDAO exerciseDAO) throws IOException{
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+        // exerciseDAO.setImage(image);
 
         exercisesService.saveNewExercise(exerciseDAO, userPrincipal.getUsername());
         return "redirect:" + URL_MY_EXERCISES;    // nos REDIRECCIONA a la pagina con todas las dietas

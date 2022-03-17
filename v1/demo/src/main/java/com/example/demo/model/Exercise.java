@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.util.Base64;
 import java.util.List;
 
 import javax.persistence.*;
@@ -27,11 +28,14 @@ public class Exercise {
     @Column(name = "image")
     private byte[] image;
 
-    // @Column(name = "body_part")
-    // private List<String> body_parts;
+    // para poder representarla en html 
+    private String imageBase64;
 
-    // @Column(name = "tools")
-    // private List<String> tools;
+    @Column(name = "body_part")
+    private List<String> body_parts;
+
+    @Column(name = "tools")
+    private List<String> tools;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")
@@ -40,4 +44,8 @@ public class Exercise {
     // si quitamos esto es UNIDIRECCIONAL --> lo que quiero
     // @ManyToMany(mappedBy = "exercises")
     // Set<Routine> routines;
+
+    public void setImageBase64(byte[] image) {
+        this.imageBase64 = Base64.getEncoder().encodeToString(image);
+    }
 }

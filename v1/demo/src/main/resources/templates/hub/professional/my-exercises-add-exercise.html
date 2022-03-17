@@ -21,25 +21,35 @@
         <div th:replace="hub/layouts/layout-professional-basic::navbar"></div>
 
         <div class="container">
-            <div class="container">
-                <h1>Exercise Management System</h1>
+            <h2>Add Exercise</h2>
+        
+            <form th:action="@{/professionals/professional-basic/save-exercise}" th:object="${new_exercise}" method="POST" enctype="multipart/form-data">
+                <input type="text" th:field="*{exercise_name}" placeholder="Exercise name" class="form-control mb-4 col-4">
+                <input type="text" th:field="*{exercise_description}" placeholder="Exercise description" class="form-control mb-4 col-4">
                 <hr>
-                <h2>Add Exercise</h2>
-            
-                <form th:action="@{/professionals/professional-basic/save-exercise}" th:object="${new_exercise}" method="POST" enctype="multipart/form-data">
-                    <input type="text" th:field="*{exercise_name}" placeholder="Exercise name" class="form-control mb-4 col-4"> 
-                    <input type="text" th:field="*{exercise_description}" placeholder="Exercise description" class="form-control mb-4 col-4">
-
-                    <label>Foto / GIF: </label>
-                    <input type="file" name="image" accept="image/png, image/jpeg, image/gif" />
-
-                    <button type="submit" class="btn btn-info col-2">Add Exercise</button>
-                </form>
-            
+                <input type="checkbox" id="body_part1" name="body_part1" value="Arms">
+                <label for="body_part1"> Arms</label><br>
+                <input type="checkbox" id="body_part2" name="body_part2" value="Shoulders">
+                <label for="body_part2"> Shoulders</label><br>
+                <input type="checkbox" id="body_part3" name="body_part3" value="Legs">
+                <label for="body_part3"> Legs</label><br>
                 <hr>
-            
-                <a th:href="@{/professionals/professional-basic/my-exercises/}"> Volver a ver la lista de ejercicios</a>
-            </div>
+                <input type="checkbox" id="tool1" name="tool1" value="Weights">
+                <label for="tool1"> Weights</label><br>
+                <input type="checkbox" id="tool2" name="tool2" value="Resistance Band">
+                <label for="tool2"> Resistance Band</label><br>
+                <input type="checkbox" id="tool3" name="tool3" value="None">
+                <label for="tool3"> None</label><br>
+                <hr>
+                <label>Foto / GIF: </label>
+                <input type="file" th:field="*{image}" name="image" accept="image/png, image/jpeg, image/gif" />
+        
+                <button type="submit" class="btn btn-info col-2">Add Exercise</button>
+            </form>
+        
+            <hr>
+        
+            <a th:href="@{/professionals/professional-basic/my-exercises/}"> Volver a ver la lista de ejercicios</a>
         </div>
 
         <!--===== MAIN JS =====-->

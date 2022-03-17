@@ -21,42 +21,42 @@
         <div th:replace="hub/layouts/layout-client-free::navbar"></div>
 
         <div class="container">
-                <div class="card bg-light">
-                    <div class="card-header">
-                        <h3>Usuarios encontrados:</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellidos</th>
-                                    <th>Usuario</th>
-                                    <th>Email</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <tr th:each="user: ${users_list}"> -->
-                                <tr>
-                                    <td th:text="${user.first_name}"></td>
-                                    <td th:text="${user.last_name}"></td>
-                                    <td th:text="${user.user_name}"></td>
-                                    <td th:text="${user.email}"></td>
-
-                                    <td><a th:href="@{/clients/client-free/home} + ${#strings.toString(user.user_id)}" th:text="'FOLLOW'" class="btn btn-outline-info"></a></td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="5">
-                                        <a th:href="@{/clients/client-free/my-mpt-finder}" class="btn btn-outline-primary btn-block">Conectar con usuarios</a>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h3>Usuarios encontrados:</h3>
                 </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Usuario</th>
+                                <th>Email</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <tr th:each="user: ${users_list}"> -->
+                            <tr>
+                                <td th:text="${user.first_name}"></td>
+                                <td th:text="${user.last_name}"></td>
+                                <td th:text="${user.user_name}"></td>
+                                <td th:text="${user.email}"></td>
+            
+                                <td><a th:href="@{/clients/client-free/home} + ${#strings.toString(user.user_id)}" th:text="'FOLLOW'" class="btn btn-outline-info"></a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <a th:href="@{/clients/client-free/my-mpt-finder}" class="btn btn-outline-primary btn-block">Conectar con usuarios</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!--===== MAIN JS =====-->

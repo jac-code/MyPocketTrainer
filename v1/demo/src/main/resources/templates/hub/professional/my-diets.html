@@ -36,9 +36,10 @@
                                     <th>Id Dieta</th>
                                     <th>Nombre</th>
                                     <th>Descripción</th>
-                                    <th>hola</th>
-                                    <th>hola</th>
-                                    <th>hola</th>
+                                    <th>Recetas</th>
+                                    <th>Añadir receta</th>
+                                    <th>Añadir a cliente</th>
+                                    <th>Eliminar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,10 +47,17 @@
                                     <td th:text="${#strings.toString(diet.diet_id)}"></td>
                                     <td th:text="${diet.diet_name}"></td>
                                     <td th:text="${diet.diet_description}"></td>
-                                    <td><a th:href="@{/professionals/professional-basic/delete-diet/} + ${#strings.toString(diet.diet_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
-                                    
+                                    <tr th:each="recipe: ${diets_list.recipes}">
+                                        <td th:text="${#strings.toString(recipe.recipe_id)}"></td>    
+                                        <td th:text="${recipe.recipe_name}"></td>
+                                        <td th:text="${recipe.recipe_description}"></td>
+                                    </tr>
+                                    <td><a th:href="@{/professionals/professional-basic/my-recipes/} + ${#strings.toString(diet.diet_id)}" th:text="'Configurar Receta'" class="btn btn-outline-info"></a></td>
+
                                     <!-- value is a String and is not “false”, “off” or “no” -->
                                     <td th:if="${client_user_name}"><a th:href="@{/professionals/professional-basic/link-diet-client/} + ${client_user_name} + @{/} + ${#strings.toString(diet.diet_id)}" th:text="'Add to Client'" class="btn btn-outline-danger"></a></td>
+                                    
+                                    <td><a th:href="@{/professionals/professional-basic/delete-diet/} + ${#strings.toString(diet.diet_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>
