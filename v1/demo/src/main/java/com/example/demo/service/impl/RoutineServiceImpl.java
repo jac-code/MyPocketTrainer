@@ -80,4 +80,10 @@ public class RoutineServiceImpl implements RoutineService{
         routine.linkExerciseToRoutine(exercise);
         routinesRepository.save(routine);
     }
+
+    @Override
+    public List<Routine> listFollowedRoutines(String user_name) {
+        Client client = clientsService.getClientByUsername(user_name);
+        return client.getFollowed_routines();
+    }
 }

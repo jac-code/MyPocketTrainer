@@ -10,10 +10,9 @@
         <!-- BOOTSTRAP -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
-        <!-- ===== CSS =====
-        <link rel="stylesheet"  th:href="@{/css/hub/clients/styles-free.css}"> -->
+        <!-- ===== CSS ===== -->
         <link th:replace="hub/layouts/layout-client-free::css_free">
-
+        
         <title>MPT | MyPocketTrainer</title>
     </head>
     <body id="body-pd">
@@ -21,10 +20,11 @@
 
         <div th:replace="hub/layouts/layout-client-free::navbar"></div>
 
-        <div class="container">
+        <div th:if="${isPublic}" class="container">
+            <h2>Esta es la información disponible de, <span th:text="${professional_username}"></span></h2>
             <div class="card bg-light">
                 <div class="card-header">
-                    <h3>RUTINAS PROGRAMADAS:</h3>
+                    <h3>RUTINAS PÚBLICAS:</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -40,6 +40,7 @@
                                 <td th:text="${#strings.toString(routine.routine_id)}"></td>
                                 <td th:text="${routine.routine_name}"></td>
                                 <td th:text="${routine.routine_description}"></td>
+                                <td><a th:href="@{/clients/client-free/add-professional-routine/} + ${#strings.toString(routine.routine_id)}" th:text="'AÑADIR'" class="btn btn-outline-danger"></a></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -53,7 +54,7 @@
 
             <div class="card bg-light">
                 <div class="card-header">
-                    <h3>DIETAS PROGRAMADAS:</h3>
+                    <h3>DIETAS PÚBLICAS:</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -62,6 +63,7 @@
                                 <th>Id Dieta</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
+                                <th>AÑADIR</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,74 +71,21 @@
                                 <td th:text="${#strings.toString(diet.diet_id)}"></td>
                                 <td th:text="${diet.diet_name}"></td>
                                 <td th:text="${diet.diet_description}"></td>
+                                <td><a th:href="@{/clients/client-free/add-professional-diet/} + ${#strings.toString(diet.diet_id)}" th:text="'AÑADIR'" class="btn btn-outline-danger"></a></td>
                             </tr>
                         </tbody>
                         <tfoot>
-                            <p>FOOTER</p>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card bg-light">
-                <div class="card-header">
-                    <h3>DIETAS SEGUIDAS:</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Id Dieta</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="diet: ${followed_diets}">
-                                <td th:text="${#strings.toString(diet.diet_id)}"></td>
-                                <td th:text="${diet.diet_name}"></td>
-                                <td th:text="${diet.diet_description}"></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <p>FOOTER</p>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-
-            <div class="card bg-light">
-                <div class="card-header">
-                    <h3>RUTINAS SEGUIDAS:</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Routine Id</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="routine: ${followed_routines}">
-                                <td th:text="${#strings.toString(routine.routine_id)}"></td>
-                                <td th:text="${routine.routine_name}"></td>
-                                <td th:text="${routine.routine_description}"></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <p>FOOTER</p>
-                            </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
         </div>
-        
+
+        <div th:if="${isPrivate}" class="container">
+            <h2>El profesional <span th:text="${professional_username}"></span> tiene la cuenta privada.</h2>
+        </div>
+
         <!--===== MAIN JS =====-->
-        <!-- <script th:src="@{/js/hub/clients/main-free.js}"></script> -->
         <script th:replace="hub/layouts/layout-client-free::js_free"></script>
     </body>
 </html>

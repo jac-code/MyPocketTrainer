@@ -21,25 +21,23 @@
         <div th:replace="hub/layouts/layout-client-free::navbar"></div>
 
         <div class="container">
-            <div class="container">
-                <h1>Welcome to the MPT - Finder</h1>
-                <hr>
-                <h2>Link with MPT users</h2>
-                <!-- th:action="@{/clients/client-free/my-mpt-finder-results}" -->
-                <form th:action="@{/clients/client-free/my-mpt-finder-results}" th:object="${new_user}" method="get">
-                    <input type="text" th:field="*{parameter}" placeholder="Users username" class="form-control mb-4 col-4"> 
-                    
-                    <input type="radio" id="client" name="client" value="CLIENT" th:field="*{user_type}">
-                    <label for="client">Client</label><br>
+            <h1>Welcome to the MPT - Finder</h1>
+            <hr>
+            <h2>Link with MPT users</h2>
+            <!-- th:action="@{/clients/client-free/my-mpt-finder-results}" -->
+            <form th:action="@{/clients/client-free/my-mpt-finder-results}" th:object="${new_user}" method="get">
+                <input type="text" th:field="*{parameter}" placeholder="Users username" class="form-control mb-4 col-4"> 
+                
+                <input type="radio" id="client" name="client" value="CLIENT" th:field="*{user_type}">
+                <label for="client">Client</label><br>
 
-                    <input type="radio" id="professional" name="professional" value="PROFESSIONAL" th:field="*{user_type}">
-                    <label for="professional">Professional</label><br>
-                    
-                    <button type="submit" class="btn btn-info col-2">Search</button>
-                </form>
-            
-                <hr>
-            </div>
+                <input type="radio" id="professional" name="professional" value="PROFESSIONAL" th:field="*{user_type}">
+                <label for="professional">Professional</label><br>
+                
+                <button type="submit" class="btn btn-info col-2">Search</button>
+            </form>
+        
+            <hr>
         </div>
 
         <!--===== MAIN JS =====-->

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.example.demo.controller.dao.RoutineDAO;
@@ -11,4 +12,5 @@ public interface RoutineService {
     public Routine getRoutineById(Long routine_id);
     public List<Routine> listLinkedRoutines(String user_name);
     public void ExerciseLinksWithRoutine(String routine_id, String exercise_id, String professional_user_name);
+    public List<Routine> listFollowedRoutines(String user_name);
 }

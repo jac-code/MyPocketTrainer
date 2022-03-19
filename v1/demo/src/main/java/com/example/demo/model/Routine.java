@@ -22,10 +22,11 @@ public class Routine {
 
     @ManyToMany
     @JoinTable(
-    name = "ROUTINE_EXERCISE", 
-    joinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"), 
-    inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id"))
-    List<Exercise> exercises;
+            name = "ROUTINE_EXERCISE",
+            joinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"), 
+            inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id")
+    )
+    private List<Exercise> exercises;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")

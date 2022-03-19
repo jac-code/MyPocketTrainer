@@ -223,7 +223,7 @@ public class ProfessionalsController {
     }
 
     @PostMapping("/" + URL_SAVE_RECIPE)
-    public String saveRecipe(@ModelAttribute("new_recipe") RecipeDAO recipeDAO) {
+    public String saveRecipe(@ModelAttribute("new_recipe") RecipeDAO recipeDAO) throws IOException{
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 

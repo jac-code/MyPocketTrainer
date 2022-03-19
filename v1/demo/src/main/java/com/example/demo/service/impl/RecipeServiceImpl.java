@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -52,7 +53,23 @@ public class RecipeServiceImpl implements RecipesService{
 
         recipe.setRecipe_description(recipeDAO.getRecipe_description());
         recipe.setRecipe_name(recipeDAO.getRecipe_name());
-        recipe.setImage(recipeDAO.getImage());
+        recipe.setEquipment(recipeDAO.getEquipment());
+        recipe.setIngredients(recipeDAO.getIngredients());
+        
+        try {
+            recipe.setImage(recipeDAO.getImage().getBytes());
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        recipe.setCalories(recipeDAO.getCalories());
+        recipe.setCarbs(recipeDAO.getCarbs());
+        recipe.setCooking_time(recipeDAO.getCooking_time());
+        recipe.setFat(recipeDAO.getFat());
+        recipe.setPrice(recipeDAO.getPrice());
+        recipe.setProtein(recipeDAO.getProtein());
+        recipe.setType(recipeDAO.getType());
         recipe.setProfessional(p);
 
         recipesRepository.save(recipe);
@@ -60,7 +77,11 @@ public class RecipeServiceImpl implements RecipesService{
 
     public List<Recipe> listRecipesByProfessional(String user_name) {
         ModelUser modelUser = modelUserService.getModelUserByUsername(user_name);
-        return recipesRepository.findRecipesByProfessional(modelUser.getUser_id());
+        List <Recipe> recipes = recipesRepository.findRecipesByProfessional(modelUser.getUser_id());
+        for (Recipe recipe : recipes) {
+            recipe.setImageBase64(recipe.getImage());
+        }
+        return recipes;
     }
 
     @Override

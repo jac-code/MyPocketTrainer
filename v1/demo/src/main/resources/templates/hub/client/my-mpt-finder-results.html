@@ -43,7 +43,7 @@
                                 <td th:text="${user.user_name}"></td>
                                 <td th:text="${user.email}"></td>
             
-                                <td><a th:href="@{/clients/client-free/home} + ${#strings.toString(user.user_id)}" th:text="'SEE USER'" class="btn btn-outline-info"></a></td>
+                                <td><a th:href="@{/clients/client-free/my-mpt-finder/} + ${#strings.toString(user.user_id)}" th:text="'SEE USER'" class="btn btn-outline-info"></a></td>
                             </tr>
                         </tbody>
                         <tfoot>

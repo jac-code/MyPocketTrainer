@@ -197,6 +197,11 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
         Exercise to_delete_exercise = exercisesService.getExerciseById(exercise_id);
         Professional professional = professionalsRepository.findProfessionalByUsername(user_name);
         professional.deleteExercise(to_delete_exercise);
+        
+        // tenemos que eliminar si estaba en una rutina
+        // habría que mirar si eliminar también de los usuarios
+        
+
         professionalsRepository.save(professional);
     }
 

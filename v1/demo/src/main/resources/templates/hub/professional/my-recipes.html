@@ -42,11 +42,11 @@
                                 <td th:text="${#strings.toString(recipe.recipe_id)}"></td>
                                 <td th:text="${recipe.recipe_name}"></td>
                                 <td th:text="${recipe.recipe_description}"></td>
+                                <td><img alt="" th:src="*{'data:image/jpeg;base64,'+{recipe.imageBase64}}" style="width: 100px;height: 100px;"></td>
         
                                 <!-- value is a String and is not “false”, “off” or “no” -->
-                                <td th:if="${diet_id}"><a th:href="@{/professionals/professional-basic/link-recipe-client/} + ${diet_id} + @{/} + ${#strings.toString(recipe.recipe_id)}" th:text="'Add to Diet'" class="btn btn-outline-danger"></a></td>
+                                <td><a th:if="${diet_id}" th:href="@{/professionals/professional-basic/link-recipe-diet/} + ${diet_id} + @{/} + ${#strings.toString(recipe.recipe_id)}" th:text="'Add to Diet'" class="btn btn-outline-danger"></a></td>
                                 <td><a th:href="@{/professionals/professional-basic/delete-recipe/} + ${#strings.toString(recipe.recipe_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
-    
                             </tr>
                         </tbody>
                         <tfoot>

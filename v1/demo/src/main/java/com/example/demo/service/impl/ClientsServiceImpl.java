@@ -113,6 +113,22 @@ public class ClientsServiceImpl implements ClientsService{
         clientsRepository.save(actual_client);
     }
 
+    @Override
+    public void ClientFollowsDiets(String diet_id, String client_user_name) {
+        Client client = clientsRepository.findClientByUsername(client_user_name);
+        Diet diet = dietService.getDietById(Long.parseLong(diet_id));
+        client.addFollowedDiet(diet);
+        clientsRepository.save(client);
+    }
+
+    @Override
+    public void ClientFollowsRoutines(String routine_id, String client_user_name) {
+        Client client = clientsRepository.findClientByUsername(client_user_name);
+        Routine routine = routineService.getRoutineById(Long.parseLong(routine_id));
+        client.addFollowedRoutine(routine);
+        clientsRepository.save(client);
+    }
+
     private boolean emailExists(String email) {
         return modelUserService.getModelUserByEmail(email) != null;
     }

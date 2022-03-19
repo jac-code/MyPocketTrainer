@@ -21,6 +21,7 @@ import lombok.*;
 @Table(name = "PROFESSIONALS")
 @Getter
 @Setter
+@NoArgsConstructor
 @PrimaryKeyJoinColumn(referencedColumnName="user_id")
 public class Professional extends ModelUser{
     @Column(name = "work_zone", nullable = true)
@@ -28,6 +29,9 @@ public class Professional extends ModelUser{
 
     @Column(name="rating", nullable = true)
     private int rating;
+
+    @Column(name="public", nullable = true)
+    private boolean isPublic;
 
     // @ManyToMany(cascade = CascadeType.ALL)
     @ManyToMany
@@ -54,11 +58,7 @@ public class Professional extends ModelUser{
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes;
-
-    public Professional() {
-        
-    }
-
+    
     /*************** CLIENTS ***************/
 
     public void linkClient(Client client) {

@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
-import java.util.List;
-import java.util.Set;
+import java.util.List;  
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +37,7 @@ public class Diet {
     name = "DIET_RECIPE",
     joinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"), 
     inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id"))
-    List<Recipe> recipes;
+    private List<Recipe> recipes;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")

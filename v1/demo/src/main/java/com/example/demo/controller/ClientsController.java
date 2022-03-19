@@ -25,6 +25,7 @@ import com.example.demo.controller.dao.UserFinderDAO;
 import com.example.demo.exceptions.InvalidVerificationTokenException;
 import com.example.demo.exceptions.UserAlreadyExistsException;
 import com.example.demo.model.ModelUser;
+import com.example.demo.model.Professional;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DietService;
@@ -46,6 +47,7 @@ public class ClientsController {
 
     public static final String PAGE_MPT_FINDER = "my-mpt-finder";
     public static final String PAGE_MPT_FINDER_RESULTS = "my-mpt-finder-results";
+    public static final String PAGE_PROFESSIONAL_DATA = "my-mpt-finder-professional-data";
 
     public static final String URL_MY_PROFESSIONALS = "my-professionals";
     public static final String URL_ADD_PROFESSIONAL = "add-professional";
@@ -53,6 +55,8 @@ public class ClientsController {
 
     public static final String URL_MPT_FINDER = "my-mpt-finder";
     public static final String URL_MPT_FINDER_RESULTS = "my-mpt-finder-results";
+    public static final String URL_MPT_FINDER_ADD_DIET = "add-professional-diet";
+    public static final String URL_MPT_FINDER_ADD_ROUTINE = "add-professional-routine";
     
     @Autowired
     private IAuthenticationFacade authenticationFacade;
@@ -81,6 +85,8 @@ public class ClientsController {
         // CAMBIAR la función del service para que sacar por --> LINKED
         modelMap.addAttribute("routines", routineService.listLinkedRoutines(userPrincipal.getUsername()));        
         modelMap.addAttribute("diets_list", dietService.listLinkedDiets(userPrincipal.getUsername()));
+        modelMap.addAttribute("followed_diets", dietService.listFollowedDiets(userPrincipal.getUsername()));
+        modelMap.addAttribute("followed_routines", routineService.listFollowedRoutines(userPrincipal.getUsername()));
         return DIRECCION_BASE + "client-free";
     }
     
@@ -154,6 +160,27 @@ public class ClientsController {
         return DIRECCION_BASE + PAGE_MPT_FINDER;
     }
 
+    @GetMapping("/" + URL_MPT_FINDER + "/" + "{professional_id}")
+    public String showProfessionalInfo(@PathVariable(required = false) String professional_id, ModelMap modelMap) {
+        // primero comprobamos si tiene perfil público
+        Professional p = professionalsService.getProfessionalById(Long.parseLong(professional_id));
+        if (p.isPublic()) {
+            // es PÚBLICO
+            modelMap.addAttribute("isPublic", "true");
+            modelMap.addAttribute("isPrivate", "false");
+            modelMap.addAttribute("professional_username", p.getUser_name());
+            modelMap.addAttribute("routines", routineService.listRoutinesByProfessional(p.getUser_name()));
+            modelMap.addAttribute("diets", dietService.listDietsByProfessional(p.getUser_name()));
+        } else {
+            // es PRIVADO
+            modelMap.addAttribute("isPublic", "false");
+            modelMap.addAttribute("isPrivate", "true");
+            modelMap.addAttribute("professional_username", p.getUser_name());
+        }
+
+        return DIRECCION_BASE + PAGE_PROFESSIONAL_DATA;
+    }
+
     @GetMapping("/" + URL_MPT_FINDER_RESULTS)
     public String listSearchedUsers(UserFinderDAO new_user, Model model) {
         switch (new_user.getUser_type()) {
@@ -170,5 +197,23 @@ public class ClientsController {
         return DIRECCION_BASE + PAGE_MPT_FINDER_RESULTS;
     }
 
-    @GetMapping("")
+    @GetMapping("/" + URL_MPT_FINDER_ADD_DIET + "/" + "{diet_id}")
+    public String addDietFromProfessional(@PathVariable(required = false) String diet_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        clientsService.ClientFollowsDiets(diet_id, userPrincipal.getUsername());
+
+        return "redirect:/clients/client-free/" + "home";
+    }
+
+    @GetMapping("/" + URL_MPT_FINDER_ADD_ROUTINE + "/" + "{routine_id}")
+    public String addRoutineFromProfessional(@PathVariable(required = false) String routine_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        clientsService.ClientFollowsRoutines(routine_id, userPrincipal.getUsername());
+
+        return "redirect:/clients/client-free/" + "home";
+    }
 }

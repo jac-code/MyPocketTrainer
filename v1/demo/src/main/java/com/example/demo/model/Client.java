@@ -8,6 +8,7 @@ import lombok.*;
 @Table(name = "CLIENTS")
 @Getter
 @Setter
+@NoArgsConstructor
 @PrimaryKeyJoinColumn(referencedColumnName="user_id")
 public class Client extends ModelUser{
 
@@ -28,49 +29,35 @@ public class Client extends ModelUser{
 
     @ManyToMany
     @JoinTable(
-    name = "FAVOURITE_CLIENT_RECIPES",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id"))
-    private List<Recipe> recipes;
+            name = "FOLLOWED_DIETS",
+            joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id")
+    )
+    private List<Diet> followed_diets;
 
     @ManyToMany
     @JoinTable(
-    name = "FAVOURITE_CLIENT_DIETS",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"))
-    private List<Diet> diets;
+            name = "FOLLOWED_ROUTINES",
+            joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id")
+    )
+    private List<Routine> followed_routines;
 
     @ManyToMany
     @JoinTable(
-    name = "FAVOURITE_CLIENT_EXERCISES",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id"))
-    private List<Exercise> exercises;
-
-    @ManyToMany
-    @JoinTable(
-    name = "FAVOURITE_CLIENT_ROUTINES",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
-    private List<Routine> routines;
-
-    @ManyToMany
-    @JoinTable(
-    name = "LINKED_ROUTINES",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
+            name = "LINKED_ROUTINES",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id")
+    )
     private List<Routine> linkedRoutines;
 
     @ManyToMany
     @JoinTable(
-    name = "LINKED_DIETS",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id"))
+            name = "LINKED_DIETS",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id")
+    )
     private List<Diet> linkedDiets;
-
-    public Client() {
-
-    }
 
     public void linkProfessional(Professional p) {
         this.professionals.add(p);
@@ -78,6 +65,22 @@ public class Client extends ModelUser{
 
     public void removeLinkedProfessional(Professional p) {
         this.professionals.remove(p);
+    }
+
+    public void addFollowedRoutine(Routine routine) {
+        this.followed_routines.add(routine);
+    }
+
+    public void addFollowedDiet(Diet diet) {
+        this.followed_diets.add(diet);
+    }
+
+    public void unFollowRoutine(Routine routine) {
+        this.followed_routines.remove(routine);
+    }
+
+    public void unFollowDiet(Diet diet) {
+        this.followed_diets.remove(diet);
     }
 
     public void linkRoutine(Routine routine) {

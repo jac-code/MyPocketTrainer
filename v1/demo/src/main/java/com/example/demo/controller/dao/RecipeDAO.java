@@ -5,7 +5,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
-import javax.validation.constraints.NotEmpty;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.*;
 
@@ -13,19 +14,19 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class RecipeDAO {
-    @NotEmpty(message = "Diet name can not be empty")
     private String recipe_name;
-
-    @NotEmpty(message = "Diet name can not be empty")
     private String recipe_description;
-
+    private List<String> equipment;
+    private List<String> ingredients;
+    private String cooking_time;
+    private String price;
+    private String calories;
+    private String protein;
+    private String fat;
+    private String carbs;
+    private String type;
+    
     @Lob
     @Basic(fetch = FetchType.LAZY)
-    private byte[] image;
-
-    public RecipeDAO(String recipe_name, String recipe_description, byte[] image) {
-        this.recipe_name = recipe_name;
-        this.recipe_description = recipe_description;
-        this.image = image;
-    }
+    private MultipartFile image;
 }

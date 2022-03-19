@@ -24,4 +24,6 @@ public interface ClientsService {
 
     public void RoutineLinksToClient(String client_user_name, String routine_id, String professional_user_name);
     public void DietLinksToClient(String client_user_name, String diet_id, String professional_user_name);
+    public void ClientFollowsRoutines(String routine_id, String client_user_name);
+    public void ClientFollowsDiets(String diet_id, String client_user_name);
 }

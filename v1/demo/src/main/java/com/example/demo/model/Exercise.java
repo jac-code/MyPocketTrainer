@@ -29,7 +29,8 @@ public class Exercise {
     @Column(name = "image")
     private byte[] image;
 
-    // para poder representarla en html 
+    // para poder representarla en html
+    @Transient
     private String imageBase64;
 
     @Column(name = "body_part")
@@ -43,8 +44,16 @@ public class Exercise {
     private Professional professional;
 
     // si quitamos esto es UNIDIRECCIONAL --> lo que quiero
+    // NOT owner
     // @ManyToMany(mappedBy = "exercises")
-    // Set<Routine> routines;
+    // private List<Routine> routines;
+
+    // @ManyToMany(cascade = CascadeType.REMOVE)
+    // @JoinTable(
+    // name = "ROUTINE_EXERCISE",
+    // joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id"),
+    // inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id"))
+    // private List<Routine> routines;
 
     public void setImageBase64(byte[] image) {
         this.imageBase64 = Base64.getEncoder().encodeToString(image);

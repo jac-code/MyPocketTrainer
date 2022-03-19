@@ -79,4 +79,10 @@ public class DietServiceImpl implements DietService{
         diet.linkRecipeToDiet(recipe);
         dietsRepository.save(diet);
     }
+
+    @Override
+    public List<Diet> listFollowedDiets(String user_name) {
+        Client client = clientsService.getClientByUsername(user_name);
+        return client.getFollowed_diets();
+    }
 }
