@@ -6,9 +6,7 @@
     /*===== Font and typography =====*/
     --body-font: 'Poppins', sans-serif;
     --normal-font-size: 1rem;
-    --big-font-size: 1.5rem;
-  
-    
+    --big-font-size: 1.5rem;    
   
     /* ================= COLORS BACKGROUND ================ */
     --color-white: #ffffff;
@@ -34,7 +32,8 @@
     --padding-2: 8px;
     --card-border-radius: 1.6rem;
     --border-radius-1: 1rem;
-    --border-radius-2: 6px;
+    --border-radius-2: 5%;
+    --border-radius-general: 2rem;
   
     --size-sidebar: 16rem;
     --size-section: 30rem;
@@ -155,7 +154,6 @@
     border-radius: var(--border-radius-1);
     padding: 1.4rem var(--card-padding);
     transition: all 300ms ease;
-
     /* margin-bottom: .7rem; */
 }
 
@@ -173,32 +171,38 @@
     font-weight: 600;
 }
 
+.add__something a {
+    color: var(--fourth-color);
+}
+
 /********************** SEARCH BAR **********************/
-.search__bar {
-    background-color: var(--color-light);
-    border-radius: var(--border-radius-1);
-    padding: var(--search-padding);
+.search__form {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    background: var(--color-white);
+    padding: .4rem var(--card-padding);
+    border-radius: var(--border-radius-general);
 }
 
-.search__bar input[type="search"] {
+.search__form input[type=text] {
+    justify-self: start;
+    width: 100%;
+    padding-left: 1rem;
     background: transparent;
-    width: 10vw;
-    margin-left: 1rem;
-    font-size: .9rem;
     color: var(--color-dark);
+    margin-right: 1rem;
 }
 
-.search__bar input[type="search"]::placeholder {
-    color: var(--color-gray-light);
-}
 
 /************ FOLLOW / SEARCH BUTTON **************/
-
 .btn {
     display: inline-block;
     padding: var(--btn-padding);
-    font-weight: 500;
-    border-radius: var(--border-radius-2);
+    font-weight: 700;
+    border-radius: var(--border-radius-1);
     cursor: pointer;
     transition: all 300ms ease;
     font-size: .9rem;
@@ -208,7 +212,26 @@
     opacity: .8;
 }
 
-#search__button {
+#table__btn__config {
+    width: 75%;
+    background: var(--third-color);
+    color: var(--color-light);
+}
+
+#table__btn__config:hover {
+    background: #4b62e4;
+}
+
+#table__btn__delete {
+    background: rgba(230, 28, 28, .7);
+    color: var(--color-light);
+}
+
+#table__btn__delete:hover {
+    background: red;
+}
+
+.search__btn {
     background: var(--fourth-color);
     color: var(--color-light);
 }

@@ -54,42 +54,51 @@
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Nombre de usuario</th>
                 <th>Email</th>
-                <th>Pagado</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>3</td>
-                <td>Jaime Arana</td>
-                <td>jaime.arana@gmail.com</td>
-                <td>Si</td>
-                <td>Ver</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Jaime Arana</td>
-                <td>jaime.arana@gmail.com</td>
-                <td>Si</td>
-                <td>Ver</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Jaime Arana</td>
-                <td>jaime.arana@gmail.com</td>
-                <td>Si</td>
-                <td>Ver</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Jaime Arana</td>
-                <td>jaime.arana@gmail.com</td>
-                <td>Si</td>
+            <tr th:each="client: ${clients_list}">
+                <td th:text="${#strings.toString(client.user_id)}"></td>
+                <td th:text="${client.first_name}"></td>
+                <td th:text="${client.last_name}"></td>
+                <td th:text="${client.user_name}"></td>
+                <td th:text="${client.email}"></td>
+                <td><a th:href="@{/professionals/professional-basic/delete-client/} + ${#strings.toString(client.user_id)}" th:text="'Eliminar'" class="btn" id="table__btn__delete"></a></td>
+                <td><a th:href="@{/professionals/professional-basic/my-diets/} + ${client.user_name}" th:text="'Configurar Dieta'" class="btn" id="table__btn__config"></a></td>
+                <td><a th:href="@{/professionals/professional-basic/my-routines/} + ${client.user_name}" th:text="'Configurar Rutina'" class="btn" id="table__btn__config"></a></td>
             </tr>
         </tbody>
     </table>
-    <a href="#">Show all</a>
+    <!-- <a href="#">Show all</a> -->
+</div>
+
+<div th:fragment="diary__meals" class="table__card">
+    <div class="header">
+        <h1>Today's meals</h1>
+        <a href="#"><span class="material-icons">chevron-right</span></a>
+    </div>
+
+    <div class="row">
+        <!-- poner un img en lugar del span-->
+        <span class="material-icons">lunch_dining</span>
+        <h4>Lunch</h4>
+        <div class="attribute__1">
+            <p>7 Nov, 2021</p>
+            <small class="text__muted">9:15pm</small>
+        </div>
+        <div class="attribute__2">
+            <p>Calle Deusto, 16</p>
+            <small class="text__muted">Madrid, Spain</small>
+        </div>
+        <div class="attribute__3">
+            <p>$20,56</p>
+            <small class="text__muted">-34%</small>
+        </div>
+    </div>
 </div>
 
 <div th:fragment="table__card" class="table__card">
