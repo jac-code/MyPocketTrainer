@@ -11,9 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import lombok.*;
 
@@ -33,7 +31,6 @@ public class Professional extends ModelUser{
     @Column(name="public", nullable = true)
     private boolean isPublic;
 
-    // @ManyToMany(cascade = CascadeType.ALL)
     @ManyToMany
     @JoinTable( 
         name = "PROFESSIONALS_CLIENTS", 
@@ -58,6 +55,32 @@ public class Professional extends ModelUser{
 
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> recipes;
+
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Daily> dailies;
+
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Weekly> weeklies;
+
+    /*************** WEEKLY ***************/
+
+    public void linkDaily(Weekly weekly) {
+        this.weeklies.add(weekly);
+    }
+
+    public void removeLinkedDaily(Weekly weekly) {
+        this.weeklies.remove(weekly);
+    }
+
+    /*************** DAILY ***************/
+
+    public void linkDaily(Daily daily) {
+        this.dailies.add(daily);
+    }
+
+    public void removeLinkedDaily(Daily daily) {
+        this.dailies.remove(daily);
+    }
     
     /*************** CLIENTS ***************/
 

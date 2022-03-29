@@ -1,0 +1,226 @@
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+/*===== VARIABLES CSS =====*/
+:root{
+    /*===== Font and typography =====*/
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --big-font-size: 1.5rem;
+  
+    /* ================= COLORS BACKGROUND ================ */
+    --color-white: #ffffff;
+    --color-light: #f0eff5;
+    --color-gray-light: #86848c;
+    --color-gray-dark: #56555e;
+    --color-dark: #27282f;
+  
+    /*===== COLORS =====*/
+    --second-color: #f9db6d;
+    --second-color-light: #eed98c;
+    --third-color: #9daaf2;
+    --fourth-color: #ff6a3d;
+    --fourth-color-light: #e88c71;
+    --primary-color: #1a2238;
+    --color-success: rgb(26, 199, 26);
+    --color-error: rgb(240, 14, 14);
+    --color-shadow: rgba(132, 139, 200, .18);
+    
+    /*================ TOOLS =================*/
+    --card-padding: 1.6rem;
+    --padding-1: 1rem;
+    --padding-2: 8px;
+    --card-border-radius: 1.6rem;
+    --border-radius-1: 1rem;
+    --border-radius-2: 6px;
+  
+    --size-sidebar: 16rem;
+    --size-section: 30rem;
+  
+    /*=================== TAMAÑOS TÍTULOS TAGS =================*/
+    --h1-size: 2.2rem;
+    --h2-size: 1.5rem;
+    --h3-size: 1.2rem;
+    --h4-size: 1rem;
+    --h5-size: .86rem;
+    --h5-weight: 500;
+    --h6-size: 0.76rem;
+  
+    /*========== TAMAÑOS PÁRRAFOS ==============*/
+    --p-size: .86rem;
+    --span-size: 1.3rem;
+  
+    /*========= TABLAS ==========*/
+    --card-border-radius-table: 2rem;
+    --border-radius-table-1: .4rem;
+    --border-radius-table-2: .8rem;
+    --border-radius-table-3: 1.2rem;
+    --padding-table: 1.2rem;
+    --card-padding-table: 1.8rem;
+  
+    --box-shadow: 0 2rem 3rem var(--color-shadow);
+  
+    /*========== z index ==========*/
+    --z-modal: 1000;
+  }
+
+.container__cards {
+    width: 68%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+article {
+    background: var(--color-white);
+    border-radius: 1rem;
+    box-shadow: 0 1.5rem 1.5rem rgba(0, 0, 0, .1);
+    position: relative;
+    transition: all 700ms ease;
+}
+
+article:hover {
+    box-shadow: none;
+}
+
+article:hover .image::before {
+    left: 0;
+    border-radius: 1rem;
+}
+
+article:hover .social {
+     opacity: 1;
+     visibility: visible;
+}
+
+article:hover .view__more {
+    opacity: 1;
+    visibility: visible;
+}
+
+article .image {
+    height: 20rem;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+article .image::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(135deg, rgba(151, 23, 23, 0.8), rgba(47, 137, 206, 0.8));
+    border-radius: 50%;
+    transition: all 1s ease;
+}
+
+article .details {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+article .social {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: all 1s 400ms ease;
+}
+
+article .social a {
+    background: var(--color-white);
+    color: var(--fourth-color);
+    padding: .4rem;
+    display: flex;
+    font-size: .8rem;
+    border-radius: 50%;
+    transition: all 400ms ease;
+}
+
+article .social a:hover {
+    background: var(--fourth-color);
+    color: var(--color-white);
+}
+
+article .view__more {
+    background: var(--primary-color);
+    color: var(--color-white);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 30%;
+    padding: 1rem;
+    border-radius: 50%;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1s 400ms ease;
+}
+
+/*********** MEDIUM DEVICES ***********/
+@media screen and (max-width: 1024px) {
+    .container__cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/*********** MEDIUM SMALL ***********/
+@media screen and (max-width: 600px) {
+    .container__cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/************************* CARD DOUBLE **********************/
+.card__double span {
+    width: 2.2rem;
+}
+
+.card__double {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem var(--card-padding);
+    border-radius: var(--card-border-radius);
+    transition: all 300ms ease;
+}
+
+.card__double:hover {
+    background: var(--color-white);
+    cursor: pointer;
+}
+
+.card__double .first__part {
+    display: flex;
+    gap: 1rem;   
+}
+
+.card__double .first__part .first__icon {
+    padding: var(--padding-2);
+    border-radius: var(--border-radius-2);
+    display: flex;
+    align-items: center;
+}
+
+.card__double .second__part {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.card__double .second__part .second__icon {
+    display: flex;
+    width: 4.6rem;
+    height: 3rem;
+    align-items: center;
+    justify-content: center;
+}

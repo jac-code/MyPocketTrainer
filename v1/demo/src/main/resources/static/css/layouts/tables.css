@@ -1,0 +1,214 @@
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+/*===== VARIABLES CSS =====*/
+:root{
+    /*===== Font and typography =====*/
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --big-font-size: 1.5rem;
+  
+    
+  
+    /* ================= COLORS BACKGROUND ================ */
+    --color-white: #ffffff;
+    --color-light: #f0eff5;
+    --color-gray-light: #86848c;
+    --color-gray-dark: #56555e;
+    --color-dark: #27282f;
+  
+    /*===== COLORS =====*/
+    --second-color: #f9db6d;
+    --second-color-light: #eed98c;
+    --third-color: #9daaf2;
+    --fourth-color: #ff6a3d;
+    --fourth-color-light: #e88c71;
+    --primary-color: #1a2238;
+    --color-success: rgb(26, 199, 26);
+    --color-error: rgb(240, 14, 14);
+    --color-shadow: rgba(132, 139, 200, .18);
+    
+    /*================ TOOLS =================*/
+    --card-padding: 1.6rem;
+    --padding-1: 1rem;
+    --padding-2: 8px;
+    --card-border-radius: 1.6rem;
+    --border-radius-1: 1rem;
+    --border-radius-2: 6px;
+  
+    --size-sidebar: 16rem;
+    --size-section: 30rem;
+  
+    /*=================== TAMAÑOS TÍTULOS TAGS =================*/
+    --h1-size: 2.2rem;
+    --h2-size: 1.5rem;
+    --h3-size: 1.2rem;
+    --h4-size: 1rem;
+    --h5-size: .86rem;
+    --h5-weight: 500;
+    --h6-size: 0.76rem;
+  
+    /*========== TAMAÑOS PÁRRAFOS ==============*/
+    --p-size: .86rem;
+    --span-size: 1.3rem;
+  
+    /*========= TABLAS ==========*/
+    --card-border-radius-table: 2rem;
+    --border-radius-table-1: .4rem;
+    --border-radius-table-2: .8rem;
+    --border-radius-table-3: 1.2rem;
+    --padding-table: 1.2rem;
+    --card-padding-table: 1.8rem;
+  
+    --box-shadow: 0 2rem 3rem var(--color-shadow);
+  
+    /*========== z index ==========*/
+    --z-modal: 1000;
+  }:root{
+    /*===== Font and typography =====*/
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --big-font-size: 1.5rem;
+  
+    /* ================= COLORS BACKGROUND ================ */
+    --color-white: #ffffff;
+    --color-light: #f0eff5;
+    --color-gray-light: #86848c;
+    --color-gray-dark: #56555e;
+    --color-dark: #27282f;
+  
+    /*===== COLORS =====*/
+    --second-color: #f9db6d;
+    --second-color-light: #eed98c;
+    --third-color: #9daaf2;
+    --fourth-color: #ff6a3d;
+    --fourth-color-light: #e88c71;
+    --primary-color: #1a2238;
+    --color-success: rgb(26, 199, 26);
+    --color-error: rgb(240, 14, 14);
+    --color-shadow: rgba(132, 139, 200, .18);
+    
+    /*================ TOOLS =================*/
+    --card-padding: 1.6rem;
+    --padding-1: 1rem;
+    --padding-2: 8px;
+    --card-border-radius: 1.6rem;
+    --border-radius-1: 1rem;
+    --border-radius-2: 6px;
+  
+    --size-sidebar: 16rem;
+    --size-section: 30rem;
+  
+    /*=================== TAMAÑOS TÍTULOS TAGS =================*/
+    --h1-size: 2.2rem;
+    --h2-size: 1.5rem;
+    --h3-size: 1.2rem;
+    --h4-size: 1rem;
+    --h5-size: .86rem;
+    --h5-weight: 500;
+    --h6-size: 0.76rem;
+  
+    /*========== TAMAÑOS PÁRRAFOS ==============*/
+    --p-size: .86rem;
+    --span-size: 1.3rem;
+  
+    /*========= TABLAS ==========*/
+    --card-border-radius-table: 2rem;
+    --border-radius-table-1: .4rem;
+    --border-radius-table-2: .8rem;
+    --border-radius-table-3: 1.2rem;
+    --padding-table: 1.2rem;
+    --card-padding-table: 1.8rem;
+  
+    --box-shadow: 0 2rem 3rem var(--color-shadow);
+  
+    /*========== z index ==========*/
+    --z-modal: 1000;
+  }
+
+.table {
+    margin-bottom: 10rem;
+    margin-top: 7rem;
+    /* margin-left: 5rem; */
+    width: 100%;
+}
+
+.table h2 {
+    margin-bottom: .8rem;
+}
+
+.table table {
+    background-color: var(--color-white);
+    width: 100%;
+    border-radius: var(--card-border-radius-table);
+    padding: var(--card-padding-table);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+}
+
+.table table:hover {
+    box-shadow: none;
+}
+
+.table table tbody td {
+    height: 4rem;
+    border-bottom: 1px solid var(--color-light);
+    color: var(--fifth-color);
+}
+
+.table table tbody tr:last-child td {
+    border: none;
+}
+
+.table a {
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: small;
+}
+
+/******************** **************/
+
+.table__card {
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+}
+
+.table__card span {
+    width: 2.4rem;
+}
+
+.table__card .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--card-padding);
+    padding-bottom: 0;
+}
+
+.table__card .header a {
+    display: flex;
+    align-items: center;
+    color: var(--fourth-color);
+}
+
+.table__card .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--card-padding);
+    border-bottom: 1px solid var(--color-light);
+    transition: all 300ms ease;
+}
+
+.table__card .row:last-child {
+    border: none;
+}
+
+.table__card .row:hover {
+    background: var(--color-light);
+    cursor: pointer;
+}

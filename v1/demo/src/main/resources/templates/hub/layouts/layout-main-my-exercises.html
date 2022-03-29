@@ -1,0 +1,50 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside-professional::aside"></aside>
+    
+    <section class="middle">
+        <div class="container">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h3>EJERCICIOS CREADOS:</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id Ejercicio</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Imagen</th>
+                                <th>Añadir a Rutina</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="exercise: ${exercises}">
+                                <td th:text="${#strings.toString(exercise.exercise_id)}"></td>
+                                <td th:text="${exercise.exercise_name}"></td>
+                                <td th:text="${exercise.exercise_description}"></td>
+                                <td><img alt="" th:src="*{'data:image/jpeg;base64,'+{exercise.imageBase64}}" style="width: 100px;height: 100px;"></td>
+        
+                                <!-- value is a String and is not “false”, “off” or “no” -->
+                                <td><a th:if="${routine_id}" th:href="@{/professionals/professional-basic/link-exercise-routine/} + ${routine_id} + @{/} + ${#strings.toString(exercise.exercise_id)}" th:text="'Add to Routine'" class="btn btn-outline-danger"></a></td>
+                                <td><a th:href="@{/professionals/professional-basic/delete-exercise/} + ${#strings.toString(exercise.exercise_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <a th:href="@{/professionals/professional-basic/add-exercise}" class="btn btn-outline-primary btn-block">Añadir Ejercicio</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="right">
+        
+    </section>
+</main>

@@ -1,0 +1,277 @@
+<div th:fragment="clients" class="table">
+    <h2>PROGRAMA PARA HOY</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Ejercicio</th>
+                <th>Desayuno</th>
+                <th>Comida</th>
+                <th>Cena</th>
+                <th>Snacks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Rutina</td>
+                <td>Comida 1</td>
+                <td>Comida 2</td>
+                <td>Comida 3</td>
+                <td>Snack 1</td>
+            </tr>
+
+            <tr>
+                <td>Rutina</td>
+                <td>Comida 1</td>
+                <td>Comida 2</td>
+                <td>Comida 3</td>
+                <td>Snack 1</td>
+            </tr>
+
+            <tr>
+                <td>Rutina</td>
+                <td>Comida 1</td>
+                <td>Comida 2</td>
+                <td>Comida 3</td>
+                <td>Snack 1</td>
+            </tr>
+
+            <tr>
+                <td>Rutina</td>
+                <td>Comida 1</td>
+                <td>Comida 2</td>
+                <td>Comida 3</td>
+                <td>Snack 1</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="">Show all</a>
+</div>
+
+<div th:fragment="my__clients" class="table">
+    <h2>Mis Clientes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Pagado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>3</td>
+                <td>Jaime Arana</td>
+                <td>jaime.arana@gmail.com</td>
+                <td>Si</td>
+                <td>Ver</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Jaime Arana</td>
+                <td>jaime.arana@gmail.com</td>
+                <td>Si</td>
+                <td>Ver</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Jaime Arana</td>
+                <td>jaime.arana@gmail.com</td>
+                <td>Si</td>
+                <td>Ver</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Jaime Arana</td>
+                <td>jaime.arana@gmail.com</td>
+                <td>Si</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#">Show all</a>
+</div>
+
+<div th:fragment="table__card" class="table__card">
+    <div class="header">
+        <h1>Table Card</h1>
+        <a href="#"><span class="material-icons">chevron-right</span></a>
+    </div>
+
+    <div class="row">
+        <!-- poner un img en lugar del span-->
+        <span class="material-icons">fastfood</span>
+        <h4>Fastfood</h4>
+    </div>
+
+    <div class="row">
+        <!-- poner un img en lugar del span-->
+        <span class="material-icons">bakery_dining</span>
+        <h4>Bakery</h4>
+    </div>
+
+    <div class="row">
+        <!-- poner un img en lugar del span-->
+        <span class="material-icons">takeout_dining</span>
+        <h4>Takeout Dining</h4>
+    </div>
+
+    <div class="row">
+        <!-- poner un img en lugar del span-->
+        <span class="material-icons">brunch_dining</span>
+        <h4>Brunch</h4>
+    </div>
+
+    <div class="row">
+        <!-- poner un img en lugar del span-->
+        <span class="material-icons">lunch_dining</span>
+        <h4>Lunch</h4>
+        <div class="attribute__1">
+            <p>7 Nov, 2021</p>
+            <small class="text__muted">9:15pm</small>
+        </div>
+        <div class="attribute__2">
+            <p>Calle Deusto, 16</p>
+            <small class="text__muted">Madrid, Spain</small>
+        </div>
+        <div class="attribute__3">
+            <p>$20,56</p>
+            <small class="text__muted">-34%</small>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- poner un img en lugar del span-->
+        <span class="material-icons">dinner_dining</span>
+        <h4>Dinner</h4>
+        <div class="attribute__1">
+            <p>7 Nov, 2021</p>
+            <small class="text__muted">9:15pm</small>
+        </div>
+        <div class="attribute__2">
+            <p>Calle Deusto, 16</p>
+            <small class="text__muted">Madrid, Spain</small>
+        </div>
+        <div class="attribute__3">
+            <p>$20,56</p>
+            <small class="text__muted">-34%</small>
+        </div>
+    </div>
+</div>
+
+<!--  -->
+<div th:fragment="homework" class="container homework">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3>RUTINAS PROGRAMADAS:</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Routine Id</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="routine: ${routines}">
+                        <td th:text="${#strings.toString(routine.routine_id)}"></td>
+                        <td th:text="${routine.routine_name}"></td>
+                        <td th:text="${routine.routine_description}"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <p>FOOTER</p>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3>DIETAS PROGRAMADAS:</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id Dieta</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="diet: ${diets_list}">
+                        <td th:text="${#strings.toString(diet.diet_id)}"></td>
+                        <td th:text="${diet.diet_name}"></td>
+                        <td th:text="${diet.diet_description}"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <p>FOOTER</p>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="follow" class="container follow">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3>DIETAS SEGUIDAS:</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id Dieta</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="diet: ${followed_diets}">
+                        <td th:text="${#strings.toString(diet.diet_id)}"></td>
+                        <td th:text="${diet.diet_name}"></td>
+                        <td th:text="${diet.diet_description}"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <p>FOOTER</p>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3>RUTINAS SEGUIDAS:</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Routine Id</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="routine: ${followed_routines}">
+                        <td th:text="${#strings.toString(routine.routine_id)}"></td>
+                        <td th:text="${routine.routine_name}"></td>
+                        <td th:text="${routine.routine_description}"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <p>FOOTER</p>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

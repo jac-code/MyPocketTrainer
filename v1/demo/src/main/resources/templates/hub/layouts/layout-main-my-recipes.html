@@ -1,0 +1,50 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside-professional::aside"></aside>
+    
+    <section class="middle">
+        <div class="container">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h3>RECETAS CREADAS:</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id Receta</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Imagen</th>
+                                <th>Añadir a dieta</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="recipe: ${recipes}">
+                                <td th:text="${#strings.toString(recipe.recipe_id)}"></td>
+                                <td th:text="${recipe.recipe_name}"></td>
+                                <td th:text="${recipe.recipe_description}"></td>
+                                <td><img alt="" th:src="*{'data:image/jpeg;base64,'+{recipe.imageBase64}}" style="width: 100px;height: 100px;"></td>
+        
+                                <!-- value is a String and is not “false”, “off” or “no” -->
+                                <td><a th:if="${diet_id}" th:href="@{/professionals/professional-basic/link-recipe-diet/} + ${diet_id} + @{/} + ${#strings.toString(recipe.recipe_id)}" th:text="'Add to Diet'" class="btn btn-outline-danger"></a></td>
+                                <td><a th:href="@{/professionals/professional-basic/delete-recipe/} + ${#strings.toString(recipe.recipe_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <a th:href="@{/professionals/professional-basic/add-recipe}" class="btn btn-outline-primary btn-block">Añadir Receta</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="right">
+        
+    </section>
+</main>

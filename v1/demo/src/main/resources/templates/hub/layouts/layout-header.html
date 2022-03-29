@@ -1,0 +1,21 @@
+<nav th:fragment="navbar">
+    <div class="container__nav">
+        <img src="" alt="" class="logo">
+        <div class="profile__area">
+            <div class="theme__btn">
+                <span class="material-icons active">light_mode</span>
+                <span class="material-icons">dark_mode</span>
+            </div>
+            <div class="profile">
+                <div class="profile__photo">
+                    <img src="" alt="">
+                </div>
+                <h5>Bienvenido, <span sec:authentication="name">Username</span></h5>
+                <span class="material-icons">expand_more</span>
+            </div>
+            <button id="menu__btn">
+                <span class="material-icons">menu</span>
+            </button>
+        </div>
+    </div>
+</nav>

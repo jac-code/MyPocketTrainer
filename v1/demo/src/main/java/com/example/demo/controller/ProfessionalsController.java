@@ -406,22 +406,8 @@ public class ProfessionalsController {
 	// }
 
     // // HACER UN POSTMAPPING CON /my-diets/user_name=3 --> y asi me quedo con el client_username
-    // @GetMapping("/my-diets/{id}")
-	// public String setDiet(@RequestParam() String client_user_name, Model model) {
-    //     model.addAttribute("client_user_name", client_user_name);
+    // @GetMapping("/set-diet/{id}")
+	// public String setDiet(@RequestParam("id") String Long) {
 	// 	return "redirect:../" + URL_MY_DIETS;
 	// }
-
-    @PostMapping("/set-diet/{id}")
-    @ResponseBody
-	public String asdasdsdssetDiet(@RequestParam() String client_user_name) {
-
-		return "redirect:../" + URL_MY_DIETS;
-	}
-
-    // HACER UN POSTMAPPING CON /my-diets/user_name=3 --> y asi me quedo con el client_username
-    @GetMapping("/set-diet/{id}")
-	public String setDiet(@RequestParam("id") String Long) {
-		return "redirect:../" + URL_MY_DIETS;
-	}
 }

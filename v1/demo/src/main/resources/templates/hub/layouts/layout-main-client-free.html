@@ -1,0 +1,50 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside-client::aside"></aside>
+    
+    <section class="middle">
+        <div class="header">
+            <h1>Overview</h1>
+            <input type="date">
+        </div>
+
+        <div class="cards">
+            <article th:replace="hub/layouts/layout-cards::profile__card"></article>
+            <article th:replace="hub/layouts/layout-cards::profile__card"></article>
+            <article th:replace="hub/layouts/layout-cards::profile__card"></article>
+        </div>
+
+        <div th:replace="hub/layouts/layout-tools::recap"></div>
+
+        <div class="badges__container">
+            <h2>Ejemplo de badges</h2>
+            <div class="badges">
+                <div th:replace="hub/layouts/layout-tools::add"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+                <div th:replace="hub/layouts/layout-tools::badge"></div>
+            </div>
+        </div>
+
+        <div th:replace="hub/layouts/layout-tables::my__clients"></div>
+    </section>
+
+    <section class="right">
+        <div th:replace="hub/layouts/layout-tables::table__card"></div>
+
+        <div class="list">
+            <div class="header">
+                <h2>Card List</h2>
+                <a href="#">More <span class="material-icons">chevron_right</span></a>
+            </div>
+            <div th:replace="hub/layouts/layout-cards::card__double"></div>
+        </div>
+        
+        <div th:replace="hub/layouts/layout-tools::add__exercise"></div>
+    </section>
+</main>

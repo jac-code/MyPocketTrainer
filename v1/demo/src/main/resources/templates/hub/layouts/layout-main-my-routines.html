@@ -1,0 +1,61 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside-professional::aside"></aside>
+    
+    <section class="middle">
+        <div class="container">
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h3>RUTINAS CREADAS:</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Routine Id</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Ejercicios</th>
+                                <th>Añadir Ejercicio</th>
+                                <th>Añadir a cliente</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="routine: ${routines}">
+                                <td th:text="${#strings.toString(routine.routine_id)}"></td>
+                                <td th:text="${routine.routine_name}"></td>
+                                <td th:text="${routine.routine_description}"></td>
+
+                                <td>
+                                    <p th:each="exercise: ${routine.exercises}">
+                                        <span th:text="${exercise.exercise_name}"></span>
+                                    </p>
+                                    <a th:href="@{/professionals/professional-basic/delete-routine/} + ${#strings.toString(routine.routine_id)}" th:text="'Ver Ejercicio'" class="btn btn-outline-danger"></a>
+                                </td>
+
+                                <td><a th:href="@{/professionals/professional-basic/my-exercises/} + ${#strings.toString(routine.routine_id)}" th:text="'Configurar Ejercicio'" class="btn btn-outline-info"></a></td>
+                                
+                                <!-- value is a String and is not “false”, “off” or “no” -->
+                                <td><a th:if="${client_user_name}" th:href="@{/professionals/professional-basic/link-routine-client/} + ${client_user_name} + @{/} + ${#strings.toString(routine.routine_id)}" th:text="'Add to Client'" class="btn btn-outline-danger"></a></td>
+                                
+                                <td><a th:href="@{/professionals/professional-basic/delete-routine/} + ${#strings.toString(routine.routine_id)}" th:text="'Eliminar'" class="btn btn-outline-danger"></a></td>
+        
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <a th:href="@{/professionals/professional-basic/add-routine}" class="btn btn-outline-primary btn-block">Añadir Rutina</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="right">
+        
+    </section>
+</main>

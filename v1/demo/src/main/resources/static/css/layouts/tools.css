@@ -1,0 +1,302 @@
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+/*===== VARIABLES CSS =====*/
+:root{
+    /*===== Font and typography =====*/
+    --body-font: 'Poppins', sans-serif;
+    --normal-font-size: 1rem;
+    --big-font-size: 1.5rem;
+  
+    
+  
+    /* ================= COLORS BACKGROUND ================ */
+    --color-white: #ffffff;
+    --color-light: #f0eff5;
+    --color-gray-light: #86848c;
+    --color-gray-dark: #56555e;
+    --color-dark: #27282f;
+  
+    /*===== COLORS =====*/
+    --second-color: #f9db6d;
+    --second-color-light: #eed98c;
+    --third-color: #9daaf2;
+    --fourth-color: #ff6a3d;
+    --fourth-color-light: #e88c71;
+    --primary-color: #1a2238;
+    --color-success: rgb(26, 199, 26);
+    --color-error: rgb(240, 14, 14);
+    --color-shadow: rgba(132, 139, 200, .18);
+    
+    /*================ TOOLS =================*/
+    --card-padding: 1.6rem;
+    --padding-1: 1rem;
+    --padding-2: 8px;
+    --card-border-radius: 1.6rem;
+    --border-radius-1: 1rem;
+    --border-radius-2: 6px;
+  
+    --size-sidebar: 16rem;
+    --size-section: 30rem;
+  
+    /*=================== TAMAÑOS TÍTULOS TAGS =================*/
+    --h1-size: 2.2rem;
+    --h2-size: 1.5rem;
+    --h3-size: 1.2rem;
+    --h4-size: 1rem;
+    --h5-size: .86rem;
+    --h5-weight: 500;
+    --h6-size: 0.76rem;
+  
+    /*========== TAMAÑOS PÁRRAFOS ==============*/
+    --p-size: .86rem;
+    --span-size: 1.3rem;
+  
+    /*========= TABLAS ==========*/
+    --card-border-radius-table: 2rem;
+    --border-radius-table-1: .4rem;
+    --border-radius-table-2: .8rem;
+    --border-radius-table-3: 1.2rem;
+    --padding-table: 1.2rem;
+    --card-padding-table: 1.8rem;
+  
+    --box-shadow: 0 2rem 3rem var(--color-shadow);
+  
+    /*========== z index ==========*/
+    --z-modal: 1000;
+
+    /*=========== MPT FINDER SECTION ===========*/
+    --sticky-top-left: 5.4rem;
+    --sticky-top-right: -18rem;
+    --btn-padding: 0.6rem 2rem;
+    --search-padding: 0.6rem 1rem;
+
+  }
+
+/*================== RECAP ==================*/
+
+.recap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.recap h1 {
+    font-weight: 700;
+    font-size: var(--h1-size);
+}
+
+/*=========== BADGES ============*/
+
+.badges__container {
+    margin-top: 2rem;
+    display: flex;
+    align-self: center;
+    gap: 2rem;
+}
+
+.badges__container .badges{
+    display: flex;
+    gap: 1rem;
+    align-self: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.badges__container .badges .badge span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.badges__container .badges .badge {
+    padding: .5rem var(--card-padding);
+    background: var(--color-white);
+    border-radius: var(--border-radius-2);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 300ms ease;
+}
+
+.badges__container .badges .badge:hover {
+    box-shadow: 0 0 1.5rem var(--color-gray-light);
+    cursor: pointer;
+}
+
+.badges__container .badges .badge:first-child span {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    height: fit-content;
+    font-size: 2rem;
+}
+
+.badges__container .badges .badge div {
+    display: flex;
+    gap: 2rem;
+    align-self: center;
+}
+
+/*============== ADD BUTTON ====================*/
+
+.add__something {
+    background-color: transparent;
+    border:  2px dashed var(--fourth-color);
+    color: var(--fourth-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: var(--box-shadow);
+    gap: 1rem;
+    border-radius: var(--border-radius-1);
+    padding: 1.4rem var(--card-padding);
+    transition: all 300ms ease;
+
+    /* margin-bottom: .7rem; */
+}
+
+.add__something:hover {
+    box-shadow: none;
+}
+
+.add__something div {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.add__something div h3 {
+    font-weight: 600;
+}
+
+/********************** SEARCH BAR **********************/
+.search__bar {
+    background-color: var(--color-light);
+    border-radius: var(--border-radius-1);
+    padding: var(--search-padding);
+}
+
+.search__bar input[type="search"] {
+    background: transparent;
+    width: 10vw;
+    margin-left: 1rem;
+    font-size: .9rem;
+    color: var(--color-dark);
+}
+
+.search__bar input[type="search"]::placeholder {
+    color: var(--color-gray-light);
+}
+
+/************ FOLLOW / SEARCH BUTTON **************/
+
+.btn {
+    display: inline-block;
+    padding: var(--btn-padding);
+    font-weight: 500;
+    border-radius: var(--border-radius-2);
+    cursor: pointer;
+    transition: all 300ms ease;
+    font-size: .9rem;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+#search__button {
+    background: var(--fourth-color);
+    color: var(--color-light);
+}
+
+#btn__accept {
+    background: green;
+    color: var(--color-white);
+}
+
+#btn__decline {
+    background: red;
+    color: var(--color-white);
+}
+
+
+/***************** FOLLOWERS SECTION **************/
+.messages {
+    background: var(--color-white);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+}
+
+.messages .heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.messages span {
+    font-size: 1.4rem;
+}
+
+.messages #search__bar__messages {
+    display: flex;
+    width: 10vw;
+    height: 1vh;
+    margin-bottom: 1rem;
+}
+
+.messages .message {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: start;
+}
+
+.messages .message:last-child {
+    margin: 0;
+}
+
+.messages .message p {
+    font-size: .8rem;
+}
+
+.messages .message .profile__photo {
+    position: relative;
+    overflow: visible;
+}
+
+.messages .message .profile__photo img {
+    border-radius: 50%;
+}
+
+/***************** REQUESTS SECTION **************/
+.requests {
+    margin-top: 1rem;
+}
+
+.requests h4 {
+    color: var(--color-gray-dark);
+    margin: 1rem 0;
+}
+
+.requests .request {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-bottom: .7rem;
+}
+
+.requests .request .info {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.requests .request .action {
+    display: flex;
+    gap: 1rem;
+}

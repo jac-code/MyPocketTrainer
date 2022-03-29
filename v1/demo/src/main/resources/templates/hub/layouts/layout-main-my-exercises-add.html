@@ -1,0 +1,56 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside-professional::aside"></aside>
+    
+    <section class="middle">
+        <div class="container">
+            <h2>Add Exercise</h2>
+        
+            <form th:action="@{/professionals/professional-basic/save-exercise}" th:object="${new_exercise}" method="POST" enctype="multipart/form-data">
+                <input type="text" th:field="*{exercise_name}" placeholder="Exercise name" class="form-control mb-4 col-4">
+                <input type="text" th:field="*{exercise_description}" placeholder="Exercise description" class="form-control mb-4 col-4">
+                <hr>
+                <input type="radio" id="WEIGHTS" name="WEIGHTS" value="WEIGHTS" th:field="*{tools}">
+                <label for="client">WEIGHTS</label><br>
+
+                <input type="radio" id="RESISTANCE BAND" name="RESISTANCE BAND" value="RESISTANCE BAND" th:field="*{tools}">
+                <label for="professional">RESISTANCE BAND</label><br>
+
+                <input type="radio" id="NONE" name="NONE" value="NONE" th:field="*{tools}">
+                <label for="client">NONE</label><br>
+
+                <input type="radio" id="MACHINERY" name="MACHINERY" value="MACHINERY" th:field="*{tools}">
+                <label for="professional">MACHINERY</label><br>
+                <hr>
+
+                <input type="radio" id="ARMS" name="ARMS" value="ARMS" th:field="*{body_part}">
+                <label for="professional">ARMS</label><br>
+
+                <input type="radio" id="SHOULDERS" name="SHOULDERS" value="SHOULDERS" th:field="*{body_part}">
+                <label for="client">SHOULDERS</label><br>
+
+                <input type="radio" id="BACK" name="BACK" value="BACK" th:field="*{body_part}">
+                <label for="professional">BACK</label><br>
+
+                <input type="radio" id="LEGS" name="LEGS" value="LEGS" th:field="*{body_part}">
+                <label for="client">LEGS</label><br>
+
+                <input type="radio" id="ABS" name="ABS" value="ABS" th:field="*{body_part}">
+                <label for="client">ABS</label><br>
+
+                <hr>
+                <label>Foto / GIF: </label>
+                <input type="file" th:field="*{image}" name="image" accept="image/png, image/jpeg, image/gif" />
+        
+                <button type="submit" class="btn btn-info col-2">Add Exercise</button>
+            </form>
+        
+            <hr>
+        
+            <a th:href="@{/professionals/professional-basic/my-exercises/}"> Volver a ver la lista de ejercicios</a>
+        </div>
+    </section>
+
+    <section class="right">
+        
+    </section>
+</main>

@@ -1,0 +1,207 @@
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+/*===== VARIABLES CSS =====*/
+:root{
+  /*===== Font and typography =====*/
+  --body-font: 'Poppins', sans-serif;
+  --normal-font-size: 1rem;
+  --big-font-size: 1.5rem;
+
+  /* ================= COLORS BACKGROUND ================ */
+  --color-white: #ffffff;
+  --color-light: #f0eff5;
+  --color-gray-light: #86848c;
+  --color-gray-dark: #56555e;
+  --color-dark: #27282f;
+
+  /*===== COLORS =====*/
+  --second-color: #f9db6d;
+  --second-color-light: #eed98c;
+  --third-color: #9daaf2;
+  --fourth-color: #ff6a3d;
+  --fourth-color-light: #e88c71;
+  --primary-color: #1a2238;
+  --color-success: rgb(26, 199, 26);
+  --color-error: rgb(240, 14, 14);
+  --color-shadow: rgba(132, 139, 200, .18);
+  
+  /*================ TOOLS =================*/
+  --card-padding: 1.6rem;
+  --padding-1: 1rem;
+  --padding-2: 8px;
+  --card-border-radius: 1.6rem;
+  --border-radius-1: 1rem;
+  --border-radius-2: 6px;
+
+  --size-sidebar: 16rem;
+  --size-section: 30rem;
+
+  /*=================== TAMAÑOS TÍTULOS TAGS =================*/
+  --h1-size: 2.2rem;
+  --h2-size: 1.5rem;
+  --h3-size: 1.2rem;
+  --h4-size: 1rem;
+  --h5-size: .86rem;
+  --h5-weight: 500;
+  --h6-size: 0.76rem;
+
+  /*========== TAMAÑOS PÁRRAFOS ==============*/
+  --p-size: .86rem;
+  --span-size: 1.3rem;
+
+  /*========= TABLAS ==========*/
+  --card-border-radius-table: 2rem;
+  --border-radius-table-1: .4rem;
+  --border-radius-table-2: .8rem;
+  --border-radius-table-3: 1.2rem;
+  --padding-table: 1.2rem;
+  --card-padding-table: 1.8rem;
+
+  --box-shadow: 0 2rem 3rem var(--color-shadow);
+
+  /*========== z index ==========*/
+  --z-modal: 1000;
+}
+
+main {
+    display: grid;
+    grid-template-columns: var(--size-sidebar) auto var(--size-section);
+    gap: 2rem;
+    width: 96%;
+    margin: 1rem auto 4rem;
+}
+
+main section.middle .header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+main section.middle .header input[type='date'] {
+  padding: .5rem 2rem;
+  border-radius: var(--border-radius-2);
+  background: var(--color-white);
+  color: var(--color-gray-dark);
+}
+
+main section.middle .cards {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/*************** LIST OF CARD DOUBLE ************/
+main section.right .list {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+main section.right .header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+main section.right .header a {
+  display: flex;
+  align-items: center;
+  color: var(--fourth-color);
+}
+
+/**************** MEDIA QUERIES FOR TABLETS *****************/
+@media screen and (max-width: 1024px) {
+
+  nav .profile__area {
+    gap: 2rem;
+  }
+
+  nav .profile__area button#menu__btn {
+    display: inline;
+    background: transparent;
+    color: var(--color-dark);
+  }
+
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  main aside {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    z-index: 3;
+    background: var(--color-white);
+    width: 22rem;
+    height: 100vh;
+    box-shadow: 2rem 0 2rem var(--color-fourth-light);
+    display: none;
+    animation: showSidebar 300ms ease forwards;
+  }
+
+  @keyframes showSidebar {
+    to {
+      left: 0;
+    }
+  }
+
+  main aside button#close__btn {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 4;
+    background: transparent;
+    color: var(--color-dark);
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  main aside .sidebar {
+    margin-top: 4rem;
+  }
+
+  main aside .updates {
+    display: none;
+  }
+
+  main section.middle .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  main section.middle .table {
+    margin: 3rem 0 1rem;
+  }
+
+  main section.right .table__card {
+    margin-top: 3rem;
+  }
+}
+
+/**************** MEDIA QUERIES FOR MOBILE DEVICES *****************/
+@media screen and (max-width: 600px) {
+  nav .profile__area {
+    gap: 2.6rem;
+  }
+
+  nav .profile h5,
+  nav .profile span {
+    display: none;
+  }
+
+  main section.middle .cards {
+    grid-template-columns: 1fr;
+  }
+
+  main section.middle .badges__container {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 3rem;
+    gap: 1.4rem;
+  }
+}
