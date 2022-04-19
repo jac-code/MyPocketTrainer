@@ -1,20 +1,33 @@
-<div th:fragment="modal" class="modal__container" id="modal-container">
-    <div class="modal__content">
-        <div class="modal__close close-modal" title="Close">
-            <i class='bx bx-x'></i>
+<!--======================================-->
+<!--=========== VIEW INFO MODALS =============-->
+<!--======================================-->
+<div th:fragment="modal__recipe" class="modal">
+    <div th:replace="hub/layouts/layout-tables::recipes"></div>
+</div>
+
+<div th:fragment="modal__exercise" class="modal">
+    <div th:replace="hub/layouts/layout-tables::exercises"></div>
+</div>
+
+
+<!--======================================-->
+<!--=========== LEARN MODALS =============-->
+<!--======================================-->
+
+<div th:fragment="modal__plan__info" class="modal">
+    <div class="card">
+        <span class="material-icons" id="close__modal">close</span>
+        <div class="left">
+            <h2>Create a new plan for your client</h2>
+
+            <h4>You are only a few the steps away !!</h4>
         </div>
-
-        <img src="assets/img/star-trophy.png" alt="" class="modal__img">
-
-        <h1 class="modal__title">Good Job!</h1>
-        <p class="modal__description">Click the button to close</p>
-
-        <button class="modal__button modal__button-width">
-            View status
-        </button>
-
-        <button class="modal__button-link close-modal">
-            Close
-        </button>
+        
+        <div class="right">
+            <h6>1) Click the create button</h6>
+            <h6>2) Once clicked add your diet to the daily plan</h6>
+            <h6>3) Add your routine to the daily plan</h6>
+            <h6>4) Add the rest of the daily plans</h6>
+        </div>
     </div>
 </div>

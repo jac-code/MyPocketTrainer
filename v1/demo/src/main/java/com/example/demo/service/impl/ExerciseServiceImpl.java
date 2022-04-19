@@ -67,7 +67,7 @@ public class ExerciseServiceImpl implements ExercisesService{
 
     @Override
     public Exercise getExerciseById(Long exercise_id) {
-        return exercisesRepository.findExerciseById(exercise_id);
+        return exercisesRepository.findExerciseByExerciseId(exercise_id);
     }
 
     @Override

@@ -6,7 +6,7 @@
     /*===== Font and typography =====*/
     --body-font: 'Poppins', sans-serif;
     --normal-font-size: 1rem;
-    --big-font-size: 1.5rem;    
+    --big-font-size: 1.5rem;
   
     /* ================= COLORS BACKGROUND ================ */
     --color-white: #ffffff;
@@ -69,8 +69,7 @@
     --sticky-top-right: -18rem;
     --btn-padding: 0.6rem 2rem;
     --search-padding: 0.6rem 1rem;
-
-  }
+}
 
 /*================== RECAP ==================*/
 
@@ -104,13 +103,13 @@
     max-width: 100%;
 }
 
-.badges__container .badges .badge span {
+.badge span {
     width: 7px;
     height: 7px;
     border-radius: 50%;
 }
 
-.badges__container .badges .badge {
+.badge {
     padding: .5rem var(--card-padding);
     background: var(--color-white);
     border-radius: var(--border-radius-2);
@@ -120,7 +119,7 @@
     transition: all 300ms ease;
 }
 
-.badges__container .badges .badge:hover {
+.badge:hover {
     box-shadow: 0 0 1.5rem var(--color-gray-light);
     cursor: pointer;
 }
@@ -133,10 +132,23 @@
     font-size: 2rem;
 }
 
-.badges__container .badges .badge div {
+.badge div {
     display: flex;
     gap: 2rem;
     align-self: center;
+}
+
+.badge a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 2.1rem;
+    margin-top: .2rem;
+    color: var(--color-white);
+    border-radius: var(--border-radius-1);
+    padding: 0.8rem 0;
+    transition: all 300ms ease;
 }
 
 /*============== ADD BUTTON ====================*/
@@ -189,6 +201,7 @@
 
 .search__form input[type=text] {
     justify-self: start;
+    outline: none;
     width: 100%;
     padding-left: 1rem;
     background: transparent;
@@ -213,7 +226,6 @@
 }
 
 #table__btn__config {
-    width: 75%;
     background: var(--third-color);
     color: var(--color-light);
 }
@@ -223,6 +235,8 @@
 }
 
 #table__btn__delete {
+    width: 8rem;
+    height: 3rem;
     background: rgba(230, 28, 28, .7);
     color: var(--color-light);
 }

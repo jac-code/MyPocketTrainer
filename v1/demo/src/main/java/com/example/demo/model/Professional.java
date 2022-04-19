@@ -25,6 +25,9 @@ public class Professional extends ModelUser{
     @Column(name = "work_zone", nullable = true)
     private String work_zone;
 
+    @Column(name="type", nullable = true)
+    private String type;
+
     @Column(name="rating", nullable = true)
     private int rating;
 

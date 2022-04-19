@@ -59,6 +59,26 @@ public class Client extends ModelUser{
     )
     private List<Diet> linkedDiets;
 
+    @ManyToMany
+    @JoinTable(
+            name = "LINKED_DAILIES",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "daily_id", referencedColumnName = "daily_id")
+    )
+    private List<Daily> linkedDailies;
+
+    @ManyToOne
+    @JoinColumn(name = "weekly_id")
+    private Weekly weekly;
+
+    public void linkLinkedDaily(Daily d) {
+        this.linkedDailies.add(d);
+    }
+
+    public void removeLinkedDaily(Daily d) {
+        this.linkedDailies.remove(d);
+    }
+
     public void linkProfessional(Professional p) {
         this.professionals.add(p);
     }

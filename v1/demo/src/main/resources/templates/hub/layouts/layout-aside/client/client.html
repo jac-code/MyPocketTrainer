@@ -1,0 +1,15 @@
+<aside th:fragment="aside">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    
+    <div th:replace="hub/layouts/layout-aside/client/sidebar-client::sidebar"></div>
+
+    <div class="updates">
+        <span class="material-icons">update</span>
+        <h4>Updates Available</h4>
+        <p>Security Updates</p>
+        <p>General Updates</p>
+        <a href="#">Update Now</a>
+    </div>
+</aside>

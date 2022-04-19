@@ -1,37 +1,31 @@
 package com.example.demo.controller;
 
-import org.apache.el.parser.AstMapData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
+import java.util.Calendar;
+import java.util.List;
 
 import com.example.demo.controller.dao.ProfessionalDAO;
-import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.controller.dao.UserFinderDAO;
-import com.example.demo.exceptions.InvalidVerificationTokenException;
-import com.example.demo.exceptions.UserAlreadyExistsException;
-import com.example.demo.model.ModelUser;
+import com.example.demo.model.Daily;
 import com.example.demo.model.Professional;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
+import com.example.demo.service.DailyService;
 import com.example.demo.service.DietService;
-import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
 import com.example.demo.service.RoutineService;
+import com.example.demo.service.WeeklyService;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -65,6 +59,9 @@ public class ClientsController {
     ClientsService clientsService;
 
     @Autowired
+    DailyService dailyService;
+
+    @Autowired
     RoutineService routineService;
 
     @Autowired
@@ -74,7 +71,45 @@ public class ClientsController {
     ProfessionalsService professionalsService;
 
     @Autowired
+    WeeklyService weeklyService;
+
+    @Autowired
     private MessageSource messageSource;
+
+    public String getDayOfWeek() {
+        Calendar calendar = Calendar.getInstance();
+        int i = calendar.get(Calendar.DAY_OF_WEEK);
+        String week_day = "";
+
+        switch (i) {
+            case 1:
+                week_day = "SUNDAY";
+                break;
+            case 2:
+                week_day = "MONDAY";
+                break;
+            case 3:
+                week_day = "TUESDAY";
+                break;
+            case 4:
+                week_day = "WEDNESDAY";
+                break;
+            case 5:
+                week_day = "THURSDAY";
+                break;
+            case 6:
+                week_day = "FRIDAY";
+                break;
+            case 7:
+                week_day = "SATURDAY";
+                break;
+            
+            default:
+                break;
+        }
+
+        return week_day;
+    }
 
     @GetMapping("/home")
     public String showHomePage(ModelMap modelMap) { // el ModelMap es para poder pasar distintos obejetos
@@ -82,11 +117,28 @@ public class ClientsController {
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
-        // CAMBIAR la función del service para que sacar por --> LINKED
-        modelMap.addAttribute("routines", routineService.listLinkedRoutines(userPrincipal.getUsername()));        
-        modelMap.addAttribute("diets_list", dietService.listLinkedDiets(userPrincipal.getUsername()));
-        modelMap.addAttribute("followed_diets", dietService.listFollowedDiets(userPrincipal.getUsername()));
-        modelMap.addAttribute("followed_routines", routineService.listFollowedRoutines(userPrincipal.getUsername()));
+        // modelMap.addAttribute("routines", routineService.listLinkedRoutines(userPrincipal.getUsername()));        
+        // modelMap.addAttribute("diets_list", dietService.listLinkedDiets(userPrincipal.getUsername()));
+        // modelMap.addAttribute("followed_diets", dietService.listFollowedDiets(userPrincipal.getUsername()));
+        // modelMap.addAttribute("followed_routines", routineService.listFollowedRoutines(userPrincipal.getUsername()));
+        
+        // modelMap.addAttribute("recipes", dailyService.getDailyByWeekDay(getDayOfWeek(), userPrincipal.getUsername()).getDiet().getRecipes());  // el cliente solo tiene UN weekly --> cada semana el entrenador lo tiene que actualizar 
+        // modelMap.addAttribute("exercises", dailyService.getDailyByWeekDay(getDayOfWeek(), userPrincipal.getUsername()).getRoutine().getExercises());
+        
+        // modelMap.addAttribute("weekly", clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly());
+
+        List<Daily> dailies = clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly().getDailies();
+
+        modelMap.addAttribute("dailies", dailies);
+        modelMap.addAttribute("week_day", getDayOfWeek());
+        
+        for (Daily daily : dailies) {
+            if (getDayOfWeek().equals(daily.getWeek_day())) {
+                modelMap.addAttribute("recipes", daily.getDiet().getRecipes());
+                modelMap.addAttribute("exercises", daily.getRoutine().getExercises());
+            }
+        }
+        
         return DIRECCION_BASE + "client-free";
     }
     

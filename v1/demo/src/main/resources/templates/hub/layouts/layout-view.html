@@ -1,0 +1,31 @@
+<div th:fragment="view__exercise" style="display: flex;">
+    <img alt="" th:src="*{'data:image/jpeg;base64,'+{exercise.imageBase64}}" style="width: 300px;height: 300px;">
+    <div class="details" style="margin-left: 10rem;">
+        <h4 th:text="${exercise.exercise_name}"></h4>
+        <h6 th:text="${exercise.exercise_description}"></h6>
+        <small th:text="${exercise.resting_time}"></small>
+        <small th:text="${exercise.number_repetitions}"></small>
+    </div>
+</div>
+
+<div th:fragment="view__recipe" style="display: flex;">
+    <img alt="" th:src="*{'data:image/jpeg;base64,' + {recipe.imageBase64}}" style="width: 300px; height: 300px;">
+    <div class="details" style="margin-left: 10rem; display: flex; justify-content: center;">
+        <div>
+            <h4 th:text="${recipe.recipe_name}"></h4>
+            <h6 th:text="${recipe.recipe_description}"></h6>
+            <small th:text="${recipe.recipe_type}"></small>
+        </div>
+        <div style="margin-left: 2rem;">
+            <div style="display: flex;"><h5>Total calories:</h5><h5 th:text="${recipe.calories}"></h5><h5>gr</h5></div>
+            <div style="display: flex;"><h6>Fat:</h6><h6 th:text="${recipe.fat}"></h6><h6>gr</h6></div>
+            <div style="display: flex;"><h6>Carbohydrates:</h6><h6 th:text="${recipe.carbs}"></h6><h6>gr</h6></div>
+            <div style="display: flex;"><h6>Protein:</h6><h6 th:text="${recipe.protein}"></h6><h6>gr</h6></div>
+        </div>
+        <div>
+            <tr th:each="equipment: ${recipe.equipment}">
+                <td th:text="${equipment}"></td>
+            </tr>
+        </div>
+    </div>
+</div>

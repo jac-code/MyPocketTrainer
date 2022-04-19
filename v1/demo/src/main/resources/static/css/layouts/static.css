@@ -84,6 +84,12 @@
 
   /*========== z index ==========*/
   --z-modal: 1000;
+
+  /*=========== MPT FINDER SECTION ===========*/
+  --sticky-top-left: 5.4rem;
+  --sticky-top-right: -18rem;
+  --btn-padding: 0.6rem 2rem;
+  --search-padding: 0.6rem 1rem;
 }
 
 /*===== BASE =====*/
@@ -92,7 +98,7 @@
   padding: 0;
   box-sizing: border-box ;
   list-style: none ;
-  appearance: none ;
+  /*appearance: none ;*/
   text-decoration: none;
   border: 0 ;
 }
@@ -181,17 +187,17 @@ small {
 
 .bg__yellow {
   background: var(--second-color);
-  box-shadow: 0 0.8rem 0.8rem var(--second-color-light);
+  /* box-shadow: 0 0.8rem 0.8rem var(--second-color-light); */
 }
 
 .bg__orange {
   background: var(--fourth-color);
-  box-shadow: 0 0.8rem 0.8rem var(--fourth-color-light);
+  /* box-shadow: 0 0.8rem 0.8rem var(--fourth-color-light); */
 }
 
 .bg__dark {
   background: var(--color-dark);
-  box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, .2);
+  /* box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, .2); */
 }
 
 .bg__yellow__light {

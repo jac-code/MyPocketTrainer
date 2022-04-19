@@ -1,21 +1,17 @@
+const open_btn = document.querySelector(".open__modal");
+const close_btn = document.querySelector("#close__modal");
+const modal = document.querySelector(".modal");
+
 /*=============== SHOW MODAL ===============*/
-const showModal = (openButton, modalContent) =>{
-    const openBtn = document.getElementById(openButton),
-    modalContainer = document.getElementById(modalContent)
-    
-    if(openBtn && modalContainer){
-        openBtn.addEventListener('click', ()=>{
-            modalContainer.classList.add('show-modal')
-        })
-    }
+open_btn.addEventListener('click', open_modal);
+
+function open_modal() {
+    modal.style.display = "grid";
 }
-showModal('open-modal','modal-container')
 
 /*=============== CLOSE MODAL ===============*/
-const closeBtn = document.querySelectorAll('.close-modal')
+close_btn.addEventListener('click', close_modal);
 
-function closeModal(){
-    const modalContainer = document.getElementById('modal-container')
-    modalContainer.classList.remove('show-modal')
+function close_modal() {
+    modal.style.display = "none";
 }
-closeBtn.forEach(c => c.addEventListener('click', closeModal))

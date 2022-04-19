@@ -36,6 +36,9 @@ public class Recipe {
     @Column(name = "recipe_description")
     private String recipe_description;
 
+    @Column(name = "recipe_type")
+    private String recipe_type;
+
     @Lob    // BLOB = binary data || CLOB = text data
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "image")
@@ -69,9 +72,6 @@ public class Recipe {
 
     @Column(name = "carbs")
     private String carbs;
-
-    @Column(name ="type")
-    private String type;
 
     @ManyToOne
     @JoinColumn(name = "professional_id")

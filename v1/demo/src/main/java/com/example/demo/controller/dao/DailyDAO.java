@@ -7,4 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public class DailyDAO {
     private String week_day;
+    private String diet_id;
+    private String routine_id;
+    private String client_id;
 }

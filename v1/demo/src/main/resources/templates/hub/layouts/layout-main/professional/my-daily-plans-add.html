@@ -1,0 +1,22 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside"></aside>
+    
+    <section class="middle">
+        <!-- <div th:replace="hub/layouts/layout-modal::plan__info"></div> -->
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h1>Es hora de crear un plan</h1>
+            <h2>1) Pulsar Crear Plan</h2>
+            <h2>2) Seleccionar las dietas</h2>
+            <h2>3) Seleccionar las rutinas</h2>
+            <h2>4) Seleccionar al cliente</h2>
+        </div>
+
+        <br>
+
+        <div th:replace="hub/layouts/layout-tools::add__plan"></div>
+    </section>
+
+    <section class="right">
+        
+    </section>
+</main>

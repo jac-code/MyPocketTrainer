@@ -32,6 +32,15 @@ public class Routine {
     @JoinColumn(name = "professional_id")
     private Professional professional;
 
+    @Column(name = "number_series")
+    private String number_series;
+
+    @Column(name = "expected_time")
+    private String expected_time;
+
+    @Column(name = "resting_time")
+    private String resting_time;    // resting time between series
+
     public void linkExerciseToRoutine(Exercise exercise) {
         this.exercises.add(exercise);
     }

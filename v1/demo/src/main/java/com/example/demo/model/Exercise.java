@@ -43,6 +43,12 @@ public class Exercise {
     @JoinColumn(name = "professional_id")
     private Professional professional;
 
+    @Column(name = "number_repetitions")
+    private String number_repetitions;
+
+    @Column(name = "resting_time")
+    private String resting_time;    // resting time between sets
+
     // si quitamos esto es UNIDIRECCIONAL --> lo que quiero
     // NOT owner
     // @ManyToMany(mappedBy = "exercises")

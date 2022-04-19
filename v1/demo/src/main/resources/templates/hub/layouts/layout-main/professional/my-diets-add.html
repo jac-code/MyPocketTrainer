@@ -1,0 +1,28 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside"></aside>
+    
+    <section class="middle">
+        <div class="container">
+            <div class="container">
+                <h1>Diet Management System</h1>
+                <hr>
+                <h2>Add Diet</h2>
+            
+                <form th:action="@{/professionals/professional-basic/save-diet}" th:object="${new_diet}" method="POST">
+                    <input type="text" th:field="*{diet_name}" placeholder="Diet name" class="form-control mb-4 col-4"> 
+                    <input type="text" th:field="*{diet_description}" placeholder="Diet description" class="form-control mb-4 col-4">
+            
+                    <button type="submit" class="btn btn-info col-2">Add Diet</button>
+                </form>
+            
+                <hr>
+            
+                <a th:href="@{/professionals/professional-basic/my-diets}"> Volver a ver la lista de dietas</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="right">
+        
+    </section>
+</main>

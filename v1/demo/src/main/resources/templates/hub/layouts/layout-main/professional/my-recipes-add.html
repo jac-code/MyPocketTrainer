@@ -1,0 +1,67 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside"></aside>
+    
+    <section class="middle">
+        <div class="container">
+            <h1>Recipe Management System</h1>
+            <hr>
+            <h2>Add Recipe</h2>
+        
+            <form th:action="@{/professionals/professional-basic/save-recipe}" th:object="${new_recipe}" method="POST" enctype="multipart/form-data">
+                <input type="text" th:field="*{recipe_name}" placeholder="Recipe name" class="form-control mb-4 col-4"> 
+                <input type="text" th:field="*{recipe_description}" placeholder="Recipe description" class="form-control mb-4 col-4">
+                
+                <label>Foto: </label>
+                <input type="file" name="image" accept="image/png, image/jpeg, image/gif" />
+
+                <hr>
+
+                <input type="checkbox" id="OVEN" name="OVEN" value="OVEN" th:field="*{equipment}">
+                <label for="OVEN">Horno</label>
+                <input type="checkbox" id="PAN" name="PAN" value="PAN" th:field="*{equipment}">
+                <label for="PAN">SARTÉN</label>
+                <input type="checkbox" id="MICROWAVE" name="MICROWAVE" value="MICROWAVE" th:field="*{equipment}">
+                <label for="MICROWAVE">Microhondas</label>
+                <input type="checkbox" id="POT" name="POT" value="POT" th:field="*{equipment}">
+                <label for="POT">Olla</label>
+
+                <hr>
+
+                <input type="checkbox" id="VEGETABLES" name="VEGETABLES" value="VEGETABLES" th:field="*{ingredients}">
+                <label for="VEGETABLES">Verdura</label>
+                <input type="checkbox" id="FRUIT" name="FRUIT" value="FRUIT" th:field="*{ingredients}">
+                <label for="FRUIT">Fruta</label>
+                <input type="checkbox" id="MEAT" name="MEAT" value="MEAT" th:field="*{ingredients}">
+                <label for="MEAT">Carne</label>
+                <input type="checkbox" id="FISH" name="FISH" value="FISH" th:field="*{ingredients}">
+                <label for="FISH">Pescado</label>
+                <input type="checkbox" id="DAIRY" name="DAIRY" value="DAIRY" th:field="*{ingredients}">
+                <label for="DAIRY">Lácteos</label>
+                <input type="checkbox" id="OTHER" name="OTHER" value="OTHER" th:field="*{ingredients}">
+                <label for="OTHER">Otros</label>
+                
+                <hr>
+
+                <input type="text" th:field="*{cooking_time}" placeholder="Recipe cooking time" class="form-control mb-4 col-4"> 
+                <input type="text" th:field="*{price}" placeholder="Recipe price" class="form-control mb-4 col-4">
+                <input type="text" th:field="*{calories}" placeholder="Recipe calories" class="form-control mb-4 col-4">
+                <br>
+                <input type="text" th:field="*{fat}" placeholder="Recipe fat" class="form-control mb-4 col-4"> 
+                <input type="text" th:field="*{carbs}" placeholder="Recipe carbs" class="form-control mb-4 col-4">
+                <input type="text" th:field="*{protein}" placeholder="Recipe protein" class="form-control mb-4 col-4">
+                <br>
+                <input type="text" th:field="*{type}" placeholder="Recipe type" class="form-control mb-4 col-4">
+
+                <button type="submit" class="btn btn-info col-2">Add Recipe</button>
+            </form>
+        
+            <hr>
+        
+            <a th:href="@{/professionals/professional-basic/my-recipes/}"> Volver a ver la lista de recetas</a>
+        </div>
+    </section>
+
+    <section class="right">
+        
+    </section>
+</main>

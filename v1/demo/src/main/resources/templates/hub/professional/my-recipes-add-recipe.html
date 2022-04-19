@@ -30,9 +30,10 @@
     <body>
         <nav th:replace="hub/layouts/layout-header::navbar"></nav>
 
-        <main th:replace="hub/layouts/layout-main-my-recipes-add::main"></main>
+        <main th:replace="hub/layouts/layout-main/professional/my-recipes-add::main"></main>
 
         <!--===== MAIN JS =====-->
         <script th:src="@{/js/hub/clients/main-client-free.js}"></script>
+        <script th:src="@{/js/layouts/modal.js}"></script>
     </body>
 </html>

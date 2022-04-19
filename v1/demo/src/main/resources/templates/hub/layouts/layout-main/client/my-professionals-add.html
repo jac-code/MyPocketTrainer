@@ -1,0 +1,24 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside/client/client::aside"></aside>
+    
+    <section class="middle">
+        <div class="container">
+            <h1>Professional Management System</h1>
+            <hr>
+            <h2>Link with a professional</h2>
+        
+            <form th:action="@{/clients/client-free/save-professional}" th:object="${new_professional}" method="POST">
+                <input type="text" th:field="*{user_name}" placeholder="Professionals username" class="form-control mb-4 col-4"> 
+                <button type="submit" class="btn btn-info col-2">Search for a Professional</button>
+            </form>
+        
+            <hr>
+        
+            <a th:href="@{/clients/client-free/my-professionals}"> Volver a ver mis profesionales</a>
+        </div>
+    </section>
+    
+    <section class="right">
+        
+    </section>
+</main>

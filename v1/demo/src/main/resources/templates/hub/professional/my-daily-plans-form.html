@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+
+        <!----===== Iconscout CSS ===== -->
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+        <!---------- GOOGLE ICONS ----------->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <!-- ============================ CSS ============================== -->
+        <!--====================== CUIDADO CON EL ORDEN =====================-->
+        <link rel="stylesheet" th:href="@{/css/layouts/static.css}">
+
+        <link rel="stylesheet" th:href="@{/css/layouts/header.css}">
+        <link rel="stylesheet" th:href="@{/css/layouts/menu.css}">
+        <link rel="stylesheet" th:href="@{/css/layouts/main.css}">
+
+        <link rel="stylesheet" th:href="@{/css/layouts/card.css}">
+        <link rel="stylesheet" th:href="@{/css/layouts/tools.css}">
+        <link rel="stylesheet" th:href="@{/css/layouts/tables.css}">
+
+        <title>MPT | MyPocketTrainer</title>
+    </head>
+    <body>
+        <nav th:replace="hub/layouts/layout-header::navbar"></nav>
+
+        <main th:replace="hub/layouts/layout-main/professional/my-daily-plans-form::main"></main>
+
+        <!--===== MAIN JS =====-->
+        <script th:src="@{/js/hub/clients/main-client-free.js}"></script>
+        <script th:src="@{/js/layouts/modal.js}"></script>
+    </body>
+</html>

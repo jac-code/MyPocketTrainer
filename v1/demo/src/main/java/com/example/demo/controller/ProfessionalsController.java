@@ -4,50 +4,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.List;
-
-import javax.validation.Valid;
+import java.util.Calendar;
 
 import com.example.demo.controller.dao.ClientDAO;
+import com.example.demo.controller.dao.DailyDAO;
 import com.example.demo.controller.dao.DietDAO;
 import com.example.demo.controller.dao.ExerciseDAO;
 import com.example.demo.controller.dao.RecipeDAO;
 import com.example.demo.controller.dao.RoutineDAO;
-import com.example.demo.model.Exercise;
+import com.example.demo.controller.dao.WeeklyDAO;
 import com.example.demo.model.ModelUser;
-import com.example.demo.model.ModelUserDetails;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
+import com.example.demo.service.DailyService;
 import com.example.demo.service.DietService;
 import com.example.demo.service.ExercisesService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
 import com.example.demo.service.RecipesService;
 import com.example.demo.service.RoutineService;
+import com.example.demo.service.WeeklyService;
 
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Controller
 @RequestMapping("professionals/professional-basic")
 public class ProfessionalsController {
     public static final String DIRECCION_BASE = "hub/professional/";
-    public static final String URL_BASE = "professionals/professional-basic";
 
     public static final String PAGE_MY_CLIENTS = "my-clients";
     public static final String PAGE_ADD_CLIENT = "my-clients-add-client";
@@ -63,6 +54,12 @@ public class ProfessionalsController {
 
 	public static final String PAGE_MY_ROUTINES = "my-routines";
     public static final String PAGE_ADD_ROUTINE = "my-routines-add-routine";
+
+    public static final String PAGE_MY_WEEKLY_PLANS = "my-weekly-plans";
+    public static final String PAGE_ADD_WEEKLY_PLAN = "my-daily-plans-form";
+
+    public static final String PAGE_MY_DAILY_PLANS = "my-daily-plans";
+    public static final String PAGE_ADD_DAILY_PLAN = "my-daily-plans-add";
 
     public static final String URL_MY_CLIENTS = "my-clients";
     public static final String URL_ADD_CLIENT = "add-client";
@@ -83,6 +80,14 @@ public class ProfessionalsController {
     public static final String URL_MY_ROUTINES = "my-routines/";
     public static final String URL_ADD_ROUTINE = "add-routine";
     public static final String URL_SAVE_ROUTINE = "save-routine";
+
+    public static final String URL_MY_DAILY_PLANS = "my-daily-plans/";
+    public static final String URL_ADD_DAILY_PLAN = "add-daily-plan";
+    public static final String URL_SAVE_DAILY_PLAN = "save-daily-plan/";
+
+    public static final String URL_MY_WEEKLY_PLANS = "my-weekly-plans/";
+    public static final String URL_ADD_WEEKLY_PLAN = "add-weekly-plan";
+    public static final String URL_SAVE_WEEKLY_PLAN = "save-weekly-plan";
     
     @Autowired
     ProfessionalsService professionalsService;
@@ -106,23 +111,116 @@ public class ProfessionalsController {
     RecipesService recipeService;
 
     @Autowired
+    DailyService dailyService;
+
+    @Autowired
+    WeeklyService weeklyService;
+
+    @Autowired
     private IAuthenticationFacade authenticationFacade;
 
-    // a esto tienen ACCESO TODOS
-    @ModelAttribute("time")
-    public String getRequestTime () {
-        return "HOLAAA";
-    }
-
     @GetMapping("/home")
-    public String showHomePage(Model model) {
+    public String showHomePage(ModelMap modelMap) {
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
         ModelUser user = (modelUserService.getModelUserByUsername(userPrincipal.getUsername()));
          
-        model.addAttribute("user", user);
+        modelMap.addAttribute("user", user);
          
         return DIRECCION_BASE + "professional-basic";
+    }
+
+    /* ********************************************************************* */
+    /* ******************** DAILY PLANS ****************** */
+    /* ********************************************************************* */
+
+    @GetMapping({"/" + URL_MY_DAILY_PLANS, "/" + URL_MY_DAILY_PLANS + "{weekly_id}"})  // hacemos opcional el parámetro
+    public String listMyDailyPlans(@PathVariable(required = false) String weekly_id, ModelMap modelMap) {
+        if (weekly_id == null) { // NO poner boton conectar
+            // value is a String and is not “false”, “off” or “no”
+            modelMap.addAttribute("weekly_id", "false");
+        } else {    // poner el botón de LINK
+            modelMap.addAttribute("weekly_id", weekly_id);
+        }
+        
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        // vamos a buscar por user_name
+        modelMap.addAttribute("dailies", dailyService.listDailiesByProfessional(userPrincipal.getUsername()));
+        return DIRECCION_BASE + PAGE_MY_DAILY_PLANS;
+    }
+
+    @GetMapping("/" + URL_ADD_DAILY_PLAN)
+    public String startNewDailyPlan() {
+        return DIRECCION_BASE + PAGE_ADD_DAILY_PLAN; // pagina html con formulario
+    }
+
+    @GetMapping("/save-daily-plan/{diet_id}/{routine_id}")
+    public String saveDailyPlan(@PathVariable String diet_id, @PathVariable String routine_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+        DailyDAO dailyDAO = new DailyDAO();
+        dailyDAO.setDiet_id(diet_id);
+        dailyDAO.setRoutine_id(routine_id);
+        dailyService.saveNewDaily(dailyDAO, userPrincipal.getUsername());
+        return "redirect:/professionals/professional-basic/" + URL_MY_DAILY_PLANS;    // nos REDIRECCIONA a la pagina con la lista de clientes
+    }
+
+    /* ********************************************************************* */
+    /* ******************** WEEKLY PLANS ****************** */
+    /* ********************************************************************* */
+
+    @GetMapping({"/" + URL_MY_WEEKLY_PLANS, "/" + URL_MY_WEEKLY_PLANS + "{client_user_name}"})  // hacemos opcional el parámetro
+    public String listWeeklyMyPlans(@PathVariable(required = false) String client_user_name, ModelMap modelMap) {
+        if (client_user_name == null) { // NO poner boton conectar
+            // value is a String and is not “false”, “off” or “no”
+            modelMap.addAttribute("client_user_name", "false");
+        } else {    // poner el botón de LINK
+            modelMap.addAttribute("client_user_name", client_user_name);
+        }
+
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        // vamos a buscar por user_name
+        modelMap.addAttribute("weeklies", weeklyService.listWeekliesByProfessional(userPrincipal.getUsername()));
+        
+        return DIRECCION_BASE + PAGE_MY_WEEKLY_PLANS;
+    }
+
+    @GetMapping("/" + URL_ADD_WEEKLY_PLAN)
+    public String addNewWeeklyPlan(ModelMap modelMap) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+        WeeklyDAO new_weekly = new WeeklyDAO();
+
+        modelMap.addAttribute("new_weekly", new_weekly);
+        modelMap.addAttribute("dailies", dailyService.listDailiesByProfessional(userPrincipal.getUsername()));
+        return DIRECCION_BASE + PAGE_ADD_WEEKLY_PLAN; // pagina html con formulario
+    }
+
+    @PostMapping("/" + URL_SAVE_WEEKLY_PLAN)
+    public String saveNewWeekly(@ModelAttribute("new_weekly") WeeklyDAO weeklyDAO) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        weeklyService.saveNewWeekly(weeklyDAO, userPrincipal.getUsername());
+
+        return "redirect:" + URL_MY_WEEKLY_PLANS;    // nos REDIRECCIONA a la pagina con todas las dietas
+    }
+
+    @GetMapping("/link-client-weekly/{client_user_name}/{weekly_id}")
+    public String linkWeeklyToClient(@PathVariable String client_user_name, @PathVariable String weekly_id) {
+        // para saber el usuario que está dentro
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        weeklyService.linkWeeklyToClient(client_user_name, weekly_id);
+        
+        return "redirect:/professionals/professional-basic/" + URL_MY_WEEKLY_PLANS;
     }
 
     /* ********************************************************************* */
@@ -303,13 +401,18 @@ public class ProfessionalsController {
     /* ******************** ROUTINES ****************** */
     /* ********************************************************************* */
 
-    @GetMapping({"/" + URL_MY_ROUTINES, "/" + URL_MY_ROUTINES + "{client_user_name}"})  // hacemos opcional el parámetro
-    public String listMyRoutines(@PathVariable(required = false) String client_user_name, ModelMap modelMap) {
-        if (client_user_name == null) { // NO poner boton conectar
-            // value is a String and is not “false”, “off” or “no”
+    @GetMapping({"/" + URL_MY_ROUTINES, "/" + URL_MY_ROUTINES + "{param}"})  // hacemos opcional el parámetro
+    public String listMyRoutines(@PathVariable(required = false) String param, ModelMap modelMap) {
+        if (param == null) {
+            modelMap.addAttribute("diet_id", "false");
             modelMap.addAttribute("client_user_name", "false");
-        } else {    // poner el botón de LINK
-            modelMap.addAttribute("client_user_name", client_user_name);
+        } else {
+            if (param.indexOf('=') != -1) {
+                String part[] = param.split("=");
+                modelMap.addAttribute("diet_id", part[1]);
+            } else {
+                modelMap.addAttribute("client_user_name", param);
+            }
         }
         
         // para saber el usuario que está dentro
@@ -360,7 +463,6 @@ public class ProfessionalsController {
     /* ********************************************************************* */
     /* ******************** CLIENTS ****************** */
     /* ********************************************************************* */
-
     @GetMapping("/" + URL_MY_CLIENTS)
     public String listMyClients(Model model) {
         // para saber el usuario que está dentro
@@ -397,17 +499,4 @@ public class ProfessionalsController {
 
 		return "redirect:../" + URL_MY_CLIENTS;
 	}
-
-    // @PostMapping("/set-diet/{id}")
-    // @ResponseBody
-	// public String asdasdsdssetDiet(@RequestParam() String client_user_name) {
-
-	// 	return "redirect:../" + URL_MY_DIETS;
-	// }
-
-    // // HACER UN POSTMAPPING CON /my-diets/user_name=3 --> y asi me quedo con el client_username
-    // @GetMapping("/set-diet/{id}")
-	// public String setDiet(@RequestParam("id") String Long) {
-	// 	return "redirect:../" + URL_MY_DIETS;
-	// }
 }

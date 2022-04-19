@@ -46,6 +46,10 @@ aside {
     flex-direction: column;
     justify-content: space-between;
     height: 88vh;
+    
+    /******** OPCIÓN DE PONER STICKY ******/
+    position: sticky;
+    top: 0;
 }
 
 /****** WILL SHOW ONLY ON MOBILE ***********/
@@ -100,6 +104,7 @@ aside .sidebar h4 {
 /************ UPDATE CARD ****************/
 
 aside .updates {
+  margin-top: 5rem;
   background: var(--color-white);
   border-radius: var(--border-radius-1);
   text-align: center;

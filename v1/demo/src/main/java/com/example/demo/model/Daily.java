@@ -1,7 +1,5 @@
 package com.example.demo.model;
 
-import java.util.List;
-
 import javax.persistence.*;
 import lombok.*;
 
@@ -23,39 +21,11 @@ public class Daily {
     @JoinColumn(name = "professional_id")
     private Professional professional;
 
-    @ManyToMany
-    @JoinTable(
-            name = "DAILY_ROUTINE",
-            joinColumns = @JoinColumn(name = "daily_id", referencedColumnName = "daily_id"), 
-            inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id")
-    )
-    private List<Routine> routines;
+    @ManyToOne
+    @JoinColumn(name = "diet_id")
+    private Diet diet;
 
-    @ManyToMany
-    @JoinTable(
-            name = "DAILY_DIET",
-            joinColumns = @JoinColumn(name = "daily_id", referencedColumnName = "daily_id"), 
-            inverseJoinColumns = @JoinColumn(name = "diet_id", referencedColumnName = "diet_id")
-    )
-    private List<Diet> diets;
-
-    /*************** ROUTINES ***************/
-
-    public void addRoutine(Routine routine) {
-        this.routines.add(routine);
-    }
-
-    public void deleteRoutine(Routine routine) {
-        this.routines.remove(routine);
-    }
-
-    /*************** DIETS ***************/
-    
-    public void addDiet(Diet diet) {
-        this.diets.add(diet);
-    }
-
-    public void deleteDiet(Diet diet) {
-        this.diets.remove(diet);
-    }
+    @ManyToOne
+    @JoinColumn(name = "routine_id")
+    private Routine routine;
 }

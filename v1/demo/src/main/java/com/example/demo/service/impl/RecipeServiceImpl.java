@@ -69,7 +69,7 @@ public class RecipeServiceImpl implements RecipesService{
         recipe.setFat(recipeDAO.getFat());
         recipe.setPrice(recipeDAO.getPrice());
         recipe.setProtein(recipeDAO.getProtein());
-        recipe.setType(recipeDAO.getType());
+        recipe.setRecipe_type(recipeDAO.getType());
         recipe.setProfessional(p);
 
         recipesRepository.save(recipe);

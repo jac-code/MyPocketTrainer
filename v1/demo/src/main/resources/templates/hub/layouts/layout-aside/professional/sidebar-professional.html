@@ -1,0 +1,56 @@
+<div th:fragment="sidebar" class="sidebar">
+    <a th:href="@{/professionals/professional-basic/home}" class="active">
+        <span class="material-icons">dashboard</span>
+        <h4>Dashboard</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-clients}">
+        <span class="material-icons">supervised_user_circle</span>
+        <h4>MyClients</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-diets/}">
+        <span class="material-icons">food_bank</span>
+        <h4>MyDiets</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-recipes/}">
+        <span class="material-icons">dinner_dining</span>
+        <h4>MyRecipes</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-routines/}">
+        <span class="material-icons">library_books</span>
+        <h4>MyRoutines</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-exercises/}">
+        <span class="material-icons">fitness_center</span>
+        <h4>MyExercises</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-daily-plans/}">
+        <span class="material-icons">person_search</span>
+        <h4>MyDailyPlans</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-weekly-plans/}">
+        <span class="material-icons">person_search</span>
+        <h4>MyWeeklyPlans</h4>
+    </a>
+
+    <a th:href="@{/professionals/professional-basic/my-mpt-finder}">
+        <span class="material-icons">person_search</span>
+        <h4>MyMPTFinder</h4>
+    </a>
+
+    <a th:href="@{/sign-out}">
+        <span class="material-icons">logout</span>
+        <h4>Logout</h4>
+    </a>    
+
+    <!-- <form class="nav__link" th:action="@{/sign-out}" method="post">
+        <i class='bx bx-log-out nav__icon' ></i>
+        <input type="submit" value="Sign Out" class="nav_name" />
+    </form> -->
+</div>

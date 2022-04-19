@@ -56,25 +56,28 @@
     </div>
 </div>
 
-<!--=============== BUTTONS ===============-->
+<!--================================================-->
+<!--==================== BUTTONS ===================-->
+<!--================================================-->
+
 <div th:fragment="add__exercise" class="add__something">
     <span class="material-icons">add</span>
-    <h3>Add Exercise</h3>
+    <h3><a th:href="@{/professionals/professional-basic/add-exercise}">Add Exercise</a></h3>
 </div>
 
 <div th:fragment="add__routine" class="add__something">
     <span class="material-icons">add</span>
-    <h3>Add Routine</h3>
+    <h3><a th:href="@{/professionals/professional-basic/add-routine}">Add Routine</a></h3>
 </div>
 
 <div th:fragment="add__recipe" class="add__something">
     <span class="material-icons">add</span>
-    <h3>Add Recipe</h3>
+    <h3><a th:href="@{/professionals/professional-basic/add-recipe}">Add Recipe</a></h3>
 </div>
 
 <div th:fragment="add__diet" class="add__something">
     <span class="material-icons">add</span>
-    <h3>Add Diet</h3>
+    <h3><a th:href="@{/professionals/professional-basic/add-diet}">Add Diet</a></h3>
 </div>
 
 <div th:fragment="add__client" class="add__something">
@@ -82,7 +85,25 @@
     <h3><a th:href="@{/professionals/professional-basic/add-client}">Add Client</a></h3>
 </div>
 
+<div th:fragment="add__plan" class="add__something">
+    <span class="material-icons">add</span>
+    <h3><a th:href="@{/professionals/professional-basic/my-diets/}">Start Daily plan</a></h3>
+</div>
+
+<div th:fragment="add__professional" class="add__something">
+    <span class="material-icons">add</span>
+    <h3><a th:href="@{/clients/client-free/add-professional}">Add Professional</a></h3>
+</div>
+
+<div th:fragment="add__weeklyplan" class="add__something">
+    <span class="material-icons">add</span>
+    <h3><a th:href="@{/professionals/professional-basic/my-plans/}">Start Weekly plan</a></h3>
+</div>
+
+<!--================================================-->
 <!--============ SEARCH BAR +  BUTTON ==============-->
+<!--================================================-->
+
 <div th:fragment="search-bar" class="search__bar">
     <span class="material-icons">search</span>
     <input type="search" placeholder="Search for MPT users">
@@ -92,7 +113,10 @@
     <label for="">Search</label>
 </div>
 
-<!-- FOLLOWERS AND FOLLOWED SECTION -->
+<!--================================================-->
+<!--========= FOLLOWERS AND FOLLOWED SECTION =======-->
+<!--================================================-->
+
 <div th:fragment="message" class="message">
     <div class="profile__photo">
         <span class="material-icons">account_circle</span>
@@ -174,7 +198,7 @@
             </div>
             <div>
                 <h5>Jaime Arana</h5>
-                <p class="text__muted">6 mututal friends</p>
+                <p class="text__muted">6 mutual friends</p>
             </div>
         </div>
         <div class="action">
@@ -212,4 +236,54 @@
             <button class="btn" id="btn__decline">Decline</button>
         </div>
     </div>
+</div>
+
+<!--================================================-->
+<!--================ ASIDE CARD ====================-->
+<!--================================================-->
+
+<div th:fragment="new__dailyplan" class="updates">
+    <span class="material-icons">note_add</span>
+    <h4>Create a new Daily Plan</h4>
+    <!-- <p>Select between daily, weekly or monthly</p>
+    <p>Select routines, diets and much more</p> -->
+    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-daily-plan}">Create Now</a>
+</div>
+
+<div th:fragment="new__weeklyplan" class="updates">
+    <span class="material-icons">note_add</span>
+    <h4>Create a new Weekly Plan</h4>
+    <!-- <p>Select between daily, weekly or monthly</p>
+    <p>Select routines, diets and much more</p> -->
+    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-weekly-plan}">Create Now</a>
+</div>
+
+<div th:fragment="new__diet" class="updates">
+    <span class="material-icons">note_add</span>
+    <h4>Create a new Diet</h4>
+    <p>Select between the multiple recipes and customize diets for your clients</p>
+    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-diet}">Create Now</a>
+</div>
+
+<div th:fragment="new__routine" class="updates">
+    <span class="material-icons">note_add</span>
+    <h4>Create a new Routine</h4>
+    <p>Select between the multiple exercises and customize routines for your clients</p>
+    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-routine}">Create Now</a>
+</div>
+
+<div th:fragment="new__exercise" class="updates">
+    <span class="material-icons">note_add</span>
+    <h4>Create a new Plan</h4>
+    <p>Select between daily, weekly or monthly</p>
+    <p>Select routines, diets and much more</p>
+    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-exercise}">Create Now</a>
+</div>
+
+<div th:fragment="new__recipe" class="updates">
+    <span class="material-icons">note_add</span>
+    <h4>Create a new Plan</h4>
+    <p>Select between daily, weekly or monthly</p>
+    <p>Select routines, diets and much more</p>
+    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-recipe}">Create Now</a>
 </div>
