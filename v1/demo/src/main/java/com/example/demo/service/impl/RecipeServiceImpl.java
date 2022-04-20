@@ -1,9 +1,8 @@
 package com.example.demo.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import com.example.demo.controller.dao.DietDAO;
 import com.example.demo.controller.dao.ExerciseDAO;
@@ -11,13 +10,11 @@ import com.example.demo.controller.dao.RecipeDAO;
 import com.example.demo.model.Client;
 import com.example.demo.model.Diet;
 import com.example.demo.model.Exercise;
+import com.example.demo.model.Ingredients;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
 import com.example.demo.model.Recipe;
-import com.example.demo.repository.DietsRepository;
-import com.example.demo.repository.ExercisesRepository;
-import com.example.demo.repository.ModelUserRepository;
-import com.example.demo.repository.ProfessionalsRepository;
+import com.example.demo.model.Tools;
 import com.example.demo.repository.RecipesRepository;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DietService;
@@ -53,8 +50,8 @@ public class RecipeServiceImpl implements RecipesService{
 
         recipe.setRecipe_description(recipeDAO.getRecipe_description());
         recipe.setRecipe_name(recipeDAO.getRecipe_name());
-        recipe.setEquipment(recipeDAO.getEquipment());
         recipe.setIngredients(recipeDAO.getIngredients());
+        recipe.setTools(recipeDAO.getTools());
         
         try {
             recipe.setImage(recipeDAO.getImage().getBytes());
@@ -86,6 +83,8 @@ public class RecipeServiceImpl implements RecipesService{
 
     @Override
     public Recipe getRecipeById(Long recipe_id) {
-        return recipesRepository.findRecipeById(recipe_id);
+        Recipe r = recipesRepository.findRecipeById(recipe_id);
+        r.setImageBase64(r.getImage());
+        return r;
     }
 }

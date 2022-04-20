@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +11,10 @@ import java.util.Set;
 
 import com.example.demo.controller.dao.DietDAO;
 import com.example.demo.controller.dao.ExerciseDAO;
+import com.example.demo.model.Body;
 import com.example.demo.model.Client;
 import com.example.demo.model.Diet;
+import com.example.demo.model.Equipment;
 import com.example.demo.model.Exercise;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
@@ -51,8 +54,10 @@ public class ExerciseServiceImpl implements ExercisesService{
 
         exercise.setExercise_description(exerciseDAO.getExercise_description());
         exercise.setExercise_name(exerciseDAO.getExercise_name());
-        exercise.setTools(exerciseDAO.getTools());
-        exercise.setBody_parts(exerciseDAO.getBody_part());
+        exercise.setEquipment(exerciseDAO.getEquipment());
+        exercise.setBody_parts(exerciseDAO.getParts());
+        exercise.setNumber_repetitions(exerciseDAO.getNumber_repetitions());
+        exercise.setResting_time(exerciseDAO.getResting_time());
 
         try {
             exercise.setImage(exerciseDAO.getImage().getBytes());
@@ -67,7 +72,9 @@ public class ExerciseServiceImpl implements ExercisesService{
 
     @Override
     public Exercise getExerciseById(Long exercise_id) {
-        return exercisesRepository.findExerciseByExerciseId(exercise_id);
+        Exercise e = exercisesRepository.findExerciseByExerciseId(exercise_id);
+        e.setImageBase64(e.getImage());
+        return e;
     }
 
     @Override

@@ -1,0 +1,75 @@
+<main th:fragment="main">
+    <aside th:replace="hub/layouts/layout-aside/client/client::aside"></aside>
+    
+    <section class="middle">
+        <div th:if="${isPublic}" class="container">
+            <h2>Esta es la información disponible de, <span th:text="${professional_username}"></span></h2>
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h3>RUTINAS PÚBLICAS:</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Routine Id</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="routine: ${routines}">
+                                <td th:text="${#strings.toString(routine.routine_id)}"></td>
+                                <td th:text="${routine.routine_name}"></td>
+                                <td th:text="${routine.routine_description}"></td>
+                                <td><a th:href="@{/clients/client-free/add-professional-routine/} + ${#strings.toString(routine.routine_id)}" th:text="'AÑADIR'" class="btn btn-outline-danger"></a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <p>FOOTER</p>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        
+            <div class="card bg-light">
+                <div class="card-header">
+                    <h3>DIETAS PÚBLICAS:</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id Dieta</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>AÑADIR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="diet: ${diets_list}">
+                                <td th:text="${#strings.toString(diet.diet_id)}"></td>
+                                <td th:text="${diet.diet_name}"></td>
+                                <td th:text="${diet.diet_description}"></td>
+                                <td><a th:href="@{/clients/client-free/add-professional-diet/} + ${#strings.toString(diet.diet_id)}" th:text="'AÑADIR'" class="btn btn-outline-danger"></a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div th:if="${isPrivate}" class="container">
+            <h2>El profesional <span th:text="${professional_username}"></span> tiene la cuenta privada.</h2>
+        </div>
+    </section>
+
+    <section class="right">
+        <div th:replace="hub/layouts/layout-tools::messages"></div>
+        <div th:replace="hub/layouts/layout-tools::requests"></div>
+    </section>
+</main>

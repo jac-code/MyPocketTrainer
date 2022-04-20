@@ -2,7 +2,25 @@
     <aside th:replace="hub/layouts/layout-aside/client/client::aside"></aside>
     
     <section class="middle">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h1>Find and connect with other users</h1>
+            
+            <form th:action="@{/clients/client-free/my-mpt-finder-results}" th:object="${new_user}" method="GET">
+                <input type="text" th:field="*{parameter}" placeholder="Username">
+                
+                <h5>Is your friend a PROFESSIONAL or a CLIENT??</h5>
+                
+                <input type="radio" id="PROFESSIONAL" name="PROFESSIONAL" value="PROFESSIONAL" th:field="*{user_type}">
+                <label for="PROFESSIONAL">PROFESSIONAL</label>
+
+                <input type="radio" id="CLIENT" name="CLIENT" value="CLIENT" th:field="*{user_type}">
+                <label for="CLIENT">CLIENT</label>
+
+                <br>
         
+                <button type="submit" class="btn">Search User</button>
+            </form>
+        </div>
     </section>
 
     <section class="right">

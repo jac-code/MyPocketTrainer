@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import java.util.Base64;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -47,9 +46,9 @@ public class Recipe {
     @Transient
     private String imageBase64;
 
-    @Column(name = "equipment")
+    @Column(name = "tools")
     @ElementCollection
-    private List<String> equipment;
+    private List<String> tools;
 
     @Column(name = "ingredients")
     @ElementCollection

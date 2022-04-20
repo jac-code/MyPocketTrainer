@@ -20,6 +20,8 @@ import com.example.demo.controller.dao.UserFinderDAO;
 import com.example.demo.model.Daily;
 import com.example.demo.model.Exercise;
 import com.example.demo.model.Professional;
+import com.example.demo.model.Recipe;
+import com.example.demo.model.Weekly;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DailyService;
@@ -32,7 +34,6 @@ import com.example.demo.service.WeeklyService;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("clients/client-free/view")
@@ -57,28 +58,28 @@ public class ViewControllerClient {
     private IAuthenticationFacade authenticationFacade;
 
     @Autowired
-    ClientsService clientsService;
+    private ClientsService clientsService;
 
     @Autowired
-    ExercisesService exercisesService;
+    private ExercisesService exercisesService;
 
     @Autowired 
-    RecipesService recipesService;
+    private RecipesService recipesService;
 
     @Autowired
-    DailyService dailyService;
+    private DailyService dailyService;
 
     @Autowired
-    RoutineService routineService;
+    private RoutineService routineService;
 
     @Autowired
-    DietService dietService;
+    private DietService dietService;
 
     @Autowired
-    ProfessionalsService professionalsService;
+    private ProfessionalsService professionalsService;
 
     @Autowired
-    WeeklyService weeklyService;
+    private WeeklyService weeklyService;
     
     /* ********************************************************************* */
     /* ******************** VIEWS ****************** */
@@ -87,7 +88,6 @@ public class ViewControllerClient {
     @GetMapping("/" + URL_VIEW_EXERCISE + "/" + "{exercise_id}")
     public String viewExercise(@PathVariable String exercise_id, ModelMap modelMap) {
         modelMap.addAttribute("exercise", exercisesService.getExerciseById(Long.parseLong(exercise_id)));
-        modelMap.addAttribute("exercise_id", exercise_id);
         return DIRECCION_BASE + PAGE_VIEW_EXERCISE;
     }
     
@@ -107,5 +107,26 @@ public class ViewControllerClient {
     public String viewRoutine(@PathVariable String routine_id, Model model) {
         model.addAttribute("routine", routineService.getRoutineById(Long.parseLong(routine_id)));
         return DIRECCION_BASE +  PAGE_VIEW_ROUTINE;
+    }
+
+    @GetMapping("/" + URL_VIEW_WEEKLY)
+    public String viewWeeklyClient(Model model) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        Weekly weekly = weeklyService.getWeeklyByClient(userPrincipal.getUsername());
+        
+        for (Daily daily : weekly.getDailies()) {
+            for(Recipe r : daily.getDiet().getRecipes()) {
+                r.setImageBase64(r.getImage());
+            }
+            
+            for(Exercise e : daily.getRoutine().getExercises()) {
+                e.setImageBase64(e.getImage());
+            }
+        }
+
+        model.addAttribute("weekly", weekly);
+        return DIRECCION_BASE +  PAGE_VIEW_WEEKLY;
     }
 }

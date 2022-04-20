@@ -18,7 +18,9 @@ import java.util.List;
 import com.example.demo.controller.dao.ProfessionalDAO;
 import com.example.demo.controller.dao.UserFinderDAO;
 import com.example.demo.model.Daily;
+import com.example.demo.model.Exercise;
 import com.example.demo.model.Professional;
+import com.example.demo.model.Recipe;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DailyService;
@@ -117,16 +119,6 @@ public class ClientsController {
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
-        // modelMap.addAttribute("routines", routineService.listLinkedRoutines(userPrincipal.getUsername()));        
-        // modelMap.addAttribute("diets_list", dietService.listLinkedDiets(userPrincipal.getUsername()));
-        // modelMap.addAttribute("followed_diets", dietService.listFollowedDiets(userPrincipal.getUsername()));
-        // modelMap.addAttribute("followed_routines", routineService.listFollowedRoutines(userPrincipal.getUsername()));
-        
-        // modelMap.addAttribute("recipes", dailyService.getDailyByWeekDay(getDayOfWeek(), userPrincipal.getUsername()).getDiet().getRecipes());  // el cliente solo tiene UN weekly --> cada semana el entrenador lo tiene que actualizar 
-        // modelMap.addAttribute("exercises", dailyService.getDailyByWeekDay(getDayOfWeek(), userPrincipal.getUsername()).getRoutine().getExercises());
-        
-        // modelMap.addAttribute("weekly", clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly());
-
         List<Daily> dailies = clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly().getDailies();
 
         modelMap.addAttribute("dailies", dailies);
@@ -134,8 +126,18 @@ public class ClientsController {
         
         for (Daily daily : dailies) {
             if (getDayOfWeek().equals(daily.getWeek_day())) {
-                modelMap.addAttribute("recipes", daily.getDiet().getRecipes());
-                modelMap.addAttribute("exercises", daily.getRoutine().getExercises());
+                List<Recipe> recipes = daily.getDiet().getRecipes();
+                for(Recipe r : recipes) {
+                    r.setImageBase64(r.getImage());
+                }
+
+                List<Exercise> exercises = daily.getRoutine().getExercises();
+                for(Exercise e : exercises) {
+                    e.setImageBase64(e.getImage());
+                }
+
+                modelMap.addAttribute("recipes", recipes);
+                modelMap.addAttribute("exercises", exercises);
             }
         }
         
@@ -213,7 +215,7 @@ public class ClientsController {
     }
 
     @GetMapping("/" + URL_MPT_FINDER + "/" + "{professional_id}")
-    public String showProfessionalInfo(@PathVariable(required = false) String professional_id, ModelMap modelMap) {
+    public String showProfessionalInfo(@PathVariable(required = true) String professional_id, ModelMap modelMap) {
         // primero comprobamos si tiene perfil público
         Professional p = professionalsService.getProfessionalById(Long.parseLong(professional_id));
         if (p.isPublic()) {

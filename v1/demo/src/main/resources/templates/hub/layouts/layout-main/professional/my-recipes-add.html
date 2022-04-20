@@ -7,7 +7,7 @@
             <hr>
             <h2>Add Recipe</h2>
         
-            <form th:action="@{/professionals/professional-basic/save-recipe}" th:object="${new_recipe}" method="POST" enctype="multipart/form-data">
+            <!-- <form th:action="@{/professionals/professional-basic/save-recipe}" th:object="${new_recipe}" method="POST" enctype="multipart/form-data">
                 <input type="text" th:field="*{recipe_name}" placeholder="Recipe name" class="form-control mb-4 col-4"> 
                 <input type="text" th:field="*{recipe_description}" placeholder="Recipe description" class="form-control mb-4 col-4">
                 
@@ -53,8 +53,71 @@
                 <input type="text" th:field="*{type}" placeholder="Recipe type" class="form-control mb-4 col-4">
 
                 <button type="submit" class="btn btn-info col-2">Add Recipe</button>
+            </form> -->
+            
+            <form th:action="@{/professionals/professional-basic/save-recipe}" th:object="${new_recipe}" method="POST" enctype="multipart/form-data">
+                <input type="text" th:field="*{recipe_name}" placeholder="Recipe name" class="form-control mb-4 col-4"> 
+                <input type="text" th:field="*{recipe_description}" placeholder="Recipe description" class="form-control mb-4 col-4">
+                
+                <label>Foto: </label>
+                <input type="file" th:field="*{image}" name="image" accept="image/png, image/jpeg, image/gif" />
+
+                <hr>
+                <p>
+                    <label>TOOLS:
+                        <input type="checkbox" name="tools"
+                            th:each="tool: ${tools}"
+                            th:text="${tool}"
+                            th:value="${tool}"
+                            th:field="*{tools}"
+                        />
+                    </label>
+                </p>
+
+                <hr>
+
+                <p>
+                    <label>INGREDIENTS:
+                        <input type="checkbox" name="ingredients"
+                            th:each="ingredient: ${ingredients}"
+                            th:text="${ingredient}"
+                            th:value="${ingredient}"
+                            th:field="*{ingredients}"
+                        />
+                    </label>
+                </p>
+                
+                <hr>
+
+                <input type="text" th:field="*{cooking_time}" placeholder="Recipe cooking time" class="form-control mb-4 col-4"> 
+                <input type="text" th:field="*{price}" placeholder="Recipe price" class="form-control mb-4 col-4">
+                <input type="text" th:field="*{calories}" placeholder="Recipe calories" class="form-control mb-4 col-4">
+                <br>
+                <input type="text" th:field="*{fat}" placeholder="Recipe fat" class="form-control mb-4 col-4"> 
+                <input type="text" th:field="*{carbs}" placeholder="Recipe carbs" class="form-control mb-4 col-4">
+                <input type="text" th:field="*{protein}" placeholder="Recipe protein" class="form-control mb-4 col-4">
+                
+                <br>
+
+                <input type="radio" id="DINNER" name="DINNER" value="DINNER" th:field="*{type}">
+                <label for="professional">Dinner</label><br>
+
+                <input type="radio" id="LUNCH" name="LUNCH" value="LUNCH" th:field="*{type}">
+                <label for="professional">Lunch</label><br>
+
+                <input type="radio" id="SNACK" name="SNACK" value="SNACK" th:field="*{type}">
+                <label for="professional">Snack</label><br>
+
+                <input type="radio" id="BREAKFAST" name="BREAKFAST" value="BREAKFAST" th:field="*{type}">
+                <label for="professional">Breakfast</label><br>
+
+                <br>
+
+                <!-- <input type="text" th:field="*{type}" placeholder="Recipe type" class="form-control mb-4 col-4"> -->
+
+                <button type="submit" class="btn">Add Recipe</button>
             </form>
-        
+
             <hr>
         
             <a th:href="@{/professionals/professional-basic/my-recipes/}"> Volver a ver la lista de recetas</a>

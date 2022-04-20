@@ -6,6 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.demo.model.Daily;
+import com.example.demo.model.Exercise;
+import com.example.demo.model.Recipe;
+import com.example.demo.model.Weekly;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DailyService;
@@ -27,7 +32,7 @@ public class ViewControllerProfessional {
     public static final String PAGE_VIEW_ROUTINE = "view-routine";
     public static final String PAGE_VIEW_DAILY = "view-daily";
     public static final String PAGE_VIEW_WEEKLY = "view-weekly";
-    public static final String PAGE_VIEW_WEEKLY_CLIENT = "view-weekly-client";
+    public static final String PAGE_VIEW_WEEKLY_CLIENT = "view-weekly";
     
     public static final String URL_VIEW_EXERCISE = "exercise/";
     public static final String URL_VIEW_RECIPE = "recipe/";
@@ -94,7 +99,19 @@ public class ViewControllerProfessional {
 
     @GetMapping("/" + URL_VIEW_WEEKLY_CLIENT + "/" + "{client_user_name}")
     public String viewWeeklyClient(@PathVariable String client_user_name, Model model) {
-        model.addAttribute("weekly", weeklyService.getWeeklyByClient(client_user_name));
+        Weekly weekly = weeklyService.getWeeklyByClient(client_user_name);
+        
+        for (Daily daily : weekly.getDailies()) {
+            for(Recipe r : daily.getDiet().getRecipes()) {
+                r.setImageBase64(r.getImage());
+            }
+            
+            for(Exercise e : daily.getRoutine().getExercises()) {
+                e.setImageBase64(e.getImage());
+            }
+        }
+
+        model.addAttribute("weekly", weekly);
         return DIRECCION_BASE +  PAGE_VIEW_WEEKLY_CLIENT;
     }
 }

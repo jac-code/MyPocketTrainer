@@ -5,7 +5,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class UserFinderDAO {
-
     private String parameter;
     private String user_type;
 

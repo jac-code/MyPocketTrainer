@@ -6,10 +6,9 @@
     <div th:replace="hub/layouts/layout-aside/client/sidebar-client::sidebar"></div>
 
     <div class="updates">
-        <span class="material-icons">update</span>
-        <h4>Updates Available</h4>
-        <p>Security Updates</p>
-        <p>General Updates</p>
-        <a href="#">Update Now</a>
+        <span class="material-icons">visibility</span>
+        <h4>See your plan</h4>
+        <p>See the planning for your week</p>
+        <a th:href="@{/clients/client-free/view/weekly/}">See plan</a>
     </div>
 </aside>

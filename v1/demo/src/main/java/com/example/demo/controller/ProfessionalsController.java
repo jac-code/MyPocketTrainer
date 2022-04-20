@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.demo.controller.dao.ClientDAO;
 import com.example.demo.controller.dao.DailyDAO;
@@ -20,7 +21,11 @@ import com.example.demo.controller.dao.ExerciseDAO;
 import com.example.demo.controller.dao.RecipeDAO;
 import com.example.demo.controller.dao.RoutineDAO;
 import com.example.demo.controller.dao.WeeklyDAO;
+import com.example.demo.model.Body;
+import com.example.demo.model.Equipment;
+import com.example.demo.model.Ingredients;
 import com.example.demo.model.ModelUser;
+import com.example.demo.model.Tools;
 import com.example.demo.security.IAuthenticationFacade;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DailyService;
@@ -256,9 +261,22 @@ public class ProfessionalsController {
     }
 
     @GetMapping("/" + URL_ADD_EXERCISE)
-    public String addNewExercise(Model model) {
+    public String addNewExercise(ModelMap model) {
+        List<String> equipment = new ArrayList<String>();
+        for (Equipment e : Equipment.values()) {
+            equipment.add(e.toString());
+        }
+
+        List<String> parts = new ArrayList<String>();
+        for (Body b : Body.values()) {
+            parts.add(b.toString());
+        }
+
         ExerciseDAO new_exercise = new ExerciseDAO();
         model.addAttribute("new_exercise", new_exercise);
+        model.addAttribute("equipment", equipment);
+        model.addAttribute("parts", parts);
+        
         return DIRECCION_BASE + PAGE_ADD_EXERCISE; // pagina html con formulario
     }
 
@@ -314,9 +332,22 @@ public class ProfessionalsController {
     }
 
     @GetMapping("/" + URL_ADD_RECIPE)
-    public String addNewRecipe(Model model) {
+    public String addNewRecipe(ModelMap model) {
+        List<String> tools = new ArrayList<String>();
+        for (Tools t : Tools.values()) {
+            tools.add(t.toString());
+        }
+
+        List<String> ingredients = new ArrayList<String>();
+        for (Ingredients i : Ingredients.values()) {
+            ingredients.add(i.toString());
+        }
+
         RecipeDAO new_recipe = new RecipeDAO();
         model.addAttribute("new_recipe", new_recipe);
+        model.addAttribute("tools", tools);
+        model.addAttribute("ingredients", ingredients);
+
         return DIRECCION_BASE + PAGE_ADD_RECIPE; // pagina html con formulario
     }
 

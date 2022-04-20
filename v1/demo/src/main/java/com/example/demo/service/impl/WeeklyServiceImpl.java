@@ -6,8 +6,10 @@ import java.util.List;
 import com.example.demo.controller.dao.WeeklyDAO;
 import com.example.demo.model.Client;
 import com.example.demo.model.Daily;
+import com.example.demo.model.Exercise;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
+import com.example.demo.model.Recipe;
 import com.example.demo.model.Weekly;
 import com.example.demo.repository.WeekliesRepository;
 import com.example.demo.service.ClientsService;
@@ -107,7 +109,21 @@ public class WeeklyServiceImpl implements WeeklyService{
 
     @Override
     public Weekly getWeeklyById(Long weekly_id) {
-        return weekliesRepository.findWeeklyById(weekly_id);
+        Weekly w = weekliesRepository.findWeeklyById(weekly_id);
+
+        for(Daily d : w.getDailies()) {
+            for(Exercise e : d.getRoutine().getExercises()) {
+                e.setImageBase64(e.getImage());
+            }
+        }
+
+        for(Daily d : w.getDailies()) {
+            for(Recipe r : d.getDiet().getRecipes()) {
+                r.setImageBase64(r.getImage());
+            }
+        }
+        
+        return w;
     }
 
     @Override

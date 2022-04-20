@@ -8,24 +8,216 @@
     </div>
 </div>
 
+<div th:fragment="view__diet">
+    <div th:each="recipe: ${diet.recipes}">
+        <img alt="" th:src="*{'data:image/jpeg;base64,' + {recipe.imageBase64}}" style="width: 300px; height: 300px;">
+        <div class="details" style="margin-left: 7rem; display: flex; justify-content: center;">
+            <div>
+                <h4 th:text="${recipe.recipe_name}"></h4>
+                <h6 th:text="${recipe.recipe_description}"></h6>
+                <div style="display: flex; margin-top: 1rem;">
+                    <div th:switch="${recipe.recipe_type}">
+                        <span th:case="'BREAKFAST'" class="material-icons">bakery_dining</span>
+                        <span th:case="'LUNCH'" class="material-icons">ramen_dining</span>
+                        <span th:case="'DINNER'" class="material-icons">dinner_dining</span>
+                        <span th:case="'SNACK'" class="material-icons">lunch_dining</span>
+                    </div>
+                    <small style="margin-left: 1rem; margin-top: 8px;" th:text="${recipe.recipe_type}"></small>
+                </div>
+            </div>
+            <div style="margin-left: 2rem;">
+                <div style="display: flex;"><h5>Total calories:</h5><h5 style="margin-left: 2px;" th:text="${recipe.calories}"></h5><h5 style="margin-left: 2px;">kcal</h5></div>
+                <div style="display: flex;"><h6>Fat:</h6><h6 style="margin-left: 2px;" th:text="${recipe.fat}"></h6><h6>gr</h6></div>
+                <div style="display: flex;"><h6>Carbohydrates:</h6><h6 style="margin-left: 2px;" th:text="${recipe.carbs}"></h6><h6 style="margin-left: 2px;">gr</h6></div>
+                <div style="display: flex;"><h6>Protein:</h6><h6 style="margin-left: 2px;" th:text="${recipe.protein}"></h6><h6 style="margin-left: 2px;">gr</h6></div>
+            </div>
+            <div style="margin-left: 2rem;">
+                <div>
+                    <div th:each="tool: ${recipe.tools}">
+                        <p th:text="${tool}"></p>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <div th:each="ingredient: ${recipe.ingredients}">
+                        <p th:text="${ingredient}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="view__routine">
+    <div th:each="exercise: ${routine.exercises}" style="display: flex; margin-bottom: 5rem;">
+        <img alt="" th:src="*{'data:image/jpeg;base64,'+{exercise.imageBase64}}" style="width: 200px;height: 200px;">
+        <div class="details" style="margin-top: 5rem; margin-left: 10rem;">
+            <h4 th:text="${exercise.exercise_name}"></h4>
+            <h6 th:text="${exercise.exercise_description}"></h6>
+            <small th:text="${exercise.resting_time}"></small>
+            <small th:text="${exercise.number_repetitions}"></small>
+        </div>
+    </div>
+</div>
+
 <div th:fragment="view__recipe" style="display: flex;">
     <img alt="" th:src="*{'data:image/jpeg;base64,' + {recipe.imageBase64}}" style="width: 300px; height: 300px;">
-    <div class="details" style="margin-left: 10rem; display: flex; justify-content: center;">
+    <div class="details" style="margin-left: 7rem; display: flex; justify-content: center;">
         <div>
             <h4 th:text="${recipe.recipe_name}"></h4>
             <h6 th:text="${recipe.recipe_description}"></h6>
-            <small th:text="${recipe.recipe_type}"></small>
+            <div style="display: flex; margin-top: 1rem;">
+                <div th:switch="${recipe.recipe_type}">
+                    <span th:case="'BREAKFAST'" class="material-icons">bakery_dining</span>
+                    <span th:case="'LUNCH'" class="material-icons">ramen_dining</span>
+                    <span th:case="'DINNER'" class="material-icons">dinner_dining</span>
+                    <span th:case="'SNACK'" class="material-icons">lunch_dining</span>
+                </div>
+                <small style="margin-left: 1rem; margin-top: 8px;" th:text="${recipe.recipe_type}"></small>
+            </div>
         </div>
         <div style="margin-left: 2rem;">
-            <div style="display: flex;"><h5>Total calories:</h5><h5 th:text="${recipe.calories}"></h5><h5>gr</h5></div>
-            <div style="display: flex;"><h6>Fat:</h6><h6 th:text="${recipe.fat}"></h6><h6>gr</h6></div>
-            <div style="display: flex;"><h6>Carbohydrates:</h6><h6 th:text="${recipe.carbs}"></h6><h6>gr</h6></div>
-            <div style="display: flex;"><h6>Protein:</h6><h6 th:text="${recipe.protein}"></h6><h6>gr</h6></div>
+            <div style="display: flex;"><h5>Total calories:</h5><h5 style="margin-left: 2px;" th:text="${recipe.calories}"></h5><h5 style="margin-left: 2px;">kcal</h5></div>
+            <div style="display: flex;"><h6>Fat:</h6><h6 style="margin-left: 2px;" th:text="${recipe.fat}"></h6><h6>gr</h6></div>
+            <div style="display: flex;"><h6>Carbohydrates:</h6><h6 style="margin-left: 2px;" th:text="${recipe.carbs}"></h6><h6 style="margin-left: 2px;">gr</h6></div>
+            <div style="display: flex;"><h6>Protein:</h6><h6 style="margin-left: 2px;" th:text="${recipe.protein}"></h6><h6 style="margin-left: 2px;">gr</h6></div>
         </div>
-        <div>
-            <tr th:each="equipment: ${recipe.equipment}">
-                <td th:text="${equipment}"></td>
-            </tr>
+        <div style="margin-left: 2rem;">
+            <div>
+                <div th:each="tool: ${recipe.tools}">
+                    <p th:text="${tool}"></p>
+                </div>
+            </div>
+            <div style="margin-top: 2rem;">
+                <div th:each="ingredient: ${recipe.ingredients}">
+                    <p th:text="${ingredient}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="view_weekly_client" style="display: flex;">
+    <div th:each="daily, dailyStat: ${weekly.dailies}">
+        <span class="material-icons">view_day</span>
+        <div th:switch="${dailyStat.count}">
+            <h1 th:case="'1'">MONDAY</h1>
+            <h1 th:case="'2'">TUESDAY</h1>
+            <h1 th:case="'3'">WEDNESDAY</h1>
+            <h1 th:case="'4'">THURSDAY</h1>
+            <h1 th:case="'5'">FRIDAY</h1>
+            <h1 th:case="'6'">SATURDAY</h1>
+            <h1 th:case="'7'">SUNDAY</h1>
+        </div>
+        <div class="left" style="margin-right: 5rem;">
+            <h3>ROUTINE</h3>
+            <div th:each="exercise: ${daily.routine.exercises}" class="row" style="margin-bottom: 4rem;">
+                <!-- poner un img en lugar del span-->
+                <div>
+                    <img th:src="*{'data:image/jpeg;base64,'+{exercise.imageBase64}}" style="width: 30px;height: 30px;">
+                </div>
+                <h4 th:text="${exercise.exercise_name}"></h4>
+                <div class="attribute__3">
+                    <h6 th:text="${exercise.number_repetitions}"></h6>
+                </div>
+                <div class="attribute__4">
+                    <h6 th:text="${exercise.resting_time}"></h6>
+                </div>
+                <div class="attribute__5">
+                    <a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/exercise/} + ${#strings.toString(exercise.exercise_id)}">View Exercise</a>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <h3>DIET</h3>
+            <div th:each="recipe: ${daily.diet.recipes}" class="row" style="margin-bottom: 4rem;">
+                <!-- poner un img en lugar del span-->
+                <div>
+                    <img th:src="*{'data:image/jpeg;base64,'+{recipe.imageBase64}}" style="width: 30px;height: 30px;">
+                </div>
+                <div th:switch="${recipe.recipe_type}">
+                    <span th:case="'BREAKFAST'" class="material-icons">bakery_dining</span>
+                    <span th:case="'LUNCH'" class="material-icons">ramen_dining</span>
+                    <span th:case="'DINNER'" class="material-icons">dinner_dining</span>
+                    <span th:case="'SNACK'" class="material-icons">lunch_dining</span>
+                </div>
+                <h4 th:text="${recipe.recipe_type}"></h4>
+                <h4 th:text="${recipe.recipe_name}"></h4>
+                <div class="attribute__1">
+                    <p th:text="${recipe.calories}"></p>
+                    <small th:text="${recipe.protein}" class="text__muted"></small>
+                    <small th:text="${recipe.fat}" class="text__muted"></small>
+                    <small th:text="${recipe.carbs}" class="text__muted"></small>
+                </div>
+                <div class="attribute__2">
+                    <p th:text="${recipe.cooking_time}"></p>
+                </div>
+                <div class="attribute__3">
+                    <a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/recipe/} + ${#strings.toString(recipe.recipe_id)}">View Recipe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="view_weekly_professional" style="display: flex;">
+    <div th:each="daily, dailyStat: ${weekly.dailies}">
+        <span class="material-icons">view_day</span>
+        <div th:switch="${dailyStat.count}">
+            <h1 th:case="'1'">MONDAY</h1>
+            <h1 th:case="'2'">TUESDAY</h1>
+            <h1 th:case="'3'">WEDNESDAY</h1>
+            <h1 th:case="'4'">THURSDAY</h1>
+            <h1 th:case="'5'">FRIDAY</h1>
+            <h1 th:case="'6'">SATURDAY</h1>
+            <h1 th:case="'7'">SUNDAY</h1>
+        </div>
+        <div class="left" style="margin-right: 5rem;">
+            <h3>ROUTINE</h3>
+            <div th:each="exercise: ${daily.routine.exercises}" class="row" style="margin-bottom: 4rem;">
+                <!-- poner un img en lugar del span-->
+                <div>
+                    <img th:src="*{'data:image/jpeg;base64,'+{exercise.imageBase64}}" style="width: 30px;height: 30px;">
+                </div>
+                <h4 th:text="${exercise.exercise_name}"></h4>
+                <div class="attribute__3">
+                    <h6 th:text="${exercise.number_repetitions}"></h6>
+                </div>
+                <div class="attribute__4">
+                    <h6 th:text="${exercise.resting_time}"></h6>
+                </div>
+                <div class="attribute__5">
+                    <a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/exercise/} + ${#strings.toString(exercise.exercise_id)}">View Exercise</a>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <h3>DIET</h3>
+            <div th:each="recipe: ${daily.diet.recipes}" class="row" style="margin-bottom: 4rem;">
+                <!-- poner un img en lugar del span-->
+                <div>
+                    <img th:src="*{'data:image/jpeg;base64,'+{recipe.imageBase64}}" style="width: 30px;height: 30px;">
+                </div>
+                <div th:switch="${recipe.recipe_type}">
+                    <span th:case="'BREAKFAST'" class="material-icons">bakery_dining</span>
+                    <span th:case="'LUNCH'" class="material-icons">ramen_dining</span>
+                    <span th:case="'DINNER'" class="material-icons">dinner_dining</span>
+                    <span th:case="'SNACK'" class="material-icons">lunch_dining</span>
+                </div>
+                <h4 th:text="${recipe.recipe_type}"></h4>
+                <h4 th:text="${recipe.recipe_name}"></h4>
+                <div class="attribute__1">
+                    <p th:text="${recipe.calories}"></p>
+                    <small th:text="${recipe.protein}" class="text__muted"></small>
+                    <small th:text="${recipe.fat}" class="text__muted"></small>
+                    <small th:text="${recipe.carbs}" class="text__muted"></small>
+                </div>
+                <div class="attribute__2">
+                    <p th:text="${recipe.cooking_time}"></p>
+                </div>
+                <div class="attribute__3">
+                    <a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/recipe/} + ${#strings.toString(recipe.recipe_id)}">View Recipe</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

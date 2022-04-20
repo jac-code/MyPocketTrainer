@@ -16,7 +16,7 @@ import lombok.*;
 public class RecipeDAO {
     private String recipe_name;
     private String recipe_description;
-    private List<String> equipment;
+    private List<String> tools;
     private List<String> ingredients;
     private String cooking_time;
     private String price;

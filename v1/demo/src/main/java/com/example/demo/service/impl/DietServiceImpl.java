@@ -54,7 +54,13 @@ public class DietServiceImpl implements DietService{
 
     @Override
     public Diet getDietById(Long diet_id) {
-        return dietsRepository.findDietById(diet_id);
+        Diet d = dietsRepository.findDietById(diet_id);
+        
+        for(Recipe r : d.getRecipes()) {
+            r.setImageBase64(r.getImage());
+        }
+
+        return d;
     }
 
     @Override

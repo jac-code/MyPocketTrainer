@@ -55,7 +55,11 @@ public class RoutineServiceImpl implements RoutineService{
 
     @Override
     public Routine getRoutineById(Long routine_id) {
-        return routinesRepository.findRoutineById(routine_id);
+        Routine r = routinesRepository.findRoutineById(routine_id);
+        for(Exercise e : r.getExercises()) {
+            e.setImageBase64(e.getImage());
+        }
+        return r;
     }
 
     @Override
