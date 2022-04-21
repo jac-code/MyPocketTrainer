@@ -57,6 +57,12 @@ public class WeeklyServiceImpl implements WeeklyService{
     }
 
     @Override
+    public List<Weekly> listFollowedPlans(String user_name) {
+        Client c = clientsService.getClientByUsername(user_name);
+        return c.getFollowed_plans();
+    }
+
+    @Override
     public void saveNewWeekly(WeeklyDAO weeklyDAO, String user_name) {
         Weekly weekly = new Weekly();
         List<Daily> dailies = new ArrayList<>();

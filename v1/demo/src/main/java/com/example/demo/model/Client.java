@@ -45,6 +45,30 @@ public class Client extends ModelUser{
 
     @ManyToMany
     @JoinTable(
+            name = "FOLLOWED_EXERCISES",
+            joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "exercise_id")
+    )
+    private List<Exercise> followed_exercises;
+
+    @ManyToMany
+    @JoinTable(
+            name = "FOLLOWED_RECIPES",
+            joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "recipe_id")
+    )
+    private List<Recipe> followed_recipes;
+
+    @ManyToMany
+    @JoinTable(
+            name = "FOLLOWED_PLANS",
+            joinColumns = @JoinColumn(name = "client_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(name = "weekly_id", referencedColumnName = "weekly_id")
+    )
+    private List<Weekly> followed_plans;
+
+    @ManyToMany
+    @JoinTable(
             name = "LINKED_ROUTINES",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"), 
             inverseJoinColumns = @JoinColumn(name = "routine_id", referencedColumnName = "routine_id")
@@ -101,6 +125,30 @@ public class Client extends ModelUser{
 
     public void unFollowDiet(Diet diet) {
         this.followed_diets.remove(diet);
+    }
+
+    public void addFollowedRecipe(Recipe recipe) {
+        this.followed_recipes.add(recipe);
+    }
+
+    public void unFollowRecipe(Recipe recipe) {
+        this.followed_recipes.remove(recipe);
+    }
+
+    public void addFollowedExercise(Exercise e) {
+        this.followed_exercises.add(e);
+    }
+
+    public void unFollowExercise(Exercise e) {
+        this.followed_exercises.remove(e);
+    }
+
+    public void addFollowedPlan(Weekly w) {
+        this.followed_plans.add(w);
+    }
+
+    public void unFollowPlan(Weekly w) {
+        this.followed_plans.remove(w);
     }
 
     public void linkRoutine(Routine routine) {

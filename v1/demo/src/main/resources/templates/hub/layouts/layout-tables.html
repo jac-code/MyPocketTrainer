@@ -66,6 +66,29 @@
     </table>
 </div>
 
+<div th:fragment="my_recipes_client" class="table">
+    <h2>Mis Recetas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+                <th>Ver en detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="recipe: ${recipes}">
+                <td th:text="${recipe.recipe_name}"></td>
+                <td th:text="${recipe.recipe_description}"></td>
+                <td><img alt="" th:src="*{'data:image/jpeg;base64,'+{recipe.imageBase64}}" style="width: 100px;height: 100px;"></td>
+
+                <td><a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/recipe/} + ${#strings.toString(recipe.recipe_id)}">View Recipe</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <div th:fragment="my__diets" class="table">
     <h2>Mis Dietas</h2>
     <table class="table table-striped">
@@ -129,6 +152,32 @@
                 <td><a th:if="${routine_id}" th:href="@{/professionals/professional-basic/link-exercise-routine/} + ${routine_id} + @{/} + ${#strings.toString(exercise.exercise_id)}" th:text="'Add to Routine'" class="btn" id="table__btn__config"></a></td>
                 <td><a th:href="@{/professionals/professional-basic/delete-exercise/} + ${#strings.toString(exercise.exercise_id)}" th:text="'Eliminar'" class="btn" id="table__btn__delete"></a></td>
                 <td><a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/exercise/} + ${#strings.toString(exercise.exercise_id)}">View Exercise</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="my_exercises_client" class="table">
+    <div class="header">
+        <h1>Followed exercises</h1>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Imagen</th>
+                <th>Ver en detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="exercise: ${exercises}">
+                <td th:text="${exercise.exercise_name}"></td>
+                <td th:text="${exercise.exercise_description}"></td>
+                <td><img alt="" th:src="*{'data:image/jpeg;base64,'+{exercise.imageBase64}}" style="width: 100px;height: 100px;"></td>
+
+                <!-- value is a String and is not “false”, “off” or “no” -->
+                <td><a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/exercise/} + ${#strings.toString(exercise.exercise_id)}">View Exercise</a></td>
             </tr>
         </tbody>
     </table>
@@ -252,6 +301,37 @@
                 </td>
                 <td><a th:href="@{/professionals/professional-basic/my-daily-plans/} + ${#strings.toString(weekly.weekly_id)}" th:text="'Añadir Plan Diario'" class="btn"></a></td>
                 <td><a th:href="@{/professionals/professional-basic/delete-daily/} + ${#strings.toString(daily.daily_id)}" th:text="'Eliminar'" class="btn" id="table__btn__delete"></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="my_weeklyplans_client" class="table">
+    <h2>Followed Plans</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miercoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sábado</th>
+                <th>Domingo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="weekly: ${weeklies}">
+                <td>
+                    <p th:each="daily: ${weekly.dailies}">
+                        <a th:href="@{/clients/client-free/view/routine/} + ${#strings.toString(daily.routine.routine_id)}" class="btn" th:text="${daily.routine.routine_name}"></a>
+                    </p>
+                </td>
+                <td>
+                    <p th:each="daily: ${weekly.dailies}">
+                        <a th:href="@{/clients/client-free/view/diet/} + ${#strings.toString(daily.diet.diet_id)}" class="btn" th:text="${daily.diet.diet_name}"></a>
+                    </p>
+                </td>
             </tr>
         </tbody>
     </table>

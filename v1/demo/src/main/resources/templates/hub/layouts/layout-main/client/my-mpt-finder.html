@@ -6,19 +6,33 @@
             <h1>Find and connect with other users</h1>
             
             <form th:action="@{/clients/client-free/my-mpt-finder-results}" th:object="${new_user}" method="GET">
-                <input type="text" th:field="*{parameter}" placeholder="Username">
+                <div class="first" style="display: flex; align-items: center; justify-content: space-between; margin-top: 3rem;">
+                    <div class="search__bar">
+                        <span class="material-icons">search</span>
+                        <input type="text" th:field="*{parameter}" placeholder="Search for users  by USERNAME">
+                    </div>
+                    <div class="create">
+                        <button type="submit" class="btn">Search User</button>
+                    </div>
+                </div>
                 
-                <h5>Is your friend a PROFESSIONAL or a CLIENT??</h5>
+                <div class="content" style="margin-top: 2rem; align-items: center; text-align: center;">
+                    <div style="margin-bottom: 1rem;">
+                        <h3>Is your friend a PROFESSIONAL or a CLIENT??</h3>
+                    </div>
                 
-                <input type="radio" id="PROFESSIONAL" name="PROFESSIONAL" value="PROFESSIONAL" th:field="*{user_type}">
-                <label for="PROFESSIONAL">PROFESSIONAL</label>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
+                        <div style="display: flex; align-items: center; gap: .5rem;">
+                            <input type="radio" id="PROFESSIONAL" name="PROFESSIONAL" value="PROFESSIONAL" th:field="*{user_type}">
+                            <label for="PROFESSIONAL">PROFESSIONAL</label>
+                        </div>
 
-                <input type="radio" id="CLIENT" name="CLIENT" value="CLIENT" th:field="*{user_type}">
-                <label for="CLIENT">CLIENT</label>
-
-                <br>
-        
-                <button type="submit" class="btn">Search User</button>
+                        <div style="display: flex; align-items: center; gap: .5rem;">
+                            <input type="radio" id="CLIENT" name="CLIENT" value="CLIENT" th:field="*{user_type}">
+                            <label for="CLIENT">CLIENT</label>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </section>

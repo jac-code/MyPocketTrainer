@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.controller.dao.ClientDAO;
 import com.example.demo.controller.dao.ProfessionalDAO;
 import com.example.demo.controller.dao.UserDAO;
 import com.example.demo.model.*;
@@ -26,4 +25,7 @@ public interface ClientsService {
     public void DietLinksToClient(String client_user_name, String diet_id, String professional_user_name);
     public void ClientFollowsRoutines(String routine_id, String client_user_name);
     public void ClientFollowsDiets(String diet_id, String client_user_name);
+    public void ClientFollowsPlans(String weekly_id, String client_user_name);
+    public void ClientFollowsRecipes(String recipe_id, String client_user_name);
+    public void ClientFollowsExercises(String exercise_id, String client_user_name);
 }

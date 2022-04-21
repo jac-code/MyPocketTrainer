@@ -10,4 +10,5 @@ public interface ExercisesService {
     public void saveNewExercise(ExerciseDAO exerciseDAO, String user_name) throws IOException;
     public List<Exercise> listExercisesByProfessional(String user_name);
     public Exercise getExerciseById(Long exercise_id);
+    public List<Exercise> listFollowedExercises(String user_name);
 }

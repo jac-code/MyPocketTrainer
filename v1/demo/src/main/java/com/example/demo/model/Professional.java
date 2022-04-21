@@ -42,6 +42,22 @@ public class Professional extends ModelUser{
     )
     private List<Client> clients;
 
+    @ManyToMany
+    @JoinTable( 
+        name = "FOLLOWERS",
+        joinColumns = @JoinColumn(name = "professional_id", referencedColumnName = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "follower_id", referencedColumnName = "user_id")
+    )
+    private List<ModelUser> followers;
+
+    @ManyToMany
+    @JoinTable( 
+        name = "FOLLOWED",
+        joinColumns = @JoinColumn(name = "professional_id", referencedColumnName = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "followed_id", referencedColumnName = "user_id")
+    )
+    private List<ModelUser> followed;
+
     // owning side
     @ManyToOne
     @JoinColumn(name = "business_id")
@@ -93,6 +109,24 @@ public class Professional extends ModelUser{
 
     public void removeLinkedClient(Client client) {
         this.clients.remove(client);
+    }
+
+    /********** FOLLOWERS *************/
+    public void removeFollower(ModelUser user) {
+        this.followers.remove(user);
+    }
+
+    public void addFollower(ModelUser user) {
+        this.followers.add(user);
+    }
+
+    /********** FOLLOWED  ************/
+    public void removeFollowed(ModelUser user) {
+        this.followed.remove(user);
+    }
+
+    public void addFollowed(ModelUser user) {
+        this.followed.add(user);
     }
 
     /*************** DIETS ***************/

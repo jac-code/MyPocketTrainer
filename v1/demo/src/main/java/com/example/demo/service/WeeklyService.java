@@ -11,4 +11,5 @@ public interface WeeklyService {
     public Weekly getWeeklyById(Long weekly_id);
     public List<Weekly> listWeekliesByProfessional(String user_name);
     public void linkWeeklyToClient(String client_user_name, String weekly_id);
+    public List<Weekly> listFollowedPlans(String user_name);
 }

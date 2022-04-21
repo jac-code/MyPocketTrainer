@@ -1,15 +1,8 @@
 package com.example.demo.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
-import com.example.demo.controller.dao.DietDAO;
 import com.example.demo.controller.dao.ExerciseDAO;
 import com.example.demo.model.Body;
 import com.example.demo.model.Client;
@@ -18,10 +11,7 @@ import com.example.demo.model.Equipment;
 import com.example.demo.model.Exercise;
 import com.example.demo.model.ModelUser;
 import com.example.demo.model.Professional;
-import com.example.demo.repository.DietsRepository;
 import com.example.demo.repository.ExercisesRepository;
-import com.example.demo.repository.ModelUserRepository;
-import com.example.demo.repository.ProfessionalsRepository;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DietService;
 import com.example.demo.service.EmailService;
@@ -86,5 +76,11 @@ public class ExerciseServiceImpl implements ExercisesService{
         }
         
         return exercises;
+    }
+
+    @Override
+    public List<Exercise> listFollowedExercises(String user_name) {
+        Client client = clientsService.getClientByUsername(user_name);
+        return client.getFollowed_exercises();
     }
 }

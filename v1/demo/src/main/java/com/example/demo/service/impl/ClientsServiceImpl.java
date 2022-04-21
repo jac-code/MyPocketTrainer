@@ -20,10 +20,13 @@ import com.example.demo.repository.VerificationTokenRepository;
 import com.example.demo.service.ClientsService;
 import com.example.demo.service.DietService;
 import com.example.demo.service.EmailService;
+import com.example.demo.service.ExercisesService;
 import com.example.demo.service.ModelUserService;
 import com.example.demo.service.ProfessionalsService;
+import com.example.demo.service.RecipesService;
 import com.example.demo.service.RoutineService;
 import com.example.demo.service.VerificationTokenService;
+import com.example.demo.service.WeeklyService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,6 +62,15 @@ public class ClientsServiceImpl implements ClientsService{
     private RoutineService routineService;
 
     @Autowired
+    private ExercisesService exercisesService;
+
+    @Autowired
+    private RecipesService recipesService;
+
+    @Autowired
+    private WeeklyService weeklyService;
+
+    @Autowired
     private DietService dietService;
 
     @Value("${site.base.url.https}")
@@ -77,7 +89,7 @@ public class ClientsServiceImpl implements ClientsService{
         Professional p = professionalsService.getProfessionalById(modelUser.getUser_id());
         return p.getClients();
 	}
-
+    
     @Override
     public Client getClientByUsername(String user_name) {
         return clientsRepository.findClientByUsername(user_name);
@@ -126,6 +138,33 @@ public class ClientsServiceImpl implements ClientsService{
         Client client = clientsRepository.findClientByUsername(client_user_name);
         Routine routine = routineService.getRoutineById(Long.parseLong(routine_id));
         client.addFollowedRoutine(routine);
+        clientsRepository.save(client);
+    }
+
+    @Override
+    public void ClientFollowsExercises(String exercise_id, String client_user_name) {
+        Client client = clientsRepository.findClientByUsername(client_user_name);
+        Exercise e = exercisesService.getExerciseById(Long.parseLong(exercise_id));
+
+        client.addFollowedExercise(e);
+        clientsRepository.save(client);
+    }
+
+    @Override
+    public void ClientFollowsRecipes(String recipe_id, String client_user_name) {
+        Client client = clientsRepository.findClientByUsername(client_user_name);
+        Recipe r = recipesService.getRecipeById(Long.parseLong(recipe_id));
+        
+        client.addFollowedRecipe(r);
+        clientsRepository.save(client);
+    }
+
+    @Override
+    public void ClientFollowsPlans(String weekly_id, String client_user_name) {
+        Client client = clientsRepository.findClientByUsername(client_user_name);
+        Weekly w = weeklyService.getWeeklyById(Long.parseLong(weekly_id));
+
+        client.addFollowedPlan(w);
         clientsRepository.save(client);
     }
 

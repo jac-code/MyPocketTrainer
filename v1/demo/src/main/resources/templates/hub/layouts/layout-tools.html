@@ -116,7 +116,6 @@
 <!--================================================-->
 <!--========= FOLLOWERS AND FOLLOWED SECTION =======-->
 <!--================================================-->
-
 <div th:fragment="message" class="message">
     <div class="profile__photo">
         <span class="material-icons">account_circle</span>
@@ -129,53 +128,53 @@
 
 <div th:fragment="messages" class="messages">
     <div class="heading">
-        <h4>Followed users</h4>
-        <div class="search__bar">
-            <span class="material-icons">search</span>
-            <input type="search" placeholder="Search for an user" id="search__bar__messages">
-        </div>
+        <h4>Followed users</h4><span class="material-icons">edit</span>
+    </div>
+    <div class="search__bar" id="search__bar__messages">
+        <span class="material-icons">search</span>
+        <input type="text" placeholder="Search for an user">
+    </div>
 
-        <div class="message">
-            <div class="profile__photo">
-                <span class="material-icons">account_circle</span>
-            </div>
-            <div class="message__body">
-                <h5>Jaime Arana</h5>
-                <p class="text__bold">2 new messages</p>
-            </div>
+    <div class="message">
+        <div class="profile__photo">
+            <span class="material-icons">account_circle</span>
         </div>
-        <div class="message">
-            <div class="profile__photo">
-                <span class="material-icons">account_circle</span>
-            </div>
-            <div class="message__body">
-                <h5>Jaime Arana</h5>
-                <p class="text__muted">textooooo</p>
-            </div>
+        <div class="message__body">
+            <h5>Jaime Arana</h5>
+            <p class="text__bold">2 new messages</p>
         </div>
-        <div class="message">
-            <div class="profile__photo">
-                <span class="material-icons">account_circle</span>
-            </div>
-            <div class="message__body">
-                <h5>Jaime Arana</h5>
-                <p class="text__muted">textooooo</p>
-            </div>
+    </div>
+    <div class="message">
+        <div class="profile__photo">
+            <span class="material-icons">account_circle</span>
         </div>
-        <div class="message">
-            <div class="profile__photo">
-                <span class="material-icons">account_circle</span>
-            </div>
-            <div class="message__body">
-                <h5>Jaime Arana</h5>
-                <p class="text__muted">textooooo</p>
-            </div>
+        <div class="message__body">
+            <h5>Jaime Arana</h5>
+            <p class="text__muted">textooooo</p>
+        </div>
+    </div>
+    <div class="message">
+        <div class="profile__photo">
+            <span class="material-icons">account_circle</span>
+        </div>
+        <div class="message__body">
+            <h5>Jaime Arana</h5>
+            <p class="text__muted">textooooo</p>
+        </div>
+    </div>
+    <div class="message">
+        <div class="profile__photo">
+            <span class="material-icons">account_circle</span>
+        </div>
+        <div class="message__body">
+            <h5>Jaime Arana</h5>
+            <p class="text__muted">textooooo</p>
         </div>
     </div>
 </div>
 
 <div th:fragment="requests" class="requests">
-    <h4>Requests</h4>
+    <h4>Followers</h4>
     <div class="request">
         <div class="info">
             <div class="profile__photo">

@@ -186,7 +186,7 @@ public class ProfessionalsServiceImpl implements ProfessionalsService{
 
     @Override
     public void deleteRoutine(Long routine_id, String user_name) {
-        Routine to_delete_routine =routineService.getRoutineById(routine_id);
+        Routine to_delete_routine = routineService.getRoutineById(routine_id);
         Professional professional = professionalsRepository.findProfessionalByUsername(user_name);
         professional.deleteRoutine(to_delete_routine);
         professionalsRepository.save(professional);

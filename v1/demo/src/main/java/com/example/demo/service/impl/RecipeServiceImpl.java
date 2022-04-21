@@ -42,6 +42,12 @@ public class RecipeServiceImpl implements RecipesService{
     private ClientsService clientsService;
 
     @Override
+    public List<Recipe> listFollowedRecipes(String user_name) {
+        Client c = clientsService.getClientByUsername(user_name);
+        return c.getFollowed_recipes();
+    }
+
+    @Override
     public void saveNewRecipe(RecipeDAO recipeDAO, String user_name) {
         Recipe recipe = new Recipe();
         
