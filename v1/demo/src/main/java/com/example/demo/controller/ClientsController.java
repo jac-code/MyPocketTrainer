@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import com.example.demo.controller.dao.ProfessionalDAO;
 import com.example.demo.controller.dao.UserFinderDAO;
@@ -68,7 +69,10 @@ public class ClientsController {
     public static final String URL_MPT_FINDER = "my-mpt-finder";
     public static final String URL_MPT_FINDER_RESULTS = "my-mpt-finder-results";
     public static final String URL_MPT_FINDER_ADD_DIET = "add-professional-diet";
+    public static final String URL_MPT_FINDER_ADD_RECIPE = "add-professional-recipe";
     public static final String URL_MPT_FINDER_ADD_ROUTINE = "add-professional-routine";
+    public static final String URL_MPT_FINDER_ADD_EXERCISE = "add-professional-exercise";
+    public static final String URL_MPT_FINDER_ADD_PLAN = "add-professional-plan";
     
     @Autowired
     private IAuthenticationFacade authenticationFacade;
@@ -96,9 +100,6 @@ public class ClientsController {
 
     @Autowired
     RecipesService recipesService;
-
-    @Autowired
-    private MessageSource messageSource;
 
     public String getDayOfWeek() {
         Calendar calendar = Calendar.getInstance();
@@ -231,24 +232,24 @@ public class ClientsController {
     /* ********************************************************************* */
     
     @GetMapping({"/" + URL_MY_FAVOURITES, "/" + URL_MY_FAVOURITES + "/" + "{parameter}"}) 
-    public String listMyFavourites(@PathVariable(value="parameter") String parameter, ModelMap modelMap) {
+    public String listMyFavourites(@PathVariable(required = false) String parameter, ModelMap modelMap) {
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
-        if (parameter.equals("view_diets")) {
-            modelMap.addAttribute("isDiet", "true");
+        if (Objects.isNull(parameter)){
+            modelMap.addAttribute("isDiet", "false");
             modelMap.addAttribute("isRoutine", "false");
             modelMap.addAttribute("isPlan", "false");
             modelMap.addAttribute("isRecipe", "false");
             modelMap.addAttribute("isExercise", "false");
-
-            modelMap.addAttribute("diets", dietService.listFollowedDiets(userPrincipal.getUsername()));
+            modelMap.addAttribute("isMain", "true");
         } else if(parameter.equals("view_routines")) {
             modelMap.addAttribute("isDiet", "false");
             modelMap.addAttribute("isRoutine", "true");
             modelMap.addAttribute("isPlan", "false");
             modelMap.addAttribute("isRecipe", "false");
             modelMap.addAttribute("isExercise", "false");
+            modelMap.addAttribute("isMain", "false");
 
             modelMap.addAttribute("routines", routineService.listFollowedRoutines(userPrincipal.getUsername()));
         } else if(parameter.equals("view_exercises")) {
@@ -257,6 +258,7 @@ public class ClientsController {
             modelMap.addAttribute("isPlan", "false");
             modelMap.addAttribute("isRecipe", "false");
             modelMap.addAttribute("isExercise", "true");
+            modelMap.addAttribute("isMain", "false");
 
             modelMap.addAttribute("exercises", exercisesService.listFollowedExercises(userPrincipal.getUsername()));
         } else if(parameter.equals("view_recipes")) {
@@ -265,6 +267,7 @@ public class ClientsController {
             modelMap.addAttribute("isPlan", "false");
             modelMap.addAttribute("isRecipe", "true");
             modelMap.addAttribute("isExercise", "false");
+            modelMap.addAttribute("isMain", "false");
 
             modelMap.addAttribute("recipes", recipesService.listFollowedRecipes(userPrincipal.getUsername()));
         } else if(parameter.equals("view_plans")) {
@@ -273,25 +276,19 @@ public class ClientsController {
             modelMap.addAttribute("isPlan", "true");
             modelMap.addAttribute("isRecipe", "false");
             modelMap.addAttribute("isExercise", "false");
+            modelMap.addAttribute("isMain", "false");
 
             modelMap.addAttribute("plans", weeklyService.listFollowedPlans(userPrincipal.getUsername()));
+        } else if (parameter.equals("view_diets")) {
+            modelMap.addAttribute("isDiet", "true");
+            modelMap.addAttribute("isRoutine", "false");
+            modelMap.addAttribute("isPlan", "false");
+            modelMap.addAttribute("isRecipe", "false");
+            modelMap.addAttribute("isExercise", "false");
+            modelMap.addAttribute("isMain", "false");
+
+            modelMap.addAttribute("diets", dietService.listFollowedDiets(userPrincipal.getUsername()));
         }
-
-        return DIRECCION_BASE + PAGE_MY_FAVOURITES;
-    }
-
-    @GetMapping("/" + URL_MY_FAVOURITES) 
-    public String listMyFavouritesDiets() {
-        Authentication authentication = authenticationFacade.getAuthentication();
-        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
-
-        return DIRECCION_BASE + PAGE_MY_FAVOURITES;
-    }
-
-    @GetMapping("/" + URL_MY_FAVOURITES) 
-    public String listMyFavouritesRoutines() {
-        Authentication authentication = authenticationFacade.getAuthentication();
-        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
         return DIRECCION_BASE + PAGE_MY_FAVOURITES;
     }
@@ -323,7 +320,7 @@ public class ClientsController {
             modelMap.addAttribute("diets", dietService.listDietsByProfessional(p.getUser_name()));
             modelMap.addAttribute("recipes", recipesService.listRecipesByProfessional(p.getUser_name()));
             modelMap.addAttribute("exercises", exercisesService.listExercisesByProfessional(p.getUser_name()));
-            modelMap.addAttribute("plans", weeklyService.listWeekliesByProfessional(p.getUser_name()));
+            modelMap.addAttribute("weeklies", weeklyService.listWeekliesByProfessional(p.getUser_name()));
         } else {    // es PRIVADO
             modelMap.addAttribute("isPublic", "false");
             modelMap.addAttribute("isPrivate", "true");
@@ -356,7 +353,7 @@ public class ClientsController {
 
         clientsService.ClientFollowsDiets(diet_id, userPrincipal.getUsername());
 
-        return "redirect:/clients/client-free/" + "home";
+        return "redirect:/clients/client-free/" + URL_MY_FAVOURITES;
     }
 
     @GetMapping("/" + URL_MPT_FINDER_ADD_ROUTINE + "/" + "{routine_id}")
@@ -366,6 +363,37 @@ public class ClientsController {
 
         clientsService.ClientFollowsRoutines(routine_id, userPrincipal.getUsername());
 
-        return "redirect:/clients/client-free/" + "home";
+        return "redirect:/clients/client-free/" + URL_MY_FAVOURITES;
     }
+
+    @GetMapping("/" + URL_MPT_FINDER_ADD_EXERCISE + "/" + "{exercise_id}")
+    public String addExerciseFromProfessional(@PathVariable(required = false) String exercise_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        clientsService.ClientFollowsExercises(exercise_id, userPrincipal.getUsername());
+
+        return "redirect:/clients/client-free/" + URL_MY_FAVOURITES;
+    }
+
+    @GetMapping("/" + URL_MPT_FINDER_ADD_RECIPE + "/" + "{recipe_id}")
+    public String addRecipeFromProfessional(@PathVariable(required = false) String recipe_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        clientsService.ClientFollowsRecipes(recipe_id, userPrincipal.getUsername());
+
+        return "redirect:/clients/client-free/" + URL_MY_FAVOURITES;
+    }
+
+    @GetMapping("/" + URL_MPT_FINDER_ADD_PLAN + "/" + "{weekly_id}")
+    public String addPlanFromProfessional(@PathVariable(required = false) String weekly_id) {
+        Authentication authentication = authenticationFacade.getAuthentication();
+        UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
+
+        clientsService.ClientFollowsPlans(weekly_id, userPrincipal.getUsername());
+
+        return "redirect:/clients/client-free/" + URL_MY_FAVOURITES;
+    }
+
 }

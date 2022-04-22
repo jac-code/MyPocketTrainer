@@ -87,25 +87,25 @@ nav .profile__area {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4rem;
+  gap: 1rem;
 }
 
 nav .profile__area .theme__btn {
   display: flex;
-  background: var(--color-light);
+  background: transparent;
   width: 5rem;
-  height: 2rem;
+  height: 4rem;
   border-radius: var(--border-radius-2);
   cursor: pointer;
 }
 
 nav .profile__area .theme__btn span {
-  width: 50%;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--span-size);
+  font-size: 3.5rem;
 }
 
 nav .profile__area .theme__btn .active {

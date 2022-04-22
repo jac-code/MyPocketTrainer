@@ -2,23 +2,37 @@
     <aside th:replace="hub/layouts/layout-aside/client/client::aside"></aside>
 
     <section class="middle">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 2rem;">
-            <a th:href="@{/clients/client-free/my-favourites/} + ${view_diets}" class="btn">Ver Dietas</a>
-            <a th:href="@{/clients/client-free/my-favourites/} + ${view_routines}" class="btn">Ver Rutinas</a>
-            <a th:href="@{/clients/client-free/my-favourites/} + ${view_exercises}" class="btn">Ver Ejercicios</a>
-            <a th:href="@{/clients/client-free/my-favourites/} + ${view_recipes}" class="btn">Ver Recetas</a>
-            <a th:href="@{/clients/client-free/my-favourites/} + ${view_plans}" class="btn">Ver Planes semanales</a>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 3rem;">
+            <a th:href="@{/clients/client-free/my-favourites/view_diets}" id="#table__btn__config" class="btn">Ver Dietas</a>
+            <a th:href="@{/clients/client-free/my-favourites/view_routines}" class="btn">Ver Rutinas</a>
+            <a th:href="@{/clients/client-free/my-favourites/view_exercises}" class="btn">Ver Ejercicios</a>
+            <a th:href="@{/clients/client-free/my-favourites/view_recipes}" class="btn">Ver Recetas</a>
+            <a th:href="@{/clients/client-free/my-favourites/view_plans}" class="btn">Ver Planes semanales</a>
         </div>
 
-        <div th:if="${isDiet}" th:replace="hub/layouts/layout-view::view__diet"></div>
+        <div style="display:flex; justify-content: center; align-items: center;" th:if="${isMain}">
+            <h1>Seleccione que categoría quiere observar</h1>
+        </div>
 
-        <div th:if="${isRoutine}" th:replace="hub/layouts/layout-view::view__routine">
+        <div th:if="${isDiet}">
+            <div th:replace="hub/layouts/layout-tables::my_diets_mpt"></div>
+        </div>
 
-        <div th:if="${isExercise}" th:replace="hub/layouts/layout-tables::my_exercises_client"></div>
+        <div th:if="${isRoutine}">
+            <div th:replace="hub/layouts/layout-tables::my_routines_mpt"></div>
+        </div>
 
-        <div th:if="${isRecipe}" th:replace="hub/layouts/layout-tables::my_recipes_client"></div>
+        <div th:if="${isExercise}">
+            <div th:replace="hub/layouts/layout-tables::my_exercises_client"></div>
+        </div>
 
-        <div th:if="${isPlan}" th:replace="hub/layouts/layout-tables::my_weeklyplans_client"></div>
+        <div th:if="${isRecipe}">
+            <div th:replace="hub/layouts/layout-tables::my_recipes_client"></div>
+        </div>
+
+        <div th:if="${isPlan}">
+            <div th:replace="hub/layouts/layout-tables::my_weeklyplans_client"></div>
+        </div>
     </section>
 
     <section class="right">

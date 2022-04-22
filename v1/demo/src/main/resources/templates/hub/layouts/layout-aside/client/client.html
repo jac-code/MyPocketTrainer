@@ -5,10 +5,5 @@
     
     <div th:replace="hub/layouts/layout-aside/client/sidebar-client::sidebar"></div>
 
-    <div class="updates">
-        <span class="material-icons">visibility</span>
-        <h4>See your plan</h4>
-        <p>See the planning for your week</p>
-        <a th:href="@{/clients/client-free/view/weekly/}">See plan</a>
-    </div>
+    <div th:replace="hub/layouts/layout-tools::see__plan"></div>
 </aside>

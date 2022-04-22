@@ -36,6 +36,33 @@
     </table>
 </div>
 
+<div th:fragment="my_routines_mpt" class="table">
+    <h2>Rutinas Públicas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Ejercicios</th>
+                <th>Ver en detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="routine: ${routines}">
+                <td th:text="${routine.routine_name}"></td>
+                <td th:text="${routine.routine_description}"></td>
+
+                <td>
+                    <p th:each="exercise: ${routine.exercises}">
+                        <a th:href="@{/clients/client-free/view/exercise/} + ${#strings.toString(exercise.exercise_id)}" class="btn" th:text="${exercise.exercise_name}"></a>
+                    </p>
+                </td>
+                <td><a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/routine/} + ${#strings.toString(routine.routine_id)}">View Routine</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <div th:fragment="my__recipes" class="table">
     <h2>Mis Recetas</h2>
     <table>
@@ -119,6 +146,32 @@
                 <!-- value is a String and is not “false”, “off” or “no” -->
                 <td><a th:if="${client_user_name}" th:href="@{/professionals/professional-basic/link-diet-client/} + ${client_user_name} + @{/} + ${#strings.toString(diet.diet_id)}" th:text="'Add to Client'" class="btn" id="table__btn__config"></a></td>
                 <td><a th:href="@{/professionals/professional-basic/delete-diet/} + ${#strings.toString(diet.diet_id)}" th:text="'Eliminar'" class="btn" id="table__btn__delete"></a></td>
+                <td><a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/diet/} + ${#strings.toString(diet.diet_id)}">View Diet</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="my_diets_mpt" class="table">
+    <h2>Dietas Públicas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Recetas</th>
+                <th>Ver en detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="diet: ${diets}">
+                <td th:text="${diet.diet_name}"></td>
+                <td th:text="${diet.diet_description}"></td>
+                <td>
+                    <p th:each="recipe: ${diet.recipes}">
+                        <a th:href="@{/professionals/professional-basic/view/recipe/} + ${#strings.toString(recipe.recipe_id)}" class="btn" th:text="${recipe.recipe_name}"></a>
+                    </p>
+                </td>
                 <td><a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/diet/} + ${#strings.toString(diet.diet_id)}">View Diet</a></td>
             </tr>
         </tbody>
@@ -214,6 +267,54 @@
         </tbody>
     </table>
     <!-- <a href="#">Show all</a> -->
+</div>
+
+<div th:fragment="my__professionals" class="table">
+    <h2>Mis Profesionales</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Nombre de usuario</th>
+                <th>Email</th>
+                <th>Buscar en MPT-Finder</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="professional: ${professionals_list}">
+                <td th:text="${professional.first_name}"></td>
+                <td th:text="${professional.last_name}"></td>
+                <td th:text="${professional.user_name}"></td>
+                <td th:text="${professional.email}"></td>
+                <td><a th:href="@{/clients/client-free/my-mpt-finder/} + ${#strings.toString(professional.user_id)}" th:text="'SEE USER'" class="btn"></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:fragment="mpt__user" class="table">
+    <h2>Usuario encontrado</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Nombre de usuario</th>
+                <th>Email</th>
+                <th>Ver información pública</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text="${user.first_name}"></td>
+                <td th:text="${user.last_name}"></td>
+                <td th:text="${user.user_name}"></td>
+                <td th:text="${user.email}"></td>
+                <td><a th:href="@{/clients/client-free/my-mpt-finder/} + ${#strings.toString(user.user_id)}" th:text="'SEE USER'" class="btn"></a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <div th:fragment="my__dailyplans" class="table">
@@ -404,6 +505,132 @@
     </div>
 </div>
 
+<div style="margin-bottom: 3rem;" th:fragment="exercises_mpt" class="table__card">
+    <div style="margin-bottom: 2rem;" class="header">
+        <h1>Ejercicios Públicos</h1>
+    </div>
+
+    <div th:each="exercise: ${exercises}" class="row">
+        <!-- poner un img en lugar del span-->
+        <div>
+            <img th:src="*{'data:image/jpeg;base64,'+{exercise.imageBase64}}" style="width: 30px;height: 30px;">
+        </div>
+        <h4 th:text="${exercise.exercise_name}"></h4>
+        <div class="attribute__1">
+            <p>Equipment</p>
+            <div th:each="e: ${exercise.equipment}">
+                <small class="text__muted" th:text="${e}"></small>
+            </div>
+        </div>
+        <div class="attribute__2">
+            <p>Body parts</p>
+            <div th:each="part: ${exercise.body_parts}">
+                <small class="text__muted" th:text="${part}"></small>
+            </div>
+        </div>
+        <div class="attribute__3">
+            <h6 th:text="${exercise.number_repetitions}"></h6>
+        </div>
+        <div class="attribute__4">
+            <h6 th:text="${exercise.resting_time}"></h6>
+        </div>
+        <div class="attribute__5">
+            <a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/exercise/} + ${#strings.toString(exercise.exercise_id)}">View Exercise</a>
+        </div>
+        <div class="attribute__6">
+            <a id="table__btn__config" th:href="@{/clients/client-free/add-professional-exercise/} + ${#strings.toString(exercise.exercise_id)}"class="btn">Guardar Ejercicio</a>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom: 3rem;" th:fragment="recipes_mpt" class="table__card">
+    <div style="margin: 2rem;" class="header">
+        <h1>Recetas Públicas</h1>
+    </div>
+
+    <div th:each="recipe: ${recipes}" class="row">
+        <!-- poner un img en lugar del span-->
+        <div style="display: flex; align-items: center; justify-content: center; flex-flow: column wrap; width: 10px;" th:switch="${recipe.recipe_type}">
+            <span th:case="'BREAKFAST'" class="material-icons">bakery_dining</span>
+            <span th:case="'LUNCH'" class="material-icons">ramen_dining</span>
+            <span th:case="'DINNER'" class="material-icons">dinner_dining</span>
+            <span th:case="'SNACK'" class="material-icons">lunch_dining</span>
+            
+            <small th:text="${recipe.recipe_type}"></small>
+        </div>
+        <div style="width: 100px;" class="attribute__0">
+            <h4 th:text="${recipe.recipe_name}"></h4>
+        </div>
+        <div class="attribute__1">
+            <p th:text="${recipe.calories}"></p>
+            <small th:text="${recipe.protein}" class="text__muted"></small>
+            <small th:text="${recipe.fat}" class="text__muted"></small>
+            <small th:text="${recipe.carbs}" class="text__muted"></small>
+        </div>
+        <div class="attribute__2">
+            <p th:text="${recipe.cooking_time}"></p>
+        </div>
+        <div class="attribute__3">
+            <a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/recipe/} + ${#strings.toString(recipe.recipe_id)}">View Recipe</a>
+        </div>
+        <div class="attribute__4">
+            <a id="table__btn__config" th:href="@{/clients/client-free/add-professional-recipe/} + ${#strings.toString(recipe.recipe_id)}" class="btn">Guardar Receta</a>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom: 3rem;" th:fragment="diets_mpt" class="table__card">
+    <div style="margin-bottom: 2rem;" class="header">
+        <h1>Dietas Públicas</h1>
+    </div>
+
+    <div th:each="diet: ${diets}" class="row">
+        <div style="width: 5px;">
+            <span class="material-icons">restaurant</span>
+        </div>
+        <div style="width: 70px; display: flex; align-items: center; justify-content: center;">
+            <h4 th:text="${diet.diet_name}"></h4>
+        </div>
+        <div style="width: 100px; display: flex; flex-flow: column wrap; align-items: center; justify-content: center;" class="attribute__1">
+            <div th:each="recipe: ${diet.recipes}">
+                <a th:href="@{/clients/client-free/view/recipe/} + ${#strings.toString(recipe.recipe_id)}" class="btn" th:text="${recipe.recipe_name}"></a>
+            </div>
+        </div>
+        <div class="attribute__2">
+            <a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/diet/} + ${#strings.toString(diet.diet_id)}">View Diet</a>
+        </div>
+        <div class="attribute__3">
+            <a id="table__btn__config" th:href="@{/clients/client-free/add-professional-diet/} + ${#strings.toString(diet.diet_id)}"class="btn">Guardar Dieta</a>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom: 3rem;" th:fragment="routines_mpt" class="table__card">
+    <div style="margin-bottom: 2rem;" class="header">
+        <h1>Rutinas Públicas</h1>
+    </div>
+
+    <div th:each="routine: ${routines}" class="row">
+        <div style="width: 5px;">
+            <span class="material-icons">fitness_center</span>
+        </div>
+        <div style="width: 70px; display: flex; align-items: center; justify-content: center;">
+            <h4 th:text="${routine.routine_name}"></h4>
+        </div>
+        <div style="width: 120px; display: flex; flex-flow: column wrap; align-items: center; justify-content: center;" class="attribute__1">
+            <div th:each="exercise: ${routine.exercises}">
+                <a th:href="@{/clients/client-free/view/exercise/} + ${#strings.toString(exercise.exercise_id)}" class="btn" th:text="${exercise.exercise_name}"></a>
+            </div>
+        </div>
+        <div class="attribute__2">
+            <a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/routine/} + ${#strings.toString(routine.routine_id)}">View Routine</a>
+        </div>
+        <div class="attribute__3">
+            <a id="table__btn__config" th:href="@{/clients/client-free/add-professional-routine/} + ${#strings.toString(routine.routine_id)}" class="btn">Guardar Routine</a>
+        </div>
+    </div>
+</div>
+
 <div th:fragment="weeklies" th:each="weekly: ${weeklies}" class="table__card">
     <div class="header">
         <span class="material-icons">view_week</span>
@@ -435,6 +662,35 @@
         <div class="attribute__3">
             <p>$20,56</p>
             <small class="text__muted">-34%</small>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="weeklies_client" th:each="weekly: ${weeklies}" class="table__card">
+    <div class="header">
+        <span class="material-icons">view_week</span>
+        <h1>Planes semanales públicos</h1>
+    </div>
+
+    <div th:each="daily, dailyStat : ${weekly.dailies}" class="row">
+        <span class="material-icons">view_day</span>
+        <div th:switch="${dailyStat.count}">
+            <h5 th:case="'1'">MONDAY</h5>
+            <h5 th:case="'2'">TUESDAY</h5>
+            <h5 th:case="'3'">WEDNESDAY</h5>
+            <h5 th:case="'4'">THURSDAY</h5>
+            <h5 th:case="'5'">FRIDAY</h5>
+            <h5 th:case="'6'">SATURDAY</h5>
+            <h5 th:case="'7'">SUNDAY</h5>
+        </div>
+        <div class="attribute__1">
+            <a th:href="@{/professionals/professional-basic/view/diet/} + ${#strings.toString(daily.diet.diet_id)}" class="btn" th:text="${daily.diet.diet_name}"></a>
+            <!-- <p th:text="${daily.diet.diet_name}"></p> -->
+            <small th:text="${daily.diet.diet_description}" class="text__muted"></small>
+        </div>
+        <div class="attribute__2">
+            <a th:href="@{/professionals/professional-basic/view/routine/} + ${#strings.toString(daily.routine.routine_id)}" class="btn" th:text="${daily.routine.routine_name}"></a>
+            <small th:text="${daily.routine.routine_description}" class="text__muted"></small>
         </div>
     </div>
 </div>
