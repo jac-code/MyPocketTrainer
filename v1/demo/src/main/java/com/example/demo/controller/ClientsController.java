@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -142,28 +141,30 @@ public class ClientsController {
         Authentication authentication = authenticationFacade.getAuthentication();
         UserDetails userPrincipal = (UserDetails)authentication.getPrincipal();
 
-        List<Daily> dailies = clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly().getDailies();
+        if (clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly() != null) {  // comprobar que tien algo asignado
+            List<Daily> dailies = clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly().getDailies();
 
-        modelMap.addAttribute("dailies", dailies);
-        modelMap.addAttribute("week_day", getDayOfWeek());
-        
-        for (Daily daily : dailies) {
-            if (getDayOfWeek().equals(daily.getWeek_day())) {
-                List<Recipe> recipes = daily.getDiet().getRecipes();
-                for(Recipe r : recipes) {
-                    r.setImageBase64(r.getImage());
+            modelMap.addAttribute("dailies", dailies);
+            modelMap.addAttribute("week_day", getDayOfWeek());
+            
+            for (Daily daily : dailies) {
+                if (getDayOfWeek().equals(daily.getWeek_day())) {
+                    List<Recipe> recipes = daily.getDiet().getRecipes();
+                    for(Recipe r : recipes) {
+                        r.setImageBase64(r.getImage());
+                    }
+
+                    List<Exercise> exercises = daily.getRoutine().getExercises();
+                    for(Exercise e : exercises) {
+                        e.setImageBase64(e.getImage());
+                    }
+
+                    modelMap.addAttribute("recipes", recipes);
+                    modelMap.addAttribute("exercises", exercises);
                 }
-
-                List<Exercise> exercises = daily.getRoutine().getExercises();
-                for(Exercise e : exercises) {
-                    e.setImageBase64(e.getImage());
-                }
-
-                modelMap.addAttribute("recipes", recipes);
-                modelMap.addAttribute("exercises", exercises);
             }
         }
-        
+
         return DIRECCION_BASE + "client-free";
     }
 

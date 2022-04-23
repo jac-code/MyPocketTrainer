@@ -1,5 +1,5 @@
-<div th:fragment="sidebar-home" class="sidebar">
-    <a th:href="@{/professionals/professional-basic/home}" class="active">
+<div th:fragment="sidebar" class="sidebar">
+    <a th:href="@{/professionals/professional-basic/home}">
         <span class="material-icons">dashboard</span>
         <h4>Dashboard</h4>
     </a>
@@ -29,7 +29,7 @@
         <h4>MyExercises</h4>
     </a>
 
-    <a th:href="@{/professionals/professional-basic/my-daily-plans/}">
+    <a th:href="@{/professionals/professional-basic/my-daily-plans/}" class="active">
         <span class="material-icons">calendar_view_day</span>
         <h4>MyDailyPlans</h4>
     </a>
@@ -38,11 +38,6 @@
         <span class="material-icons">calendar_view_week</span>
         <h4>MyWeeklyPlans</h4>
     </a>
-
-    <!-- <a th:href="@{/professionals/professional-basic/my-mpt-finder}">
-        <span class="material-icons">person_search</span>
-        <h4>MyMPTFinder</h4>
-    </a> -->
 
     <a th:href="@{/sign-out}">
         <span class="material-icons">logout</span>

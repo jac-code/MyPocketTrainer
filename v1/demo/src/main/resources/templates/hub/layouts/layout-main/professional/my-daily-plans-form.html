@@ -1,10 +1,12 @@
 <main th:fragment="main">
-    <aside th:replace="hub/layouts/layout-aside/professional/professional-daily::aside"></aside>
+    <aside th:replace="hub/layouts/layout-aside/professional/professional-daily::aside-dailies"></aside>
     
     <section class="middle">
         <form th:action="@{/professionals/professional-basic/save-weekly-plan}" th:object="${new_weekly}" method="POST">
             <div th:replace="hub/layouts/layout-tables::my__dailyplansform"></div>
-            <button type="submit" class="add__something"><span class="material-icons">add</span>Add Plan</button>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button style="cursor: pointer;" type="submit" class="add__something"><span class="material-icons">add</span>Add Plan</button>
+            </div>
         </form>
     </section>
     

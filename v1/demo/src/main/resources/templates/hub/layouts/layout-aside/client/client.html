@@ -1,9 +1,49 @@
-<aside th:fragment="aside">
+<aside th:fragment="aside-home">
     <button id="close__btn">
         <span class="material-icons">close</span>
     </button>
     
     <div th:replace="hub/layouts/layout-aside/client/sidebar-client::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::see__plan"></div>
+</aside>
+
+<aside th:fragment="aside-professionals">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    
+    <div th:replace="hub/layouts/layout-aside/client/sidebar-client-professionals::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::see__plan"></div>
+</aside>
+
+<aside th:fragment="aside-recipe-finder">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    
+    <div th:replace="hub/layouts/layout-aside/client/sidebar-client-recipe-finder::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::see__plan"></div>
+</aside>
+
+<aside th:fragment="aside-favourites">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    
+    <div th:replace="hub/layouts/layout-aside/client/sidebar-client-favourites::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::see__plan"></div>
+</aside>
+
+<aside th:fragment="aside-mpt-finder">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    
+    <div th:replace="hub/layouts/layout-aside/client/sidebar-client-mpt-finder::sidebar"></div>
 
     <div th:replace="hub/layouts/layout-tools::see__plan"></div>
 </aside>

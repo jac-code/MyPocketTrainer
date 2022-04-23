@@ -1,0 +1,41 @@
+<div th:fragment="sidebar" class="sidebar">
+    <a th:href="@{/clients/client-free/home}">
+        <span class="material-icons">dashboard</span>
+        <h4>Dashboard</h4>
+    </a>
+
+    <a th:href="@{/clients/client-free/my-professionals}" class="active">
+        <span class="material-icons">supervised_user_circle</span>
+        <h4>MyProfessionals</h4>
+    </a>
+
+    <a th:href="@{/clients/client-free/my-recipe-finder}">
+        <span class="material-icons">food_bank</span>
+        <h4>MyRecipeFinder</h4>
+    </a>
+
+    <!-- <a th:href="@{/clients/client-free/my-exercise-finder}">
+        <span class="material-icons">fitness_center</span>
+        <h4>MyExerciseFinder</h4>
+    </a> -->
+
+    <a th:href="@{/clients/client-free/my-favourites}">
+        <span class="material-icons">favorite</span>
+        <h4>MyFavourites</h4>
+    </a>
+
+    <a th:href="@{/clients/client-free/my-mpt-finder}">
+        <span class="material-icons">person_search</span>
+        <h4>MyMPTFinder</h4>
+    </a>
+
+    <a th:href="@{/sign-out}">
+        <span class="material-icons">logout</span>
+        <h4>Logout</h4>
+    </a>
+
+    <!-- <form class="nav__link" th:action="@{/sign-out}" method="post">
+        <i class='bx bx-log-out nav__icon' ></i>
+        <input type="submit" value="Sign Out" class="nav_name" />
+    </form> -->
+</div>

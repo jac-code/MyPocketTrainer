@@ -1,17 +1,19 @@
 <main th:fragment="main">
-    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside"></aside>
+    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside-clients"></aside>
     
     <section class="middle">
-        <h2>
-            Añada nuevos clientes
-        </h2>
-        <form class="search__form" th:action="@{/professionals/professional-basic/save-client}" th:object="${new_client}" method="POST">
-            <div class="icon__search__bar">
-                <span class="material-icons">search</span>
-            </div>
-            <input type="text" th:field="*{user_name}" placeholder="Search with the clients username">
-            <button type="submit" class="btn search__btn">Add Client</button>
-        </form>
+        <div style="display:flex; justify-content:center; align-items:center; flex-flow: column wrap;">
+            <h2>
+                Añada nuevos clientes
+            </h2>
+            <form class="search__form" th:action="@{/professionals/professional-basic/save-client}" th:object="${new_client}" method="POST">
+                <div class="icon__search__bar">
+                    <span class="material-icons">search</span>
+                </div>
+                <input type="text" th:field="*{user_name}" placeholder="Search with the clients username">
+                <button type="submit" class="btn search__btn">Add Client</button>
+            </form>
+        </div>
     </section>
     
     <section class="right">

@@ -1,8 +1,80 @@
-<aside th:fragment="aside">
+<aside th:fragment="aside-home">
     <button id="close__btn">
         <span class="material-icons">close</span>
     </button>
-    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional::sidebar"></div>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional::sidebar-home"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__client"></div>
+</aside>
+
+<aside th:fragment="aside-clients">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-clients::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__client"></div>
+</aside>
+
+<aside th:fragment="aside-diets">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-diets::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__diet"></div>
+</aside>
+
+<aside th:fragment="aside-routines">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-routines::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__routine"></div>
+</aside>
+
+<aside th:fragment="aside-recipes">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-recipes::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__recipe"></div>
+</aside>
+
+<aside th:fragment="aside-exercises">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-exercises::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__exercise"></div>
+</aside>
+
+<aside th:fragment="aside-mpt-finder">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-mpt-finder::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__weeklyplan"></div>
+</aside>
+
+<aside th:fragment="aside-weeklies">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-weeklies::sidebar"></div>
+
+    <div th:replace="hub/layouts/layout-tools::new__weeklyplan"></div>
+</aside>
+
+<aside th:fragment="aside-dailies">
+    <button id="close__btn">
+        <span class="material-icons">close</span>
+    </button>
+    <div th:replace="hub/layouts/layout-aside/professional/sidebar-professional-dailies::sidebar"></div>
 
     <div th:replace="hub/layouts/layout-tools::new__dailyplan"></div>
 </aside>

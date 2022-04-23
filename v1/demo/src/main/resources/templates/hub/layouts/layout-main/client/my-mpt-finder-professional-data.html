@@ -1,5 +1,5 @@
 <main th:fragment="main">
-    <aside th:replace="hub/layouts/layout-aside/client/client::aside"></aside>
+    <aside th:replace="hub/layouts/layout-aside/client/client::aside-mpt-finder"></aside>
     
     <section class="middle">
         <div th:if="${isPublic}">
@@ -9,7 +9,12 @@
             <div th:replace="hub/layouts/layout-tables::exercises_mpt"></div>
             <div th:replace="hub/layouts/layout-tables::diets_mpt"></div>
             <div th:replace="hub/layouts/layout-tables::recipes_mpt"></div>
-            <div th:replace="hub/layouts/layout-tables::weeklies_client"></div>
+            <div>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <h1>Planes semanales</h1>
+                </div>
+                <div th:replace="hub/layouts/layout-tables::plans_mpt"></div>
+            </div>
         </div>
         
         <div style="display: flex; align-items: center; justify-content: center;" th:if="${isPrivate}">

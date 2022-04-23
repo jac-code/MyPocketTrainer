@@ -244,47 +244,53 @@
 <div th:fragment="new__dailyplan" class="updates">
     <span class="material-icons">note_add</span>
     <h4>Create a new Daily Plan</h4>
-    <!-- <p>Select between daily, weekly or monthly</p>
-    <p>Select routines, diets and much more</p> -->
-    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-daily-plan}">Create Now</a>
+    <p>Select routines, diets and much more</p>
+    <a th:href="@{/professionals/professional-basic/add-daily-plan}">Create Now</a>
 </div>
 
 <div th:fragment="new__weeklyplan" class="updates">
     <span class="material-icons">note_add</span>
     <h4>Create a new Weekly Plan</h4>
-    <!-- <p>Select between daily, weekly or monthly</p>
-    <p>Select routines, diets and much more</p> -->
-    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-weekly-plan}">Create Now</a>
+    <p>Select form your existing daily plans</p>
+    <p>Add it to your clients</p>
+    <a th:href="@{/professionals/professional-basic/add-weekly-plan}">Create Now</a>
 </div>
 
 <div th:fragment="new__diet" class="updates">
     <span class="material-icons">note_add</span>
     <h4>Create a new Diet</h4>
     <p>Select between the multiple recipes and customize diets for your clients</p>
-    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-diet}">Create Now</a>
+    <a th:href="@{/professionals/professional-basic/add-diet}">Create Now</a>
+</div>
+
+<div th:fragment="new__client" class="updates">
+    <span class="material-icons">note_add</span>
+    <h4>Add a new Client</h4>
+    <p>Add a new client to your network and start working</p>
+    <a th:href="@{/professionals/professional-basic/add-client}">Add Now</a>
 </div>
 
 <div th:fragment="new__routine" class="updates">
     <span class="material-icons">note_add</span>
     <h4>Create a new Routine</h4>
     <p>Select between the multiple exercises and customize routines for your clients</p>
-    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-routine}">Create Now</a>
+    <a th:href="@{/professionals/professional-basic/add-routine}">Create Now</a>
 </div>
 
 <div th:fragment="new__exercise" class="updates">
     <span class="material-icons">note_add</span>
-    <h4>Create a new Plan</h4>
-    <p>Select between daily, weekly or monthly</p>
-    <p>Select routines, diets and much more</p>
-    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-exercise}">Create Now</a>
+    <h4>Create a new Exercise</h4>
+    <p>Select the equipment and body parts</p>
+    <p>Add additional information and much more</p>
+    <a th:href="@{/professionals/professional-basic/add-exercise}">Create Now</a>
 </div>
 
 <div th:fragment="new__recipe" class="updates">
     <span class="material-icons">note_add</span>
-    <h4>Create a new Plan</h4>
-    <p>Select between daily, weekly or monthly</p>
-    <p>Select routines, diets and much more</p>
-    <a class=".modal__button" th:href="@{/professionals/professional-basic/add-recipe}">Create Now</a>
+    <h4>Create a new Recipe</h4>
+    <p>Select ingredients and cuisine tools</p>
+    <p>Add nutritional information and much more</p>
+    <a th:href="@{/professionals/professional-basic/add-recipe}">Create Now</a>
 </div>
 
 <div th:fragment="see__plan" class="updates">

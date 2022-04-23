@@ -1,23 +1,25 @@
 <main th:fragment="main">
-    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside"></aside>
+    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside-routines"></aside>
     
     <section class="middle">
-        <div class="container">
-            <div class="container">
-                <h1>Routine Management System</h1>
-                <hr>
-                <h2>Add Routine</h2>
+        <div class="container_form_basic">
+            <h2>Add Routine</h2>
             
-                <form th:action="@{/professionals/professional-basic/save-routine}" th:object="${new_routine}" method="POST">
+            <form th:action="@{/professionals/professional-basic/save-routine}" th:object="${new_routine}" method="POST">
+                <div id="name" class="input__text">
                     <input type="text" th:field="*{routine_name}" placeholder="Routine name" class="form-control mb-4 col-4"> 
+                </div>
+
+                <div id="description" class="input__text">
                     <input type="text" th:field="*{routine_description}" placeholder="Routine description" class="form-control mb-4 col-4">
-            
-                    <button type="submit" class="btn btn-info col-2">Add Routine</button>
-                </form>
-            
-                <hr>
-            
-                <a th:href="@{/professionals/professional-basic/my-routines}"> Volver a ver la lista de rutinas</a>
+                </div>
+
+                <button type="submit" id="table__btn__config" class="btn">Add Routine</button>
+            </form>
+
+            <div style="margin-top: 1rem; display: flex; justify-content: center; align-items: center;">
+                <a class="btn" th:href="@{/professionals/professional-basic/my-routines}"> Volver a ver la lista de rutinas</a>
+                <span class="material-icons">keyboard_return</span>
             </div>
         </div>
     </section>

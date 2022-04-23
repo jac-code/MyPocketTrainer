@@ -1,47 +1,68 @@
 <main th:fragment="main">
-    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside"></aside>
+    <aside th:replace="hub/layouts/layout-aside/professional/professional::aside-exercises"></aside>
     
     <section class="middle">
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" class="container">
+        <div class="container_form_basic">
             <h2>Add Exercise</h2>
         
             <form th:action="@{/professionals/professional-basic/save-exercise}" th:object="${new_exercise}" method="POST" enctype="multipart/form-data">
-                <input type="text" th:field="*{exercise_name}" placeholder="Exercise name" >
-                <input type="text" th:field="*{exercise_description}" placeholder="Exercise description" >
+                <div id="name" class="input__text">
+                    <input type="text" th:field="*{exercise_name}" placeholder="Exercise name" >
+                </div>
 
-                <input type="text" th:field="*{number_repetitions}" placeholder="Number of repetitions">
-                <input type="text" th:field="*{resting_time}" placeholder="Resting Time">
-                
-                <label>Foto: </label>
-                <input type="file" th:field="*{image}" name="image" accept="image/png, image/jpeg, image/gif" />
+                <div id="description" class="input__text">
+                    <input type="text" th:field="*{exercise_description}" placeholder="Exercise description" >
+                </div>
 
-                <hr>
-                <p>
-                    <label>EQUIPMENT:
-                        <input type="checkbox" name="equipment"
-                            th:each="e: ${equipment}"
-                            th:text="${e}"
-                            th:value="${e}"
-                            th:field="*{equipment}"
-                        />
-                    </label>
-                </p>
+                <div class="image">
+                    <label>Foto: </label>
+                    <input type="file" th:field="*{image}" name="image" accept="image/png, image/jpeg, image/gif" />
+                </div>
 
-                <hr>
+                <div class="checkboxes">
+                    <div class="tools">
+                        <div class="input__text">
+                            <input type="text" th:field="*{number_repetitions}" placeholder="Number of repetitions">
+                        </div>
+                    </div>
+                    <div class="ingredients">
+                        <div class="input__text">
+                            <input type="text" th:field="*{resting_time}" placeholder="Resting Time">
+                        </div>
+                    </div>
+                </div>
 
-                <p>
-                    <label>BODY PARTS:
-                        <input type="checkbox" name="parts"
-                            th:each="part: ${parts}"
-                            th:text="${part}"
-                            th:value="${part}"
-                            th:field="*{parts}"
-                        />
-                    </label>
-                </p>
-                
-                <hr>
-                <button type="submit" class="btn">Add Exercise</button>
+                <div class="checkboxes">
+                    <div class="tools">
+                        <div style="margin-top: 1rem; margin-bottom: 1rem;">
+                            <h5>Equipment</h5>
+                        </div>
+                        <label class="tools__label">
+                            <input type="checkbox" name="equipment"
+                                th:each="e: ${equipment}"
+                                th:text="${e}"
+                                th:value="${e}"
+                                th:field="*{equipment}"
+                            />
+                        </label>
+                    </div>
+    
+                    <div class="ingredients">
+                        <div style="margin-top: 1rem; margin-bottom: 1rem;">
+                            <h5>Body parts</h5>
+                        </div>
+                        <label class="ingredients__label">
+                            <input type="checkbox" name="parts"
+                                th:each="part: ${parts}"
+                                th:text="${part}"
+                                th:value="${part}"
+                                th:field="*{parts}"
+                            />
+                        </label>
+                    </div>  
+                </div>
+
+                <button type="submit" id="table__btn__config" class="btn">Add Exercise</button>
             </form>
 
             <hr>
