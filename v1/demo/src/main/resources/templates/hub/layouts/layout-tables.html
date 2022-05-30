@@ -57,7 +57,7 @@
                         <a th:href="@{/clients/client-free/view/exercise/} + ${#strings.toString(exercise.exercise_id)}" class="btn" th:text="${exercise.exercise_name}"></a>
                     </p>
                 </td>
-                <td><a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/routine/} + ${#strings.toString(routine.routine_id)}">View Routine</a></td>
+                <td><a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/routine/} + ${#strings.toString(routine.routine_id)}">View Routine</a></td>
             </tr>
         </tbody>
     </table>
@@ -169,10 +169,10 @@
                 <td th:text="${diet.diet_description}"></td>
                 <td>
                     <p th:each="recipe: ${diet.recipes}">
-                        <a th:href="@{/professionals/professional-basic/view/recipe/} + ${#strings.toString(recipe.recipe_id)}" class="btn" th:text="${recipe.recipe_name}"></a>
+                        <a th:href="@{/clients/client-free/view/recipe/} + ${#strings.toString(recipe.recipe_id)}" class="btn" th:text="${recipe.recipe_name}"></a>
                     </p>
                 </td>
-                <td><a id="table__btn__config" class="btn" th:href="@{/professionals/professional-basic/view/diet/} + ${#strings.toString(diet.diet_id)}">View Diet</a></td>
+                <td><a id="table__btn__config" class="btn" th:href="@{/clients/client-free/view/diet/} + ${#strings.toString(diet.diet_id)}">View Diet</a></td>
             </tr>
         </tbody>
     </table>
