@@ -360,6 +360,35 @@
     gap: 1rem;
 }
 
+/***************** REQUESTS VIEWS SECTION **************/
+
+.requests_view {
+    margin-top: 1rem;
+}
+
+.requests_view h4 {
+    color: var(--color-gray-dark);
+    margin: 1rem 0;
+}
+
+.requests_view .request {
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    margin-bottom: .7rem;
+}
+
+.requests_view .request .info {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.requests_view .request .action {
+    display: flex;
+    gap: 1rem;
+}
+
 /******************* FORM BÁSICO *************/
 .container_form_basic  {
     display: flex; 

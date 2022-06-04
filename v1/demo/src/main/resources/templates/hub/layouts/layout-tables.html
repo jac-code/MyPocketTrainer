@@ -358,7 +358,6 @@
                 <td>
                     <p>
                         <label>
-                            Select
                             <input type="checkbox" name="select_dailies" th:value="${daily.daily_id}" th:field="*{dailies_in_weekly}"/>
                         </label>
                     </p>
@@ -438,11 +437,18 @@
     </table>
 </div>
 
+<!--===============================================-->
 <!--============== TABLAS DE CARDS ================-->
+<!--===============================================-->
+
+<!--====================== HOME CLIENT =========================-->
+
 <div th:fragment="todays__meals" class="table__card">
     <div class="header">
         <h1>Meals</h1>
     </div>
+
+    <p th:text="${week_day}"></p>
 
     <div th:each="recipe: ${recipes}" class="row">
         <!-- poner un img en lugar del span-->
@@ -504,6 +510,8 @@
         </div>
     </div>
 </div>
+
+<!--====================== TABLAS MPT =========================-->
 
 <div style="margin-bottom: 3rem;" th:fragment="exercises_mpt" class="table__card">
     <div style="margin-bottom: 2rem;" class="header">
@@ -658,10 +666,6 @@
         <div class="attribute__2">
             <a th:href="@{/professionals/professional-basic/view/routine/} + ${#strings.toString(daily.routine.routine_id)}" class="btn" th:text="${daily.routine.routine_name}"></a>
             <small th:text="${daily.routine.routine_description}" class="text__muted"></small>
-        </div>
-        <div class="attribute__3">
-            <p>$20,56</p>
-            <small class="text__muted">-34%</small>
         </div>
     </div>
 </div>

@@ -7,5 +7,5 @@ public interface VerificationTokenService {
     public void saveSecureToken(VerificationToken token);
     public VerificationToken findByToken(String token);
     public void removeToken(VerificationToken token);
-    public void removeTokenByToken(String token);  
+    public void removeTokenByToken(String token);
 }

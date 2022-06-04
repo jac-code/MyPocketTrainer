@@ -143,9 +143,6 @@ public class ClientsController {
 
         if (clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly() != null) {  // comprobar que tien algo asignado
             List<Daily> dailies = clientsService.getClientByUsername(userPrincipal.getUsername()).getWeekly().getDailies();
-
-            modelMap.addAttribute("dailies", dailies);
-            modelMap.addAttribute("week_day", getDayOfWeek());
             
             for (Daily daily : dailies) {
                 if (getDayOfWeek().equals(daily.getWeek_day())) {
@@ -162,12 +159,14 @@ public class ClientsController {
                     modelMap.addAttribute("recipes", recipes);
                     modelMap.addAttribute("exercises", exercises);
                 }
+                else {
+                    
+                }
             }
         }
 
         return DIRECCION_BASE + "client-free";
     }
-
     
     /* ********************************************************************* */
     /* ******************** PROFESSIONALS ****************** */
@@ -396,5 +395,4 @@ public class ClientsController {
 
         return "redirect:/clients/client-free/" + URL_MY_FAVOURITES;
     }
-
 }

@@ -65,6 +65,11 @@ input {
   z-index: 1;
 }
 
+#sign-up-btn {
+  text-align: center;
+  padding-top: 10px;
+}
+
 #sign-in-form {
   z-index: 2;
 }
