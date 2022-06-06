@@ -649,7 +649,7 @@
 
     <div th:each="daily, dailyStat : ${weekly.dailies}" class="row">
         <span class="material-icons">view_day</span>
-        <div th:switch="${dailyStat.count}">
+        <div th:switch="${dailyStat.count}" style="width: 10%;">
             <h5 th:case="'1'">MONDAY</h5>
             <h5 th:case="'2'">TUESDAY</h5>
             <h5 th:case="'3'">WEDNESDAY</h5>
@@ -658,14 +658,22 @@
             <h5 th:case="'6'">SATURDAY</h5>
             <h5 th:case="'7'">SUNDAY</h5>
         </div>
-        <div class="attribute__1">
-            <a th:href="@{/professionals/professional-basic/view/diet/} + ${#strings.toString(daily.diet.diet_id)}" class="btn" th:text="${daily.diet.diet_name}"></a>
+        <div style="width: 40%;" class="attribute__1">
+            <div>
+                <a th:href="@{/professionals/professional-basic/view/diet/} + ${#strings.toString(daily.diet.diet_id)}" class="btn" th:text="${daily.diet.diet_name}"></a>
+            </div>
             <!-- <p th:text="${daily.diet.diet_name}"></p> -->
-            <small th:text="${daily.diet.diet_description}" class="text__muted"></small>
+            <div>
+                <small th:text="${daily.diet.diet_description}" class="text__muted"></small>
+            </div>
         </div>
-        <div class="attribute__2">
-            <a th:href="@{/professionals/professional-basic/view/routine/} + ${#strings.toString(daily.routine.routine_id)}" class="btn" th:text="${daily.routine.routine_name}"></a>
-            <small th:text="${daily.routine.routine_description}" class="text__muted"></small>
+        <div style="width: 40%;" class="attribute__2">
+            <div>
+                <a th:href="@{/professionals/professional-basic/view/routine/} + ${#strings.toString(daily.routine.routine_id)}" class="btn" th:text="${daily.routine.routine_name}"></a>
+            </div>
+            <div>
+                <small th:text="${daily.routine.routine_description}" class="text__muted"></small>
+            </div>
         </div>
     </div>
 </div>

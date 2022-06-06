@@ -3,13 +3,13 @@
     <div class="details" style="margin-left: 10rem;">
         <h4 th:text="${exercise.exercise_name}"></h4>
         <h6 th:text="${exercise.exercise_description}"></h6>
-        <small th:text="${exercise.resting_time}"></small>
-        <small th:text="${exercise.number_repetitions}"></small>
+        <div style="display: flex;"><h5>Resting time: </h5><h5 style="margin-left: 2px;" th:text="${exercise.resting_time}"></h5></div>
+        <div style="display: flex;"><h5>Number of repetitions: </h5><h5 style="margin-left: 2px;" th:text="${exercise.number_repetitions}"></h5></div>
     </div>
 </div>
 
 <div th:fragment="view__diet">
-    <div th:each="recipe: ${diet.recipes}">
+    <div th:each="recipe: ${diet.recipes}" style="display: flex; margin-bottom:10px;">
         <img alt="" th:src="*{'data:image/jpeg;base64,' + {recipe.imageBase64}}" style="width: 300px; height: 300px;">
         <div class="details" style="margin-left: 7rem; display: flex; justify-content: center;">
             <div>
@@ -53,8 +53,8 @@
         <div class="details" style="margin-top: 5rem; margin-left: 10rem;">
             <h4 th:text="${exercise.exercise_name}"></h4>
             <h6 th:text="${exercise.exercise_description}"></h6>
-            <small th:text="${exercise.resting_time}"></small>
-            <small th:text="${exercise.number_repetitions}"></small>
+            <div style="display: flex;"><h5>Resting time: </h5><h5 style="margin-left: 2px;" th:text="${exercise.resting_time}"></h5></div>
+            <div style="display: flex;"><h5>Number of repetitions: </h5><h5 style="margin-left: 2px;" th:text="${exercise.number_repetitions}"></h5></div>
         </div>
     </div>
 </div>

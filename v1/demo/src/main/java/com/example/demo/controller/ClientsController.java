@@ -253,6 +253,12 @@ public class ClientsController {
 
             modelMap.addAttribute("routines", routineService.listFollowedRoutines(userPrincipal.getUsername()));
         } else if(parameter.equals("view_exercises")) {
+            List<Exercise> exercises = exercisesService.listFollowedExercises(userPrincipal.getUsername());
+            
+            for(Exercise e : exercises) {
+                e.setImageBase64(e.getImage());
+            }
+
             modelMap.addAttribute("isDiet", "false");
             modelMap.addAttribute("isRoutine", "false");
             modelMap.addAttribute("isPlan", "false");
@@ -260,8 +266,14 @@ public class ClientsController {
             modelMap.addAttribute("isExercise", "true");
             modelMap.addAttribute("isMain", "false");
 
-            modelMap.addAttribute("exercises", exercisesService.listFollowedExercises(userPrincipal.getUsername()));
+            modelMap.addAttribute("exercises", exercises);
         } else if(parameter.equals("view_recipes")) {
+            List <Recipe> recipes = recipesService.listFollowedRecipes(userPrincipal.getUsername());
+            
+            for(Recipe r: recipes) {
+                r.setImageBase64(r.getImage());
+            }
+
             modelMap.addAttribute("isDiet", "false");
             modelMap.addAttribute("isRoutine", "false");
             modelMap.addAttribute("isPlan", "false");
@@ -269,7 +281,7 @@ public class ClientsController {
             modelMap.addAttribute("isExercise", "false");
             modelMap.addAttribute("isMain", "false");
 
-            modelMap.addAttribute("recipes", recipesService.listFollowedRecipes(userPrincipal.getUsername()));
+            modelMap.addAttribute("recipes", recipes);
         } else if(parameter.equals("view_plans")) {
             modelMap.addAttribute("isDiet", "false");
             modelMap.addAttribute("isRoutine", "false");
@@ -278,7 +290,7 @@ public class ClientsController {
             modelMap.addAttribute("isExercise", "false");
             modelMap.addAttribute("isMain", "false");
 
-            modelMap.addAttribute("plans", weeklyService.listFollowedPlans(userPrincipal.getUsername()));
+            modelMap.addAttribute("weeklies", weeklyService.listFollowedPlans(userPrincipal.getUsername()));
         } else if (parameter.equals("view_diets")) {
             modelMap.addAttribute("isDiet", "true");
             modelMap.addAttribute("isRoutine", "false");
